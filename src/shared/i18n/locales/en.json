@@ -174,7 +174,8 @@
   "toast": {
     "synced": "Saved to server",
     "applied": "Changes applied",
-    "reset": "Default settings restored"
+    "reset": "Default settings restored on the server",
+    "resetLocal": "Default settings restored in this browser"
   },
   "discord": {
     "news": "Season launches, patches and new modes",

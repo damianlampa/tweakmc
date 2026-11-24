@@ -174,7 +174,8 @@
   "toast": {
     "synced": "Zapisano na serwerze",
     "applied": "Zastosowano na żywo",
-    "reset": "Przywrócono domyślne ustawienia"
+    "reset": "Przywrócono domyślne ustawienia na serwerze",
+    "resetLocal": "Przywrócono domyślne ustawienia w tej przeglądarce"
   },
   "discord": {
     "news": "Starty sezonów, patche i nowe tryby",
