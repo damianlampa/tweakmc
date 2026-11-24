@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { lazy, Suspense } from 'react';
 import { Link } from 'react-router';
 import { paths } from '@/router/paths';
@@ -13,6 +14,8 @@ import { WaveWord } from './wave-word';
 const Globe = lazy(() => import('../scenes/globe'));
 
 export function Hero({ settings }: { settings: Settings }) {
+  const { t } = useTranslation();
+
   const active = THEMES[settings.theme] || THEMES.default;
 
   return (
@@ -28,13 +31,13 @@ export function Hero({ settings }: { settings: Settings }) {
       <div className={`wrap hero-grid ${settings.sections.heroGlobe ? '' : 'hero-grid-single'}`}>
         <div className="hero-copy">
           <h1 className="hero-title">
-            <span className="hero-line">Sieć serwerów</span>{' '}
+            <span className="hero-line">{t('hero.title')}</span>{' '}
             <WaveWord text="TweakMC" className="tw-text-accent-bright" />
           </h1>
           <RotatingLine />
           <p className="tw-mt-[22px] tw-max-w-[52ch] tw-text-muted tw-text-[1.12rem]">
-            Nowoczesny Minecraft Java bez zbędnych modów. Startujemy z flagowym trybem{' '}
-            <strong>EarthSMP</strong> — a kolejne tryby sieci są już w przygotowaniu.
+            {t('hero.intro')} <strong>EarthSMP</strong>
+            {t('hero.more')}
           </p>
 
           <div className="hero-actions tw-flex tw-flex-wrap tw-items-center tw-gap-[14px] tw-mt-[32px]">
@@ -46,17 +49,17 @@ export function Hero({ settings }: { settings: Settings }) {
               rel="noreferrer"
             >
               {Icon.discord}
-              <span>Wbij na Discorda</span>
+              <span>{t('hero.join')}</span>
             </a>
           </div>
 
           <p className="tw-flex tw-flex-wrap tw-items-center tw-gap-[12px] tw-mt-[26px] tw-text-muted tw-text-[0.92rem]">
-            <span>{active.badge || 'Minecraft Java'}</span>
+            <span>{active.badge ? t(active.badge) : 'Minecraft Java'}</span>
             {settings.sections.mapPage && (
               <>
                 <span className="dot" aria-hidden="true" />
                 <Link to={paths.map} className="inline-link">
-                  Mapa na żywo
+                  {t('hero.map')}
                 </Link>
               </>
             )}
@@ -64,7 +67,7 @@ export function Hero({ settings }: { settings: Settings }) {
               <>
                 <span className="dot" aria-hidden="true" />
                 <Link to={paths.shop} className="inline-link">
-                  Doładuj /portfel
+                  {t('hero.topUp')}
                 </Link>
               </>
             )}
@@ -83,9 +86,9 @@ export function Hero({ settings }: { settings: Settings }) {
               <span className="hud-corner hud-br" />
               <span className="hud-chip hud-chip-top">
                 <span className="live-dot" />
-                <span>EarthSMP · Mapa Ziemi</span>
+                <span>{t('hero.globe')}</span>
               </span>
-              <span className="hud-chip hud-chip-bot">Obróć globus 3D</span>
+              <span className="hud-chip hud-chip-bot">{t('hero.rotate')}</span>
             </div>
             <Suspense fallback={<div className="globe" />}>
               <Globe theme={settings.theme} motion={settings.motion} />

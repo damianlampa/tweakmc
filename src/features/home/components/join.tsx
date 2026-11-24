@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { homeSections } from '@/router/paths';
 import { type Settings } from '@/shared/settings/settings';
 import { SectionDecor } from '@/shared/components/section-decor';
@@ -6,16 +7,15 @@ import { onCardMove } from '@/shared/utils/card-glow';
 import { KineticHeading } from './kinetic-heading';
 
 const STEPS = [
-  ['Odpal Minecrafta', 'Uruchom Minecraft Java Edition na swoim koncie i wejdź do głównego menu.'],
-  ['Gra wieloosobowa', 'Wybierz zakładkę Gra wieloosobowa, a następnie kliknij Dodaj serwer.'],
-  ['Wpisz adres', null],
-  [
-    'Wybierz tryb i graj',
-    'Dołącz na sieć, wybierz EarthSMP (lub kolejne tryby) i wpadnij na Discorda.',
-  ],
-];
+  ['join.launch', 'join.launchText'],
+  ['join.multiplayer', 'join.multiplayerText'],
+  ['join.address', null],
+  ['join.play', 'join.playText'],
+] as const;
 
 export function Join({ settings }: { settings: Settings }) {
+  const { t } = useTranslation();
+
   return (
     <section className="sec sec-elev" id={homeSections.join}>
       <SectionDecor
@@ -27,9 +27,9 @@ export function Join({ settings }: { settings: Settings }) {
 
       <div className="wrap">
         <div className="tw-max-w-[60ch]">
-          <KineticHeading text="Na serwerze w czterech krokach" accentWord="krokach" />
+          <KineticHeading text={t('join.title')} accentWord={t('join.accent')} />
           <p className="tw-mt-[16px] tw-max-w-[58ch] tw-text-muted tw-text-[1.08rem]">
-            Nie potrzebujesz paczek modów do samego wejścia. Kopiujesz adres i grasz.
+            {t('join.description')}
           </p>
         </div>
 
@@ -40,12 +40,15 @@ export function Join({ settings }: { settings: Settings }) {
                 <span className="step-n" aria-hidden="true">
                   0{stepIndex + 1}
                 </span>
-                <h3>{title}</h3>
+                <h3>{t(title)}</h3>
                 <p>
-                  {description ?? (
+                  {description ? (
+                    t(description)
+                  ) : (
                     <>
-                      W polu adresu serwera wpisz <IpText className="ip-inline" /> i zatwierdź
-                      przyciskiem Gotowe.
+                      {t('join.addressPrefix')}
+                      <IpText className="ip-inline" />
+                      {t('join.addressSuffix')}
                     </>
                   )}
                 </p>

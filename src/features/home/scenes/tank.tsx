@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { THEMES, type SceneProps } from '@/shared/config/themes';
@@ -6,6 +7,8 @@ import type { TankPart } from '../types/tank-part';
 import { buildHullParts, buildTurretParts } from '../utils/build-tank-parts';
 
 export default function Tank({ theme = 'default', motion = true }: SceneProps) {
+  const { t } = useTranslation();
+
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -192,11 +195,7 @@ export default function Tank({ theme = 'default', motion = true }: SceneProps) {
 
   return (
     <div className="tank" ref={wrapRef}>
-      <canvas
-        ref={canvasRef}
-        role="img"
-        aria-label="Interaktywny czołg z bloków 3D na ciemnym terenie; przeciągnij, aby obrócić"
-      />
+      <canvas ref={canvasRef} role="img" aria-label={t('tank.label')} />
     </div>
   );
 }

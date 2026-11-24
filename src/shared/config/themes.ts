@@ -1,8 +1,8 @@
 export const THEMES = {
   default: {
     id: 'default' as const,
-    label: 'Standard',
-    short: 'Standard',
+    label: 'theme.standard',
+    short: 'theme.standard',
     badge: null,
     logo: '/branding/logos/tweakmc-small.webp',
     earthLogo: '/branding/logos/earthsmp.webp',
@@ -36,9 +36,9 @@ export const THEMES = {
 
   christmas: {
     id: 'christmas' as const,
-    label: 'Święta / Zima',
-    short: 'Święta',
-    badge: 'Edycja świąteczna · Zimowy sezon na TweakMC',
+    label: 'theme.winter',
+    short: 'theme.christmas',
+    badge: 'theme.winterBadge',
     logo: '/branding/logos/tweakmc-christmas.png',
     earthLogo: '/branding/logos/earthsmp-christmas.png',
     globe: {
@@ -71,9 +71,9 @@ export const THEMES = {
 
   halloween: {
     id: 'halloween' as const,
-    label: 'Halloween',
-    short: 'Halloween',
-    badge: 'Edycja Halloween · Nocny event na TweakMC',
+    label: 'theme.halloween',
+    short: 'theme.halloween',
+    badge: 'theme.halloweenBadge',
     logo: '/branding/logos/tweakmc-halloween.png',
     earthLogo: '/branding/logos/earthsmp-halloween.png',
     globe: {
@@ -106,9 +106,9 @@ export const THEMES = {
 
   spring: {
     id: 'spring' as const,
-    label: 'Wielkanoc / Wiosna',
-    short: 'Wiosna',
-    badge: 'Edycja wiosenna · Nowy sezon na TweakMC',
+    label: 'theme.easter',
+    short: 'theme.spring',
+    badge: 'theme.springBadge',
     logo: '/branding/logos/tweakmc-small.webp',
     earthLogo: '/branding/logos/earthsmp.webp',
     globe: {

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Outlet, ScrollRestoration, useMatches } from 'react-router';
 import { getScrollKey } from '@/router/utils/get-scroll-key';
 import { useSettings } from '@/shared/settings/hooks/use-settings';
@@ -8,6 +9,8 @@ import { SiteFooter } from './components/site-footer';
 import { PhoneBar } from './components/phone-bar';
 
 export function Layout() {
+  const { t } = useTranslation();
+
   const routeSettings = useSettings();
   const { settings } = routeSettings;
   const isHome = useMatches().some(({ handle }) => handle === 'home');
@@ -15,7 +18,7 @@ export function Layout() {
   return (
     <>
       <a className="skip" href="#main">
-        Przejdź do treści
+        {t('nav.skip')}
       </a>
       {settings.sections.seasonFx && <SeasonFx theme={settings.theme} motion={settings.motion} />}
 

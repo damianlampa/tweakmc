@@ -1,7 +1,9 @@
-export function formatPln(val: number) {
+export function formatPln(value: number, language: string) {
   return (
-    Number(val || 0)
-      .toFixed(2)
-      .replace('.', ',') + ' PLN'
+    value.toLocaleString(language, {
+      useGrouping: false,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }) + ' PLN'
   );
 }

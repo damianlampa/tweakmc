@@ -1,15 +1,16 @@
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { paths } from '@/router/paths';
 import type { Settings } from '@/shared/settings/settings';
 import { THEMES, THEME_LIST } from '@/shared/config/themes';
 
 const MAP_FRAME_OPTIONS = [
-  { id: 'hud', label: 'Obsydian HUD', desc: 'Ciemna ramka z paskiem statusu i obramowaniem' },
-  { id: 'fullscreen', label: 'Szeroki ekran', desc: 'Maksymalna szerokość podglądu mapy na /mapa' },
+  { id: 'hud', label: 'appearance.hud', desc: 'appearance.hudDescription' },
+  { id: 'fullscreen', label: 'appearance.wide', desc: 'appearance.wideDescription' },
   {
     id: 'tactical',
-    label: 'Taktyczny kontrast',
-    desc: 'Wyrazisty ciemny filtr i podświetlona ramka',
+    label: 'appearance.tactical',
+    desc: 'appearance.tacticalDescription',
   },
 ] as const;
 
@@ -20,14 +21,19 @@ export function AppearanceSettings({
   settings: Settings;
   patch: (next: Settings) => void;
 }) {
+  const { t } = useTranslation();
+
   const activeTheme = THEMES[settings.theme] || THEMES.default;
 
   return (
     <div className="tw-grid tw-gap-[20px]">
       <div className="admin-box">
         <div className="admin-box-head tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-gap-[12px] tw-mb-[18px]">
-          <h2>Aktywny sezon i automatyczna zmiana logo</h2>
-          <span className="board-tag">Aktywne: {activeTheme.label}</span>
+          <h2>{t('appearance.title')}</h2>
+          <span className="board-tag">
+            {t('appearance.active')}
+            {t(activeTheme.label)}
+          </span>
         </div>
 
         <div className="season-cards tw-grid tw-grid-cols-[repeat(4,_minmax(0,_1fr))] tw-gap-[14px]">
@@ -40,13 +46,15 @@ export function AppearanceSettings({
                 onClick={() => patch({ ...settings, theme: theme.id })}
               >
                 <div className="season-logo-pair tw-flex tw-items-center tw-justify-center tw-gap-[10px] tw-h-[62px]">
-                  <img src={theme.logo} alt={`Logo ${theme.label}`} />
-                  <img src={theme.earthLogo} alt={`EarthSMP ${theme.label}`} />
+                  <img src={theme.logo} alt={`Logo ${t(theme.label)}`} />
+                  <img src={theme.earthLogo} alt={`EarthSMP ${t(theme.label)}`} />
                 </div>
 
-                <strong>{theme.label}</strong>
+                <strong>{t(theme.label)}</strong>
                 <span>
-                  {settings.theme === theme.id ? 'Aktywny motyw' : 'Kliknij, aby włączyć'}
+                  {settings.theme === theme.id
+                    ? t('appearance.activeTheme')
+                    : t('appearance.activate')}
                 </span>
               </button>
             );
@@ -56,9 +64,9 @@ export function AppearanceSettings({
 
       <div className="admin-box">
         <div className="admin-box-head tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-gap-[12px] tw-mb-[18px]">
-          <h2>Wygląd strony z mapą (/mapa)</h2>
+          <h2>{t('appearance.map')}</h2>
           <Link to={paths.map} className="inline-link">
-            Podgląd /mapa
+            {t('appearance.preview')}
           </Link>
         </div>
 
@@ -71,8 +79,8 @@ export function AppearanceSettings({
                 className={`option-card ${settings.mapFrame === frameOption.id ? 'is-active' : ''}`}
                 onClick={() => patch({ ...settings, mapFrame: frameOption.id })}
               >
-                <strong>{frameOption.label}</strong>
-                <span>{frameOption.desc}</span>
+                <strong>{t(frameOption.label)}</strong>
+                <span>{t(frameOption.desc)}</span>
               </button>
             );
           })}
