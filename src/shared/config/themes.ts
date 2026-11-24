@@ -4,8 +4,8 @@ export const THEMES = {
     label: 'Standard',
     short: 'Standard',
     badge: null,
-    logo: '/logo-sm.webp',
-    earthLogo: '/logo-earthsmp.webp',
+    logo: '/logos/tweakmc-small.webp',
+    earthLogo: '/logos/earthsmp.webp',
     globe: {
       ocean: '#0C0A18',
       land: ['#251F3B', '#312650', '#422F70', '#5B359E', '#7C3AED'],
@@ -39,8 +39,8 @@ export const THEMES = {
     label: 'Święta / Zima',
     short: 'Święta',
     badge: 'Edycja świąteczna · Zimowy sezon na TweakMC',
-    logo: '/logo-christmas.png',
-    earthLogo: '/logo-earthsmp-christmas.png',
+    logo: '/logos/tweakmc-christmas.png',
+    earthLogo: '/logos/earthsmp-christmas.png',
     globe: {
       ocean: '#081326',
       land: ['#1E3A5F', '#2E5B88', '#7DD3FC', '#CBD5E1', '#E2E8F0'],
@@ -74,8 +74,8 @@ export const THEMES = {
     label: 'Halloween',
     short: 'Halloween',
     badge: 'Edycja Halloween · Nocny event na TweakMC',
-    logo: '/logo-halloween.png',
-    earthLogo: '/logo-earthsmp-halloween.png',
+    logo: '/logos/tweakmc-halloween.png',
+    earthLogo: '/logos/earthsmp-halloween.png',
     globe: {
       ocean: '#0D0712',
       land: ['#2A162E', '#431C3A', '#7C2D12', '#C2410C', '#EA580C'],
@@ -109,8 +109,8 @@ export const THEMES = {
     label: 'Wielkanoc / Wiosna',
     short: 'Wiosna',
     badge: 'Edycja wiosenna · Nowy sezon na TweakMC',
-    logo: '/logo-sm.webp',
-    earthLogo: '/logo-earthsmp.webp',
+    logo: '/logos/tweakmc-small.webp',
+    earthLogo: '/logos/earthsmp.webp',
     globe: {
       ocean: '#071714',
       land: ['#12352C', '#1B4D3E', '#059669', '#34D399', '#A7F3D0'],
