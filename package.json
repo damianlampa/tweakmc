@@ -1,0 +1,65 @@
+{
+  "name": "tweakmc-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5173",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173",
+    "format": "prettier --check .",
+    "format-fix": "prettier --write .",
+    "types": "tsc --noEmit",
+    "lint": "eslint . --max-warnings=0",
+    "test": "playwright test",
+    "prepare": "node .husky/install.mjs",
+    "lint-fix": "eslint . --fix --max-warnings=0",
+    "check": "npm run format && npm run lint && npm run types",
+    "audit": "npm audit --audit-level=low",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/space-grotesk": "^5.3.0",
+    "d3-geo": "^3.1.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "^0.170.0",
+    "topojson-client": "^3.1.0",
+    "world-atlas": "^2.0.2"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.1",
+    "@commitlint/cli": "21.2.4",
+    "@commitlint/config-conventional": "21.2.4",
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.65.1",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@types/three": "^0.170.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "10.15.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "^17.14.0",
+    "husky": "9.1.7",
+    "lint-staged": "17.6.2",
+    "postcss": "^8.5.33",
+    "prettier": "3.10.1",
+    "tailwindcss": "^3.4.19",
+    "typescript": "5.9",
+    "vite": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=26.13.0 <27",
+    "npm": ">=11.20.0 <12"
+  },
+  "packageManager": "npm@11.20.0",
+  "license": "UNLICENSED",
+  "allowScripts": {
+    "esbuild": true,
+    "fsevents": false
+  }
+}
