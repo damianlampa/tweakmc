@@ -11,6 +11,10 @@ updates:
     commit-message:
       prefix: chore
     groups:
+      vite-and-react-plugin:
+        patterns: ['vite', '@vitejs/plugin-react']
+      tailwind:
+        patterns: ['tailwindcss', '@tailwindcss/vite']
       npm-minor-patch:
         update-types: [minor, patch]
   - package-ecosystem: github-actions
