@@ -13,17 +13,17 @@ export async function createStripeCheckout({
     return { mode: 'preview' };
   }
 
-  try {
-    const res = await fetch(site.stripeCheckoutEndpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ nick, amount }),
-    });
+  const res = await fetch(site.stripeCheckoutEndpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ nick, amount }),
+  });
 
-    const checkoutUrl = await readJsonResponse(res, checkoutUrlSchema);
+  const checkoutUrl = await readJsonResponse(res, checkoutUrlSchema);
 
-    return checkoutUrl ? { mode: 'live', checkoutUrl } : { mode: 'preview' };
-  } catch {
-    return { mode: 'preview' };
+  if (!checkoutUrl) {
+    throw new Error('The checkout service did not return a valid session URL.');
   }
+
+  return { mode: 'live', checkoutUrl };
 }

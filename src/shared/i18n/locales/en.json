@@ -265,6 +265,9 @@
     "label": "Interactive 3D block tank on dark terrain. Drag to rotate."
   },
   "checkout": {
+    "invalidAmount": "Enter an amount from {{min}} to {{max}} PLN with up to two decimal places.",
+    "failed": "We couldn't open the payment page. Please try again.",
+    "continue": "Continue to payment",
     "invalid": "Enter a valid Minecraft username (3–16 letters, numbers or underscores).",
     "unavailable": "Available when the plugin is connected",
     "username": "Minecraft username",
