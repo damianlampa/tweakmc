@@ -15,6 +15,7 @@
     "close": "Close menu",
     "open": "Open menu",
     "copiedAddress": "Copied address {{ip}}",
+    "copyManually": "Automatic copying failed. Select the server address and copy it manually.",
     "home": "Return to the home page",
     "back": "← Back to home"
   },

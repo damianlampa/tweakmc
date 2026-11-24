@@ -15,6 +15,7 @@
     "close": "Zamknij menu",
     "open": "Otwórz menu",
     "copiedAddress": "Skopiowano adres {{ip}}",
+    "copyManually": "Automatyczne kopiowanie się nie powiodło. Zaznacz adres serwera i skopiuj go ręcznie.",
     "home": "Wróć na stronę główną",
     "back": "← Powrót na stronę główną"
   },

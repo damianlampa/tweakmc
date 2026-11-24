@@ -6,8 +6,7 @@ import { homeSectionPath } from '@/router/utils/home-section-path';
 import { site } from '@/shared/config/site';
 import { THEMES } from '@/shared/config/themes';
 import type { Settings } from '@/shared/settings/settings';
-import { copyIp } from '@/shared/server-ip/utils/copy-ip';
-import { useCopied } from '@/shared/server-ip/hooks/use-copy-ip';
+import { useCopyIp } from '@/shared/server-ip/hooks/use-copy-ip';
 import { IpText } from '@/shared/server-ip';
 import { Icon } from '@/shared/components/icons';
 
@@ -19,7 +18,7 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
   const shopActive = useMatch({ path: paths.shop, caseSensitive: true }) !== null;
   const [open, setOpen] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
-  const copied = useCopied();
+  const { copied, handleCopy } = useCopyIp();
   const activeTheme = THEMES[settings.theme] || THEMES.default;
 
   useEffect(() => {
@@ -79,7 +78,12 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
             >
               <img src={activeTheme.logo} alt="TweakMC" height="44" />
             </Link>
-            <button type="button" className="nav-status" onClick={copyIp} title={t('nav.copyHint')}>
+            <button
+              type="button"
+              className="nav-status"
+              onClick={handleCopy}
+              title={t('nav.copyHint')}
+            >
               <span className="live-dot" aria-hidden="true" />
               <IpText />
             </button>
@@ -104,7 +108,7 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
             </a>
           </nav>
 
-          <button type="button" className="btn btn-primary nav-cta" onClick={copyIp}>
+          <button type="button" className="btn btn-primary nav-cta" onClick={handleCopy}>
             {copied ? Icon.check : Icon.copy}
             <span>{copied ? t('nav.copied') : t('nav.copy')}</span>
           </button>
