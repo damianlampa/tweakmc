@@ -1,19 +1,51 @@
-# TweakMC
+# TweakMC.pl
 
-[![CI](https://github.com/damianlampa/tweakmc-web/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/damianlampa/tweakmc-web/actions/workflows/ci.yml?query=branch%3Amain)
+The TweakMC Minecraft network frontend uses React, TypeScript, Vite, Tailwind CSS and Three.js. The product interface is in Polish.
 
-TweakMC is a website for a Minecraft server network. The public site currently serves a single English page with the message "Website coming soon." It uses React 19, Vite 8 and Tailwind CSS 4.
+## Local development
 
-## Development
-
-Use Node.js 26.13.1 and npm 12.2.3. The project pins Node in [`.nvmrc`](.nvmrc) and npm in the `packageManager` field of [`package.json`](package.json). Install the dependencies and start Vite from the repository root.
+Use Node.js 22.22.1 or later in the 22.x series, or Node.js 24 or later, with npm and Git. From the project root, run:
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open <http://127.0.0.1:5173>. Edit [`src/main.jsx`](src/main.jsx) to change the page and [`src/styles.css`](src/styles.css) to change its stylesheet. The stylesheet sets the Tailwind prefix to `tw`, so utility classes use names such as `tw:p-8`. Vite updates the page as you edit.
+Open the [development server](http://127.0.0.1:5173).
+
+| Route    | View                                                                                                             |
+| -------- | ---------------------------------------------------------------------------------------------------------------- |
+| `/`      | Home page with the interactive globe, game modes, EarthSMP, joining instructions, supporter rankings and Discord |
+| `/sklep` | Player wallet top-ups and recent purchases                                                                       |
+| `/mapa`  | EarthSMP map preview and live Dynmap through the domain proxy                                                    |
+| `/admin` | Demo dashboard for revenue, sections and appearance. The local preview password is `tweakmc2026`.                |
+
+## Source organization
+
+`src/main.tsx` loads the stylesheet and mounts React. `src/app.tsx` mounts the React Router provider. Define page URLs and home section links in `src/router/paths.ts` and register route components in `src/router/router.tsx`. The shop, map and admin pages load on demand.
+
+| Directory                 | Responsibility                                                                               |
+| ------------------------- | -------------------------------------------------------------------------------------------- |
+| `src/features/admin`      | Preview login, revenue, section settings and appearance                                      |
+| `src/features/home`       | Landing page sections and their globe and tank scenes                                        |
+| `src/features/map`        | Dynmap controls, iframe and map preview                                                      |
+| `src/features/shop`       | Wallet balance, top-up form and checkout                                                     |
+| `src/features/supporters` | Rankings and recent purchases shared by home and shop                                        |
+| `src/router`              | Route paths, page matching, lazy feature loading and access to layout settings               |
+| `src/layout`              | Shared page layout, navigation, footer, mobile controls and seasonal effects                 |
+| `src/shared`              | Site configuration, themes, persistent settings, geographic data and UI used across features |
+
+Each feature exposes its entry component through `index.ts`, for example `features/admin/index.ts` exports `admin.tsx`. Keep components, hooks, response types and preview data with the feature that owns them. Where a feature calls the backend, place each operation in its own kebab-case file and export it through the feature's `api/index.ts`. Use TanStack Query hooks for the lifecycle of reads and writes. API functions use fetch for HTTP and validate JSON with feature-local Zod schemas. Place standalone helpers in the owning feature's `utils` directory and cross-feature helpers in `shared`. Within the feature use relative imports. Use the `@/` alias for imports from elsewhere in `src`.
+
+## Integrations
+
+Set the Minecraft server address, Discord invite, Dynmap proxy and shop endpoints in `src/shared/config/site.ts`. The shop and dashboard use preview data by default. Enable `shopApiEnabled` and rebuild after connecting the Stripe backend and Minecraft plugin. The backend must authenticate admin requests. The preview PIN only controls access to the demo interface.
+
+## Quality checks
+
+Run `npm run check` to check formatting, strict TypeScript, ESLint and API response contracts. Run `npm test` for the Playwright browser suite. Run each check separately with `npm run format`, `npm run types`, `npm run lint` or `npm run test-api`. Use `npm run format-fix` and `npm run lint-fix` to apply fixes.
+
+During installation, the `prepare` script configures Husky. Before a commit, lint-staged runs ESLint and Prettier on staged JavaScript and TypeScript files, including JSX and TSX. Prettier formats other supported staged files. The commit-msg hook checks English Conventional Commits, for example `fix(shop): validate the player name`.
 
 ## Production build
 
@@ -22,38 +54,4 @@ npm run build
 npm run preview
 ```
 
-The build writes static files to `dist/`. Open <http://127.0.0.1:4173> to inspect those files locally. To deploy the same build to a static host, use `npm run build` as the build command and `dist/` as the publish directory.
-
-## Code quality
-
-Run `npm run check` for the same formatting, lint and type checks used in CI. Each check can also run individually.
-
-| Command          | What it checks                                                                        |
-| ---------------- | ------------------------------------------------------------------------------------- |
-| `npm run format` | Prettier formatting. Use `npm run format-fix` to write fixes.                         |
-| `npm run lint`   | ESLint rules, including React Hooks. Use `npm run lint-fix` to apply available fixes. |
-| `npm run types`  | TypeScript checks on the JavaScript and JSX files in `src/`.                          |
-| `npm run audit`  | Known dependency vulnerabilities, including low-severity findings.                    |
-
-## Browser tests
-
-```sh
-npm exec -- playwright install chromium firefox webkit
-npm test
-```
-
-Playwright builds the site and starts its own preview on port `4174`. The suite checks the placeholder text, generated Tailwind spacing, horizontal overflow, uncaught page errors and accessibility with axe. It runs on desktop Chromium, Firefox and WebKit, plus Pixel 7 and iPhone 13 emulation. See the [test cases](tests/e2e/home.spec.js) and [browser configuration](playwright.config.js).
-
-Use `npm run test:ui` to investigate a test interactively or `npm run test:report` to open the HTML report after a run. Failed tests retain screenshots and traces. In GitHub Actions, download the `browser-test-report` artifact from the workflow run.
-
-## Contributions
-
-Work on a focused branch and use Conventional Commits for commits and PR titles, for example `fix(ui): prevent horizontal overflow`. During `npm ci`, Husky installs the hooks that run ESLint and Prettier on staged files and validate the commit message with commitlint.
-
-Pull requests into `main` require the quality checks and production build, dependency audit, browser tests and PR title check. Merge with squash once the checks pass and review conversations are resolved. See the [repository settings](.github/repository/README.md) and [CI workflow](.github/workflows/ci.yml).
-
-Dependabot checks npm packages and GitHub Actions weekly. React and its types, Vite and its React plugin, and Tailwind and its Vite plugin each have a dedicated update group so related releases can be tested together. See the [Dependabot configuration](.github/dependabot.yml).
-
-## License
-
-All rights reserved for the author's original code and assets. Third-party components retain their own licenses. See [LICENSE](LICENSE).
+Open the [production preview](http://127.0.0.1:4173). Deploy the contents of `dist/` including the supplied `.htaccess` for Apache or `_redirects` for compatible hosts. On Netlify or Cloudflare Pages, use `npm run build` as the build command and `dist` as the output directory. A built directory can also be uploaded with [Netlify Drop](https://app.netlify.com/drop).

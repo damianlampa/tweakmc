@@ -1,0 +1,60 @@
+import type { AdminStats } from '../types/admin-stats';
+
+export const PREVIEW_ADMIN_STATS: AdminStats = {
+  isPreview: true,
+  totalRevenue: 4825.0,
+  monthRevenue: 1460.0,
+  totalTransactions: 118,
+  avgOrder: 40.89,
+  daily: [
+    { day: 'Pon', amount: 185 },
+    { day: 'Wt', amount: 240 },
+    { day: 'Śr', amount: 150 },
+    { day: 'Czw', amount: 310 },
+    { day: 'Pt', amount: 425 },
+    { day: 'Sob', amount: 540 },
+    { day: 'Nd', amount: 390 },
+  ],
+  transactions: [
+    {
+      id: 'TX-1048',
+      nick: 'Gracz_01',
+      amount: 50,
+      method: 'BLIK',
+      status: 'Dopisano /portfel',
+      time: 'przed chwilą',
+    },
+    {
+      id: 'TX-1047',
+      nick: 'Gracz_04',
+      amount: 25,
+      method: 'Apple Pay',
+      status: 'Dopisano /portfel',
+      time: '12 min temu',
+    },
+    {
+      id: 'TX-1046',
+      nick: 'Gracz_02',
+      amount: 100,
+      method: 'BLIK',
+      status: 'Dopisano /portfel',
+      time: '38 min temu',
+    },
+    {
+      id: 'TX-1045',
+      nick: 'Gracz_05',
+      amount: 10,
+      method: 'Karta',
+      status: 'Dopisano /portfel',
+      time: '1 godz. temu',
+    },
+    {
+      id: 'TX-1044',
+      nick: 'Gracz_03',
+      amount: 50,
+      method: 'Google Pay',
+      status: 'Dopisano /portfel',
+      time: '2 godz. temu',
+    },
+  ],
+};
