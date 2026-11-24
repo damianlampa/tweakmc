@@ -23,7 +23,7 @@
     "@fontsource-variable/inter": "^5.3.0",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "@fontsource-variable/space-grotesk": "^5.3.0",
-    "d3-geo": "^3.1.1",
+    "d3-geo": "^3.1.2",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "three": "^0.187.0",
@@ -53,13 +53,12 @@
     "vite": "^8.3.8"
   },
   "engines": {
-    "node": ">=26.13.0 <27",
-    "npm": ">=11.20.0 <12"
+    "node": ">=26.13.1 <27",
+    "npm": ">=12.2.3 <13"
   },
-  "packageManager": "npm@11.20.0",
+  "packageManager": "npm@12.2.3",
   "license": "UNLICENSED",
   "allowScripts": {
-    "esbuild": true,
     "fsevents": false
   }
 }
