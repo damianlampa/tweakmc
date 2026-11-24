@@ -1,49 +1,25 @@
 import { lazy, Suspense } from 'react';
-import ShopPage from './pages/shop-page';
-import SeasonFx from './components/season-fx';
-import { CopyStatus } from './components/server-ip';
-import { SiteNavigation } from './components/site-navigation';
-import { SiteFooter } from './components/site-footer';
-import { PhoneBar } from './components/phone-bar';
-import { useNavigation } from './hooks/use-navigation';
-import { useSettings } from './hooks/use-settings';
-import { HomePage } from './pages/home-page';
+import { Layout, useNavigation } from '@/layout';
+import { useSettings } from '@/shared/settings/hooks/use-settings';
+import { HomePage } from '@/features/home';
 
-const MapPage = lazy(() => import('./pages/map-page'));
-
-const AdminPage = lazy(() => import('./pages/admin-page'));
+const ShopPage = lazy(() => import('@/features/shop'));
+const MapPage = lazy(() => import('@/features/map'));
+const AdminPage = lazy(() => import('@/features/admin'));
 
 export default function App() {
   const { settings, updateSettings } = useSettings();
   const { route, navigate } = useNavigation();
   return (
-    <>
-      <a className="skip" href="#main">
-        Przejdź do treści
-      </a>
-      {settings.sections.seasonFx && <SeasonFx theme={settings.theme} motion={settings.motion} />}
-      <SiteNavigation route={route} navigate={navigate} settings={settings} />
-
-      <main id="main">
+    <Layout settings={settings} navigate={navigate} route={route}>
+      <Suspense fallback={null}>
         {route === '/' && <HomePage settings={settings} navigate={navigate} />}
         {route === '/sklep' && <ShopPage settings={settings} navigate={navigate} />}
-
-        {route === '/mapa' && (
-          <Suspense fallback={null}>
-            <MapPage settings={settings} navigate={navigate} />
-          </Suspense>
-        )}
-
+        {route === '/mapa' && <MapPage settings={settings} navigate={navigate} />}
         {route === '/admin' && (
-          <Suspense fallback={null}>
-            <AdminPage settings={settings} updateSettings={updateSettings} navigate={navigate} />
-          </Suspense>
+          <AdminPage settings={settings} updateSettings={updateSettings} navigate={navigate} />
         )}
-      </main>
-
-      <SiteFooter settings={settings} navigate={navigate} />
-      {route === '/' && <PhoneBar />}
-      <CopyStatus />
-    </>
+      </Suspense>
+    </Layout>
   );
 }
