@@ -1,18 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { fetchShopActivity } from '../api';
 import { PREVIEW_SHOP_ACTIVITY } from '../data/preview-shop-activity';
 
 export function useShopActivity() {
-  const [activity, setActivity] = useState(PREVIEW_SHOP_ACTIVITY);
+  const { data } = useQuery({
+    queryKey: ['supporters', 'activity'],
+    queryFn: ({ signal }) => fetchShopActivity(signal),
+    staleTime: (query) => (query.state.data?.isPreview ? 0 : 30_000),
+  });
 
-  useEffect(() => {
-    const ctrl = new AbortController();
-    fetchShopActivity(ctrl.signal)
-      .then((data) => setActivity(data))
-      .catch(() => {});
-
-    return () => ctrl.abort();
-  }, []);
-
-  return activity;
+  return data ?? PREVIEW_SHOP_ACTIVITY;
 }

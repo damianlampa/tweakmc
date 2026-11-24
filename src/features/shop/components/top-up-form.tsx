@@ -1,26 +1,19 @@
 import { useState } from 'react';
-import { useWalletBalance } from '../hooks/use-wallet-balance';
 import { site } from '@/shared/config/site';
 import { NICK_RE } from '@/shared/utils/player-name';
 import { formatPln } from '@/shared/utils/format-shop-amount';
 import { Icon as icons } from '@/shared/components/icons';
 import { onCardMove } from '@/shared/utils/card-glow';
-import { createStripeCheckout } from '../api';
-
-function clampAmount(raw: string | number) {
-  const num = parseFloat(String(raw).replace(',', '.'));
-
-  if (Number.isNaN(num)) return site.shopMin;
-
-  return Math.round(Math.min(site.shopMax, Math.max(site.shopMin, num)) * 100) / 100;
-}
+import { clampAmount } from '../utils/clamp-amount';
+import { useWalletBalance } from '../hooks/use-wallet-balance';
+import { useStripeCheckout } from '../hooks/use-stripe-checkout';
 
 export function TopUpForm() {
   const [nick, setNick] = useState('');
   const [amount, setAmount] = useState(25);
   const [amountText, setAmountText] = useState('25');
   const [avatarErr, setAvatarErr] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
+  const { mutate: startCheckout, isPending: submitting } = useStripeCheckout();
   const [error, setError] = useState('');
   const [checkoutNotice, setCheckoutNotice] = useState('');
 
@@ -49,8 +42,10 @@ export function TopUpForm() {
 
   const handleAmountBlur = () => setCleanAmount(amountText);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (submitting) return;
 
     if (!validNick) {
       setError('Podaj poprawny nick z Minecrafta (3–16 znaków: litery, cyfry lub _).');
@@ -60,18 +55,20 @@ export function TopUpForm() {
     }
 
     setError('');
-    setSubmitting(true);
-    const res = await createStripeCheckout({ nick: trimmedNick, amount });
-    setSubmitting(false);
+    startCheckout(
+      { nick: trimmedNick, amount },
+      {
+        onSuccess(result, input) {
+          if (result.mode === 'live') {
+            window.location.assign(result.checkoutUrl);
+            return;
+          }
 
-    if (res.mode === 'live' && res.checkoutUrl) {
-      window.location.href = res.checkoutUrl;
-
-      return;
-    }
-
-    setCheckoutNotice(
-      `Tryb podglądu UI — gotowe do podpięcia Stripe + pluginu MC: ${trimmedNick} → +${formatPln(amount)} do /portfel (${site.stripeCheckoutEndpoint}).`,
+          setCheckoutNotice(
+            `Tryb podglądu UI — gotowe do podpięcia Stripe + pluginu MC: ${input.nick} → +${formatPln(input.amount)} do /portfel (${site.stripeCheckoutEndpoint}).`,
+          );
+        },
+      },
     );
   };
 

@@ -1,17 +1,13 @@
 import { Link } from 'react-router';
 import { paths } from '@/router/paths';
-import type { AdminStats } from '../types/admin-stats';
+import { formatRevenue } from '../utils/format-revenue';
+import { useAdminStats } from '../hooks/use-admin-stats';
 
-function formatPln(val: number) {
-  return (
-    Number(val || 0).toLocaleString('pl-PL', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }) + ' PLN'
-  );
-}
+export function RevenueOverview() {
+  const stats = useAdminStats();
 
-export function RevenueOverview({ stats }: { stats: AdminStats }) {
+  if (!stats) return null;
+
   const maxDay = Math.max(...stats.daily.map((day) => day.amount), 1);
 
   return (
@@ -28,12 +24,12 @@ export function RevenueOverview({ stats }: { stats: AdminStats }) {
       <div className="kpi-grid tw-grid tw-grid-cols-[repeat(4,_minmax(0,_1fr))] tw-gap-[16px]">
         <div className="kpi-card">
           <span>Łączne zarobki</span>
-          <strong>{formatPln(stats.totalRevenue)}</strong>
+          <strong>{formatRevenue(stats.totalRevenue)}</strong>
         </div>
 
         <div className="kpi-card">
           <span>Zarobki (ten miesiąc)</span>
-          <strong className="tw-text-accent-bright">{formatPln(stats.monthRevenue)}</strong>
+          <strong className="tw-text-accent-bright">{formatRevenue(stats.monthRevenue)}</strong>
         </div>
 
         <div className="kpi-card">
@@ -43,7 +39,7 @@ export function RevenueOverview({ stats }: { stats: AdminStats }) {
 
         <div className="kpi-card">
           <span>Średnie doładowanie</span>
-          <strong>{formatPln(stats.avgOrder)}</strong>
+          <strong>{formatRevenue(stats.avgOrder)}</strong>
         </div>
       </div>
 
@@ -109,7 +105,7 @@ export function RevenueOverview({ stats }: { stats: AdminStats }) {
                         <strong>{transaction.nick}</strong>
                       </td>
                       <td className="tw-font-mono tw-font-semibold tw-text-accent-bright">
-                        +{formatPln(transaction.amount)}
+                        +{formatRevenue(transaction.amount)}
                       </td>
                       <td>{transaction.method}</td>
                       <td>

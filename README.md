@@ -35,7 +35,7 @@ Open the [development server](http://127.0.0.1:5173).
 | `src/layout`              | Shared page layout, navigation, footer, mobile controls and seasonal effects                 |
 | `src/shared`              | Site configuration, themes, persistent settings, geographic data and UI used across features |
 
-Each feature exposes its entry component through `index.ts`, for example `features/admin/index.ts` exports `admin.tsx`. Keep components, hooks, response types and preview data with the feature that owns them. Where a feature calls the backend, place each operation in its own kebab-case file and export it through the feature's `api/index.ts`. Within the feature use relative imports. Use the `@/` alias for imports from elsewhere in `src`.
+Each feature exposes its entry component through `index.ts`, for example `features/admin/index.ts` exports `admin.tsx`. Keep components, hooks, response types and preview data with the feature that owns them. Where a feature calls the backend, place each operation in its own kebab-case file and export it through the feature's `api/index.ts`. Use TanStack Query hooks for the lifecycle of reads and writes. API functions use fetch for HTTP and validate JSON with feature-local Zod schemas. Place standalone helpers in the owning feature's `utils` directory and cross-feature helpers in `shared`. Within the feature use relative imports. Use the `@/` alias for imports from elsewhere in `src`.
 
 ## Integrations
 
@@ -43,7 +43,7 @@ Set the Minecraft server address, Discord invite, Dynmap proxy and shop endpoint
 
 ## Quality checks
 
-Run `npm test` to check formatting, strict TypeScript and ESLint. Run each check separately with `npm run format`, `npm run types` or `npm run lint`. Use `npm run format-fix` and `npm run lint-fix` to apply fixes.
+Run `npm test` to check formatting, strict TypeScript, ESLint and API response contracts. Run each check separately with `npm run format`, `npm run types`, `npm run lint` or `npm run test-api`. Use `npm run format-fix` and `npm run lint-fix` to apply fixes.
 
 During installation, the `prepare` script configures Husky. Before a commit, lint-staged runs ESLint and Prettier on staged JavaScript and TypeScript files, including JSX and TSX. Prettier formats other supported staged files. The commit-msg hook checks English Conventional Commits, for example `fix(shop): validate the player name`.
 

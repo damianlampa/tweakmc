@@ -7,16 +7,15 @@ import { resetSettings } from '@/shared/settings/settings';
 import { AppearanceSettings } from './components/appearance-settings';
 import { SectionSettings } from './components/section-settings';
 import { RevenueOverview } from './components/revenue-overview';
-import { syncAdminSettings } from './api';
+import { useSyncAdminSettings } from './hooks/use-sync-admin-settings';
 import { AdminLogin } from './components/admin-login';
 import { usePreviewSession } from './hooks/use-preview-session';
-import { useAdminStats } from './hooks/use-admin-stats';
 
 export default function AdminPage() {
   const { settings, updateSettings } = useRouteSettings();
   const { authed, handleLogin, handleLogout } = usePreviewSession();
   const [tab, setTab] = useState<'overview' | 'toggles' | 'appearance'>('overview');
-  const stats = useAdminStats(authed);
+  const { mutate: saveSettings } = useSyncAdminSettings();
   const [toast, setToast] = useState('');
 
   const showToast = (msg: string) => {
@@ -24,10 +23,11 @@ export default function AdminPage() {
     setTimeout(() => setToast(''), 2600);
   };
 
-  const patch = async (next: Settings) => {
+  const patch = (next: Settings) => {
     updateSettings(next);
-    const res = await syncAdminSettings(next);
-    showToast(res.synced ? 'Zapisano na serwerze' : 'Zastosowano na żywo');
+    saveSettings(next, {
+      onSuccess: ({ synced }) => showToast(synced ? 'Zapisano na serwerze' : 'Zastosowano na żywo'),
+    });
   };
 
   const handleReset = () => {
@@ -90,7 +90,7 @@ export default function AdminPage() {
           </button>
         </nav>
 
-        {tab === 'overview' && stats && <RevenueOverview stats={stats} />}
+        {tab === 'overview' && <RevenueOverview />}
 
         {tab === 'toggles' && <SectionSettings settings={settings} patch={patch} />}
 

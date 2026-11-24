@@ -1,43 +1,29 @@
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { fetchWalletBalance } from '../api';
 import { NICK_RE } from '@/shared/utils/player-name';
+import { fetchWalletBalance } from '../api';
 
-export function useWalletBalance(trimmedNick: string) {
-  const validNick = NICK_RE.test(trimmedNick);
-  const [wallet, setWallet] = useState<
-    | { nick: string; status: 'idle' | 'offline' | 'loading'; balance: null }
-    | { nick: string; status: 'connected'; balance: number }
-  >({ nick: '', status: 'idle', balance: null });
+export function useWalletBalance(nick: string) {
+  const [settledNick, setSettledNick] = useState('');
+  const validNick = NICK_RE.test(nick);
 
   useEffect(() => {
     if (!validNick) return;
 
-    const ctrl = new AbortController();
-    const timer = setTimeout(async () => {
-      setWallet({ nick: trimmedNick, status: 'loading', balance: null });
+    const timer = setTimeout(() => setSettledNick(nick), 350);
 
-      try {
-        const res = await fetchWalletBalance(trimmedNick, ctrl.signal);
+    return () => clearTimeout(timer);
+  }, [nick, validNick]);
 
-        if (ctrl.signal.aborted) return;
+  const enabled = validNick && settledNick === nick;
+  const { data, isFetching } = useQuery({
+    queryKey: ['shop', 'wallet', nick],
+    queryFn: ({ signal }) => fetchWalletBalance(nick, signal),
+    enabled,
+  });
 
-        setWallet(
-          res.connected
-            ? { nick: trimmedNick, status: 'connected', balance: res.balance }
-            : { nick: trimmedNick, status: 'offline', balance: null },
-        );
-      } catch {
-        // A new name or unmount can cancel the request.
-      }
-    }, 350);
+  if (!enabled) return { status: 'idle', balance: null } as const;
+  if (data?.connected) return { status: 'connected', balance: data.balance } as const;
 
-    return () => {
-      clearTimeout(timer);
-      ctrl.abort();
-    };
-  }, [trimmedNick, validNick]);
-
-  return wallet.nick === trimmedNick && validNick
-    ? wallet
-    : { status: 'idle' as const, balance: null };
+  return { status: isFetching ? 'loading' : 'offline', balance: null } as const;
 }

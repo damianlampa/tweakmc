@@ -1,20 +1,12 @@
-import { useState, useEffect } from 'react';
-import type { AdminStats } from '../types/admin-stats';
+import { useQuery } from '@tanstack/react-query';
 import { fetchAdminStats } from '../api';
 
-export function useAdminStats(authed: boolean) {
-  const [stats, setStats] = useState<AdminStats | null>(null);
+export function useAdminStats() {
+  const { data } = useQuery({
+    queryKey: ['admin', 'stats'],
+    queryFn: ({ signal }) => fetchAdminStats(signal),
+    gcTime: 0,
+  });
 
-  useEffect(() => {
-    if (!authed) return;
-
-    const ctrl = new AbortController();
-    fetchAdminStats(ctrl.signal)
-      .then((d) => setStats(d))
-      .catch(() => {});
-
-    return () => ctrl.abort();
-  }, [authed]);
-
-  return stats;
+  return data;
 }
