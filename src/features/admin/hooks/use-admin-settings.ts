@@ -11,14 +11,14 @@ export function useAdminSettings() {
   const applySettings = (next: Settings) => {
     updateSettings(next);
     mutate(next, {
-      onSuccess: ({ synced }) => showToast(synced ? 'Zapisano na serwerze' : 'Zastosowano na żywo'),
+      onSuccess: ({ synced }) => showToast(synced ? 'toast.synced' : 'toast.applied'),
     });
   };
 
   const restoreDefaults = () => {
     dismissPendingFeedback();
     updateSettings(resetSettings());
-    showToast('Przywrócono domyślne ustawienia');
+    showToast('toast.reset');
   };
 
   return { settings, applySettings, restoreDefaults, message };

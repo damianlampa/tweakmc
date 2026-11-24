@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { getWorld } from '@/shared/geo/world';
@@ -6,6 +7,8 @@ import { formatCoordinates } from '../utils/format-coordinates';
 import { attachDrag, runWhenVisible } from '../utils/scene-interaction';
 
 export default function Globe({ theme = 'default', motion = true }: SceneProps) {
+  const { t } = useTranslation();
+
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [tip, setTip] = useState<{ r: number; front: boolean; coord: string } | null>(null);
@@ -288,15 +291,13 @@ export default function Globe({ theme = 'default', motion = true }: SceneProps) 
 
   return (
     <div className="globe" ref={wrapRef}>
-      <canvas
-        ref={canvasRef}
-        role="img"
-        aria-label="Interaktywna kula Ziemi 3D z bloków podzielona na państwa; przeciągnij, aby obrócić"
-      />
+      <canvas ref={canvasRef} role="img" aria-label={t('globe.label')} />
       {tip && (
         <span className={`globe-tip ${tip.front ? 'is-front' : ''}`} aria-hidden="true">
           <strong>
-            {tip.front ? 'Front wojenny' : `Państwo ${String(tip.r + 1).padStart(2, '0')}`}
+            {tip.front
+              ? t('globe.front')
+              : t('globe.nation', { number: String(tip.r + 1).padStart(2, '0') })}
           </strong>
           <span>{tip.coord}</span>
         </span>

@@ -1,13 +1,11 @@
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 
-const HERO_ROLES = [
-  'EarthSMP · prawdziwa mapa Ziemi',
-  'Państwa, sojusze i wojny o granice',
-  'Czołgi i pojazdy wojskowe na froncie',
-  'Nowe tryby sieci już w przygotowaniu',
-];
+const HERO_ROLES = ['rotation.world', 'rotation.nations', 'rotation.vehicles', 'rotation.more'];
 
 export function RotatingLine() {
+  const { t } = useTranslation();
+
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
@@ -23,7 +21,7 @@ export function RotatingLine() {
     >
       <span className="rotate-dot" aria-hidden="true" />
       <span key={idx} className="rotate-text">
-        {HERO_ROLES[idx]}
+        {t(HERO_ROLES[idx])}
       </span>
     </div>
   );

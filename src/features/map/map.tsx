@@ -1,3 +1,5 @@
+import { DEFAULT_SETTINGS } from '@/shared/settings/settings';
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Link } from 'react-router';
 import { paths } from '@/router/paths';
@@ -8,6 +10,8 @@ import { useRouteSettings } from '@/router/use-route-settings';
 import PixelMap from './components/pixel-map';
 
 export default function MapPage() {
+  const { t } = useTranslation();
+
   const { settings } = useRouteSettings();
   const frameStyle = settings.mapFrame || 'hud';
   const [loaded, setLoaded] = useState(false);
@@ -24,21 +28,23 @@ export default function MapPage() {
         <SectionDecor
           theme={settings.theme}
           variant="both"
-          labelLeft="MAPA // OFFLINE"
+          labelLeft={t('map.offlineTag')}
           labelRight="TWEAKMC.PL"
         />
 
         <div className="wrap">
           <div className="disabled-card">
-            <span className="disabled-tag">Mapa tymczasowo niedostępna</span>
-            <h1>Mapa EarthSMP chwilowo wyłączona</h1>
+            <span className="disabled-tag">{t('map.unavailable')}</span>
+            <h1>{t('map.disabled')}</h1>
             <p className="tw-mt-[16px] tw-max-w-[58ch] tw-text-muted tw-text-[1.08rem]">
-              {settings.maintenanceMsg}
+              {settings.maintenanceMsg === DEFAULT_SETTINGS.maintenanceMsg
+                ? t('common.maintenance')
+                : settings.maintenanceMsg}
             </p>
 
             <div className="tw-flex tw-flex-wrap tw-gap-[12px] tw-mt-[28px]">
               <Link to={paths.home} className="btn btn-primary">
-                Wróć na stronę główną
+                {t('nav.home')}
               </Link>
             </div>
           </div>
@@ -53,28 +59,28 @@ export default function MapPage() {
         theme={settings.theme}
         variant="both"
         labelLeft="DYNMAP // LIVE"
-        labelRight="ZIEMIA 1:1000"
+        labelRight={t('map.scale')}
       />
 
       <div className={frameStyle === 'fullscreen' ? 'wrap wrap-wide' : 'wrap'}>
         <div className="tw-flex tw-flex-wrap tw-justify-between tw-items-end tw-gap-[20px] tw-mb-[32px]">
           <div>
             <Link to={paths.home} className="back-link">
-              ← Powrót na stronę główną
+              {t('nav.back')}
             </Link>
             <h1 className="tw-text-[clamp(2.4rem,_5vw,_4rem)] tw-mt-[10px]">
-              Mapa EarthSMP <span className="tw-text-accent-bright">na żywo</span>
+              {t('map.heading')}
+              <span className="tw-text-accent-bright">{t('map.live')}</span>
             </h1>
             <p className="tw-mt-[16px] tw-max-w-[58ch] tw-text-muted tw-text-[1.08rem]">
-              Podgląd Dynmap w czasie rzeczywistym: granice państw, miasta i gracze na prawdziwej
-              mapie Ziemi.
+              {t('map.description')}
             </p>
           </div>
 
           <div className="map-controls tw-flex tw-flex-wrap tw-gap-[12px]">
             <button type="button" className="btn btn-secondary btn-sm" onClick={reload}>
               {icons.refresh}
-              <span>{loaded ? 'Odśwież mapę' : 'Ładowanie…'}</span>
+              <span>{loaded ? t('map.refresh') : t('map.loading')}</span>
             </button>
             <a
               className="btn btn-primary btn-sm"
@@ -82,7 +88,7 @@ export default function MapPage() {
               target="_blank"
               rel="noreferrer"
             >
-              <span>Pełny ekran</span>
+              <span>{t('map.fullscreen')}</span>
               {icons.external}
             </a>
           </div>
@@ -102,14 +108,14 @@ export default function MapPage() {
             <iframe
               key={reloadKey}
               src={site.dynmapUrl}
-              title="Mapa serwera TweakMC na żywo (Dynmap)"
+              title={t('map.frameTitle')}
               allow="fullscreen"
               className={loaded ? 'is-ready' : ''}
               onLoad={() => setLoaded(true)}
             />
             {!loaded && (
               <span className="map-status" aria-live="polite">
-                Łączenie z Dynmapą serwera…
+                {t('map.connecting')}
               </span>
             )}
           </div>

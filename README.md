@@ -37,13 +37,17 @@ Open the [development server](http://127.0.0.1:5173).
 
 Each feature exposes its entry component through `index.ts`, for example `features/admin/index.ts` exports `admin.tsx`. Keep components, hooks, response types and preview data with the feature that owns them. Where a feature calls the backend, place each operation in its own kebab-case file and export it through the feature's `api/index.ts`. Use TanStack Query hooks for the lifecycle of reads and writes. API functions use fetch for HTTP and validate JSON with feature-local Zod schemas. Place standalone helpers in the owning feature's `utils` directory and cross-feature helpers in `shared`. Within the feature use relative imports. Use the `@/` alias for imports from elsewhere in `src`.
 
+## Languages
+
+The site opens in Polish. The language selector in the footer switches between Polish and English without leaving the current page. The browser remembers the selection locally. Keep `src/shared/i18n/locales/pl.json` and `en.json` in sync, including interpolation variables. Minecraft commands, Discord channel names and custom messages from the administrator keep their original text.
+
 ## Integrations
 
 Set the Minecraft server address, Discord invite, Dynmap proxy and shop endpoints in `src/shared/config/site.ts`. The shop and dashboard use preview data by default. Enable `shopApiEnabled` and rebuild after connecting the Stripe backend and Minecraft plugin. The backend must authenticate admin requests. The preview PIN only controls access to the demo interface.
 
 ## Quality checks
 
-Run `npm run check` to check formatting, strict TypeScript, ESLint and API response contracts. Run `npm test` for the Playwright browser suite. Run each check separately with `npm run format`, `npm run types`, `npm run lint` or `npm run test-api`. Use `npm run format-fix` and `npm run lint-fix` to apply fixes.
+Run `npm run check` to check formatting, strict TypeScript, ESLint, API response contracts and translation catalogs. Run `npm test` for the Playwright browser suite. Run each check separately with `npm run format`, `npm run types`, `npm run lint`, `npm run test-api` or `npm run test-i18n`. Use `npm run format-fix` and `npm run lint-fix` to apply fixes.
 
 During installation, the `prepare` script configures Husky. Before a commit, lint-staged runs ESLint and Prettier on staged JavaScript and TypeScript files, including JSX and TSX. Prettier formats other supported staged files. The commit-msg hook checks English Conventional Commits, for example `fix(shop): validate the player name`.
 

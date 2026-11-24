@@ -15,10 +15,11 @@
     "prepare": "node .husky/install.mjs",
     "lint-fix": "eslint . --fix --max-warnings=0",
     "test-api": "node --test tests/api-responses.test.mjs",
-    "check": "npm run format && npm run lint && npm run types && npm run test-api",
+    "check": "npm run format && npm run lint && npm run types && npm run test-api && npm run test-i18n",
     "audit": "npm audit --audit-level=low",
     "test:ui": "playwright test --ui",
-    "test:report": "playwright show-report"
+    "test:report": "playwright show-report",
+    "test-i18n": "node --test tests/i18n.test.mjs"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.3.0",
@@ -32,7 +33,9 @@
     "three": "^0.170.0",
     "topojson-client": "^3.1.0",
     "world-atlas": "^2.0.2",
-    "zod": "^4.6.7"
+    "zod": "^4.6.7",
+    "i18next": "^27.2.7",
+    "react-i18next": "^18.0.3"
   },
   "devDependencies": {
     "@commitlint/cli": "21.2.4",

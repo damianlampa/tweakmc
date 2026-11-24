@@ -2268,3 +2268,13 @@ strong {
 :root[data-motion='off'] .season-fx {
   @apply tw-hidden;
 }
+
+.language-select {
+  @apply tw-bg-transparent tw-text-muted tw-font-body tw-text-sm tw-cursor-pointer tw-py-1;
+  border: 0;
+}
+
+.language-select option {
+  background: var(--bg);
+  color: var(--ink);
+}

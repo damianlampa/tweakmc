@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { site } from '@/shared/config/site';
 import { NICK_RE } from '@/shared/utils/player-name';
@@ -9,13 +10,17 @@ import { useWalletBalance } from '../hooks/use-wallet-balance';
 import { useStripeCheckout } from '../hooks/use-stripe-checkout';
 
 export function TopUpForm() {
+  const { t, i18n } = useTranslation();
+
   const [nick, setNick] = useState('');
   const [amount, setAmount] = useState(25);
   const [amountText, setAmountText] = useState('25');
   const [avatarErr, setAvatarErr] = useState(false);
   const { mutate: startCheckout, isPending: submitting } = useStripeCheckout();
   const [error, setError] = useState('');
-  const [checkoutNotice, setCheckoutNotice] = useState('');
+  const [checkoutNotice, setCheckoutNotice] = useState<{ nick: string; amount: number } | null>(
+    null,
+  );
 
   const trimmedNick = nick.trim();
   const validNick = NICK_RE.test(trimmedNick);
@@ -26,13 +31,13 @@ export function TopUpForm() {
     const clamped = clampAmount(next);
     setAmount(clamped);
     setAmountText(Number.isInteger(clamped) ? String(clamped) : clamped.toFixed(2));
-    setCheckoutNotice('');
+    setCheckoutNotice(null);
   };
 
   const handleAmountInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setAmountText(val);
-    setCheckoutNotice('');
+    setCheckoutNotice(null);
     const num = parseFloat(val.replace(',', '.'));
 
     if (!Number.isNaN(num) && num >= site.shopMin && num <= site.shopMax) {
@@ -48,8 +53,8 @@ export function TopUpForm() {
     if (submitting) return;
 
     if (!validNick) {
-      setError('Podaj poprawny nick z Minecrafta (3–16 znaków: litery, cyfry lub _).');
-      setCheckoutNotice('');
+      setError('checkout.invalid');
+      setCheckoutNotice(null);
 
       return;
     }
@@ -64,9 +69,7 @@ export function TopUpForm() {
             return;
           }
 
-          setCheckoutNotice(
-            `Tryb podglądu UI — gotowe do podpięcia Stripe + pluginu MC: ${input.nick} → +${formatPln(input.amount)} do /portfel (${site.stripeCheckoutEndpoint}).`,
-          );
+          setCheckoutNotice(input);
         },
       },
     );
@@ -74,21 +77,23 @@ export function TopUpForm() {
 
   const currentBalText =
     wallet.status === 'loading'
-      ? 'Sprawdzanie…'
+      ? t('checkout.checking')
       : wallet.status === 'connected'
-        ? formatPln(wallet.balance)
+        ? formatPln(wallet.balance, i18n.language)
         : validNick
-          ? 'Po podpięciu pluginu'
+          ? t('checkout.unavailable')
           : '—';
 
   const afterBalText =
-    wallet.status === 'connected' ? formatPln(wallet.balance + amount) : `+${formatPln(amount)}`;
+    wallet.status === 'connected'
+      ? formatPln(wallet.balance + amount, i18n.language)
+      : `+${formatPln(amount, i18n.language)}`;
 
   return (
     <form className="shop-grid shop-grid-top" onSubmit={handleSubmit} noValidate>
       <div className="shop-panel glow-card" onPointerMove={onCardMove}>
         <div className="field tw-grid tw-gap-[10px]">
-          <label htmlFor="shop-nick">Nick z Minecrafta</label>
+          <label htmlFor="shop-nick">{t('checkout.username')}</label>
           <div className={`nick-wrap ${error ? 'has-error' : ''}`}>
             <div className="avatar-box" aria-hidden="true">
               {validNick && !avatarErr ? (
@@ -109,30 +114,30 @@ export function TopUpForm() {
               maxLength={16}
               autoComplete="off"
               spellCheck={false}
-              placeholder="np. Steve_PL"
+              placeholder={t('checkout.placeholder')}
               value={nick}
               onChange={(e) => {
                 const value = e.target.value;
                 setNick(value);
                 setAvatarErr(false);
                 if (error) setError('');
-                if (checkoutNotice) setCheckoutNotice('');
+                if (checkoutNotice) setCheckoutNotice(null);
               }}
             />
           </div>
           {error && (
             <p className="field-error" role="alert">
-              {error}
+              {t(error)}
             </p>
           )}
         </div>
 
         <div className="field tw-grid tw-gap-[10px]">
-          <span className="field-label">Szybki wybór kwoty</span>
+          <span className="field-label">{t('checkout.quick')}</span>
           <div
             className="presets tw-grid tw-grid-cols-[repeat(4,_minmax(0,_1fr))] tw-gap-[10px]"
             role="group"
-            aria-label="Gotowe kwoty doładowania"
+            aria-label={t('checkout.presets')}
           >
             {site.shopAmounts.map((presetAmount) => {
               return (
@@ -153,14 +158,15 @@ export function TopUpForm() {
         <div className="field tw-grid tw-gap-[10px]">
           <div className="tw-flex tw-items-center tw-justify-between tw-gap-[12px]">
             <label htmlFor="shop-amount">
-              Własna kwota ({site.shopMin}–{site.shopMax} PLN)
+              {t('checkout.custom')}
+              {site.shopMin}–{site.shopMax} PLN)
             </label>
             <div className="tw-inline-flex tw-gap-[6px]">
               <button
                 type="button"
                 className="step-btn"
                 onClick={() => setCleanAmount(amount - 5)}
-                aria-label="Zmniejsz o 5 PLN"
+                aria-label={t('checkout.decrease')}
               >
                 −5
               </button>
@@ -168,7 +174,7 @@ export function TopUpForm() {
                 type="button"
                 className="step-btn"
                 onClick={() => setCleanAmount(amount + 5)}
-                aria-label="Zwiększ o 5 PLN"
+                aria-label={t('checkout.increase')}
               >
                 +5
               </button>
@@ -199,7 +205,7 @@ export function TopUpForm() {
             step={5}
             value={amount}
             onChange={(e) => setCleanAmount(e.target.value)}
-            aria-label="Suwak kwoty doładowania"
+            aria-label={t('checkout.slider')}
           />
           <div
             className="tw-flex tw-justify-between tw-mt-[2px] tw-font-mono tw-text-[0.74rem] tw-text-muted"
@@ -216,59 +222,67 @@ export function TopUpForm() {
       <aside
         className="shop-summary glow-card"
         onPointerMove={onCardMove}
-        aria-label="Podsumowanie doładowania"
+        aria-label={t('checkout.summaryLabel')}
       >
-        <h3>Podsumowanie</h3>
+        <h3>{t('checkout.summary')}</h3>
 
         <dl className="summary-rows">
           <div>
-            <dt>Konto gracza</dt>
-            <dd className={validNick ? 'is-set' : ''}>{trimmedNick || 'Nie wpisano'}</dd>
+            <dt>{t('checkout.player')}</dt>
+            <dd className={validNick ? 'is-set' : ''}>{trimmedNick || t('checkout.missing')}</dd>
           </div>
 
           <div>
             <dt>
-              Aktualne <code className="inline-code">/portfel</code>
+              {t('checkout.balance')}
+              <code className="inline-code">/portfel</code>
             </dt>
             <dd className={wallet.status === 'connected' ? 'is-set' : ''}>{currentBalText}</dd>
           </div>
 
           <div>
-            <dt>Doładowanie z pluginu</dt>
+            <dt>{t('checkout.credit')}</dt>
             <dd className="is-accent">{afterBalText}</dd>
           </div>
 
           <div>
-            <dt>Prowizja</dt>
-            <dd className="is-set">0,00 PLN</dd>
+            <dt>{t('checkout.fee')}</dt>
+            <dd className="is-set">{t('checkout.zero')}</dd>
           </div>
         </dl>
 
         <div className="summary-total">
-          <span>Do zapłaty</span>
-          <strong>{formatPln(amount)}</strong>
+          <span>{t('checkout.total')}</span>
+          <strong>{formatPln(amount, i18n.language)}</strong>
         </div>
 
         <button type="submit" className="btn btn-primary pay-submit" disabled={submitting}>
           {icons.lock}
           <span>
-            {submitting ? 'Łączenie ze Stripe…' : `Przejdź do płatności · ${formatPln(amount)}`}
+            {submitting
+              ? t('checkout.connecting')
+              : t('checkout.pay', { amount: formatPln(amount, i18n.language) })}
           </span>
         </button>
 
         {checkoutNotice && (
           <p className="checkout-notice" role="status">
-            {checkoutNotice}
+            {t('checkout.notice', {
+              nick: checkoutNotice.nick,
+              amount: formatPln(checkoutNotice.amount, i18n.language),
+              endpoint: site.stripeCheckoutEndpoint,
+            })}
           </p>
         )}
 
         <div className="stripe-meta">
           <span>
-            Stripe → webhook → plugin MC (<code className="inline-code">/portfel</code>)
+            {t('checkout.pipeline')}
+            <code className="inline-code">/portfel</code>)
           </span>
           <ul
             className="pay-list tw-flex tw-flex-wrap tw-gap-[7px] tw-list-none tw-m-0 tw-p-0"
-            aria-label="Obsługiwane metody płatności"
+            aria-label={t('checkout.methods')}
           >
             {site.payments.map((paymentMethod) => {
               return <li key={paymentMethod}>{paymentMethod}</li>;

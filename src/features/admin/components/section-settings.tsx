@@ -1,58 +1,59 @@
+import { useTranslation } from 'react-i18next';
 import type { Settings } from '@/shared/settings/settings';
 import { DEFAULT_SETTINGS } from '@/shared/settings/settings';
 
 const SECTION_TOGGLES: { key: keyof Settings['sections']; label: string; desc: string }[] = [
   {
     key: 'mapPage',
-    label: 'Podstrona Mapa (/mapa)',
-    desc: 'Włącza lub wyłącza dostęp do mapy Dynmap na żywo',
+    label: 'sections.map',
+    desc: 'sections.mapDescription',
   },
   {
     key: 'shopPage',
-    label: 'Podstrona Sklep (/sklep)',
-    desc: 'Włącza lub wyłącza formularz doładowań /portfel',
+    label: 'sections.shop',
+    desc: 'sections.shopDescription',
   },
   {
     key: 'topboards',
-    label: 'Top 3 wpłat i 5 ostatnich zakupów',
-    desc: 'Podium i ostatnie zakupy na głównej oraz w sklepie',
+    label: 'sections.rankings',
+    desc: 'sections.rankingsDescription',
   },
-  { key: 'hero', label: 'Sekcja Hero', desc: 'Główny ekran powitalny sieci na stronie głównej' },
+  { key: 'hero', label: 'sections.hero', desc: 'sections.heroDescription' },
   {
     key: 'heroGlobe',
-    label: 'Interaktywna kula Ziemi 3D',
-    desc: 'Obracający się globus 3D po prawej stronie Hero',
+    label: 'sections.globe',
+    desc: 'sections.globeDescription',
   },
   {
     key: 'ticker',
-    label: 'Kinetyczny pasek (Ticker)',
-    desc: 'Płynący pasek z informacjami o sieci pod Hero',
+    label: 'sections.ticker',
+    desc: 'sections.tickerDescription',
   },
   {
     key: 'modes',
-    label: 'Sekcja Tryby sieci',
-    desc: 'Karta EarthSMP i zapowiedzi kolejnych trybów',
+    label: 'sections.modes',
+    desc: 'sections.modesDescription',
   },
   {
     key: 'earthsmp',
-    label: 'Sekcja Flagowy tryb: EarthSMP',
-    desc: 'Lista mechanik EarthSMP na stronie głównej',
+    label: 'sections.flagship',
+    desc: 'sections.flagshipDescription',
   },
-  { key: 'tank3d', label: 'Model 3D czołgu', desc: 'Interaktywna diorama 3D w sekcji EarthSMP' },
+  { key: 'tank3d', label: 'sections.tank', desc: 'sections.tankDescription' },
   {
     key: 'join',
-    label: 'Sekcja Jak dołączyć (4 kroki)',
-    desc: 'Instrukcja wejścia na serwer Minecraft Java',
+    label: 'sections.join',
+    desc: 'sections.joinDescription',
   },
   {
     key: 'discord',
-    label: 'Zakładka Discord na dole',
-    desc: 'Niebieska karta społeczności z kanałami i zaproszeniem',
+    label: 'sections.discord',
+    desc: 'sections.discordDescription',
   },
   {
     key: 'seasonFx',
-    label: 'Efekty cząsteczek w tle',
-    desc: 'Śnieg w Święta, żar w Halloween, świetliki w Wiosnę',
+    label: 'sections.particles',
+    desc: 'sections.particlesDescription',
   },
 ];
 
@@ -63,6 +64,8 @@ export function SectionSettings({
   settings: Settings;
   patch: (next: Settings) => void;
 }) {
+  const { t } = useTranslation();
+
   const toggleSection = (key: keyof Settings['sections']) => {
     patch({
       ...settings,
@@ -77,7 +80,7 @@ export function SectionSettings({
     <div className="tw-grid tw-gap-[20px]">
       <div className="admin-box">
         <div className="admin-box-head tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-gap-[12px] tw-mb-[18px]">
-          <h2>Przełączniki podstron i sekcji</h2>
+          <h2>{t('sections.title')}</h2>
 
           <div className="tw-flex tw-flex-wrap tw-gap-[8px]">
             <button
@@ -85,7 +88,7 @@ export function SectionSettings({
               className="btn btn-secondary btn-sm"
               onClick={() => patch({ ...settings, sections: { ...DEFAULT_SETTINGS.sections } })}
             >
-              Włącz wszystko
+              {t('sections.all')}
             </button>
             <button
               type="button"
@@ -97,7 +100,7 @@ export function SectionSettings({
                 })
               }
             >
-              Wyłącz Mapę i Sklep
+              {t('sections.disableMapShop')}
             </button>
           </div>
         </div>
@@ -112,8 +115,8 @@ export function SectionSettings({
                 className={`toggle-row ${isEnabled ? 'is-on' : 'is-off'}`}
               >
                 <div>
-                  <strong>{sectionToggle.label}</strong>
-                  <span>{sectionToggle.desc}</span>
+                  <strong>{t(sectionToggle.label)}</strong>
+                  <span>{t(sectionToggle.desc)}</span>
                 </div>
                 <input
                   type="checkbox"
@@ -127,8 +130,8 @@ export function SectionSettings({
 
           <label className={`toggle-row ${settings.motion ? 'is-on' : 'is-off'}`}>
             <div>
-              <strong>Animacje i obrót 3D</strong>
-              <span>Globalne sterowanie ruchem 3D i animacjami napisów dla graczy</span>
+              <strong>{t('sections.motion')}</strong>
+              <span>{t('sections.motionDescription')}</span>
             </div>
             <input
               type="checkbox"
@@ -142,15 +145,19 @@ export function SectionSettings({
 
       <div className="admin-box">
         <div className="admin-box-head tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-gap-[12px] tw-mb-[18px]">
-          <h2>Komunikat przy wyłączonej Mapie lub Sklepie</h2>
+          <h2>{t('sections.maintenance')}</h2>
         </div>
 
         <div className="nick-wrap">
           <input
             type="text"
-            value={settings.maintenanceMsg}
+            value={
+              settings.maintenanceMsg === DEFAULT_SETTINGS.maintenanceMsg
+                ? t('common.maintenance')
+                : settings.maintenanceMsg
+            }
             onChange={(e) => patch({ ...settings, maintenanceMsg: e.target.value })}
-            placeholder="Wpisz komunikat dla graczy..."
+            placeholder={t('sections.placeholder')}
           />
         </div>
       </div>

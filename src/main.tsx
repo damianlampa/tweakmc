@@ -1,3 +1,4 @@
+import '@/shared/i18n/i18n';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';

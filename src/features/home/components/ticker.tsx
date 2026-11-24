@@ -1,15 +1,18 @@
+import { useTranslation } from 'react-i18next';
 const TICKER_ITEMS = [
   'TweakMC.pl',
-  'EarthSMP · Mapa Ziemi',
-  'Państwa, sojusze i wojny',
-  'Pojazdy wojskowe',
-  'Nowe tryby w przygotowaniu',
+  'hero.globe',
+  'ticker.nations',
+  'earth.vehicles',
+  'ticker.upcoming',
   'discord.gg/tweakmc',
 ];
 
 export function Ticker() {
+  const { t } = useTranslation();
+
   return (
-    <div className="ticker" role="region" aria-label="Informacje o sieci TweakMC">
+    <div className="ticker" role="region" aria-label={t('ticker.label')}>
       <div className="ticker-track" aria-hidden="true">
         {[0, 1, 2].map((copyIndex) => {
           return (
@@ -20,7 +23,7 @@ export function Ticker() {
                     key={`${copyIndex}-${message}`}
                     className="tw-inline-flex tw-items-center tw-gap-[24px] tw-pr-[24px] tw-font-mono tw-text-[0.82rem] tw-font-semibold tw-tracking-[0.1em] tw-uppercase tw-text-muted tw-whitespace-nowrap"
                   >
-                    <span>{message}</span>
+                    <span>{t(message, { defaultValue: message })}</span>
                     <span className="ticker-sep" />
                   </span>
                 );

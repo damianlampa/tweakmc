@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useMatch } from 'react-router';
 import { paths } from '@/router/paths';
@@ -11,6 +12,8 @@ import { IpText } from '@/shared/server-ip';
 import { Icon } from '@/shared/components/icons';
 
 export function SiteNavigation({ settings }: { settings: Settings }) {
+  const { t } = useTranslation();
+
   const { pathname } = useLocation();
   const mapActive = useMatch({ path: paths.map, caseSensitive: true }) !== null;
   const shopActive = useMatch({ path: paths.shop, caseSensitive: true }) !== null;
@@ -38,7 +41,7 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
   const navItems = [
     {
       href: homeSectionPath('modes'),
-      label: 'Tryby',
+      label: t('nav.modes'),
       active: false,
       show: settings.sections.modes,
     },
@@ -48,16 +51,16 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
       active: false,
       show: settings.sections.earthsmp,
     },
-    { href: paths.map, label: 'Mapa', active: mapActive, show: settings.sections.mapPage },
+    { href: paths.map, label: t('nav.map'), active: mapActive, show: settings.sections.mapPage },
     {
       href: homeSectionPath('join'),
-      label: 'Jak dołączyć',
+      label: t('nav.join'),
       active: false,
       show: settings.sections.join,
     },
     {
       href: paths.shop,
-      label: 'Sklep',
+      label: t('nav.shop'),
       active: shopActive,
       show: settings.sections.shopPage,
     },
@@ -71,23 +74,18 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
             <Link
               className="brand"
               to={paths.home}
-              aria-label="TweakMC.pl — strona główna"
+              aria-label={t('nav.brand')}
               onClick={() => setOpen(false)}
             >
               <img src={activeTheme.logo} alt="TweakMC" height="44" />
             </Link>
-            <button
-              type="button"
-              className="nav-status"
-              onClick={copyIp}
-              title="Kliknij, aby skopiować IP"
-            >
+            <button type="button" className="nav-status" onClick={copyIp} title={t('nav.copyHint')}>
               <span className="live-dot" aria-hidden="true" />
               <IpText />
             </button>
           </div>
 
-          <nav aria-label="Główna nawigacja" className={`nav-links ${open ? 'is-open' : ''}`}>
+          <nav aria-label={t('nav.main')} className={`nav-links ${open ? 'is-open' : ''}`}>
             {navItems.map((navItem) => {
               return (
                 <Link
@@ -108,13 +106,13 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
 
           <button type="button" className="btn btn-primary nav-cta" onClick={copyIp}>
             {copied ? Icon.check : Icon.copy}
-            <span>{copied ? 'Skopiowano' : 'Skopiuj IP'}</span>
+            <span>{copied ? t('nav.copied') : t('nav.copy')}</span>
           </button>
           <button
             type="button"
             className="menu-toggle tw-hidden"
             aria-expanded={open}
-            aria-label={open ? 'Zamknij menu' : 'Otwórz menu'}
+            aria-label={open ? t('nav.close') : t('nav.open')}
             onClick={() => setOpen((v) => !v)}
           >
             <span />

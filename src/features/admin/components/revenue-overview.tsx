@@ -1,9 +1,12 @@
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { paths } from '@/router/paths';
 import { formatRevenue } from '../utils/format-revenue';
 import { useAdminStats } from '../hooks/use-admin-stats';
 
 export function RevenueOverview() {
+  const { t, i18n } = useTranslation();
+
   const stats = useAdminStats();
 
   if (!stats) return null;
@@ -14,46 +17,50 @@ export function RevenueOverview() {
     <div className="tw-grid tw-gap-[20px]">
       {stats.isPreview && (
         <div className="admin-banner">
-          <strong>Tryb podglądu danych:</strong>
-          {' liczby poniżej są przykładowe. Po włączeniu '}
-          <code className="inline-code">shopApiEnabled: true</code> panel automatycznie czyta realne
-          zarobki z <code className="inline-code">/api/admin/stats</code> (Stripe + plugin MC).
+          <strong>{t('revenue.preview')}</strong>
+          {t('revenue.explanation')}
+          <code className="inline-code">shopApiEnabled: true</code>
+          {t('revenue.source')}
+          <code className="inline-code">/api/admin/stats</code>
+          {t('revenue.integration')}
         </div>
       )}
 
       <div className="kpi-grid tw-grid tw-grid-cols-[repeat(4,_minmax(0,_1fr))] tw-gap-[16px]">
         <div className="kpi-card">
-          <span>Łączne zarobki</span>
-          <strong>{formatRevenue(stats.totalRevenue)}</strong>
+          <span>{t('revenue.total')}</span>
+          <strong>{formatRevenue(stats.totalRevenue, i18n.language)}</strong>
         </div>
 
         <div className="kpi-card">
-          <span>Zarobki (ten miesiąc)</span>
-          <strong className="tw-text-accent-bright">{formatRevenue(stats.monthRevenue)}</strong>
+          <span>{t('revenue.month')}</span>
+          <strong className="tw-text-accent-bright">
+            {formatRevenue(stats.monthRevenue, i18n.language)}
+          </strong>
         </div>
 
         <div className="kpi-card">
-          <span>Liczba wpłat</span>
+          <span>{t('revenue.payments')}</span>
           <strong>{stats.totalTransactions}</strong>
         </div>
 
         <div className="kpi-card">
-          <span>Średnie doładowanie</span>
-          <strong>{formatRevenue(stats.avgOrder)}</strong>
+          <span>{t('revenue.average')}</span>
+          <strong>{formatRevenue(stats.avgOrder, i18n.language)}</strong>
         </div>
       </div>
 
       <div className="admin-two-col tw-grid tw-grid-cols-[minmax(0,_0.9fr)_minmax(0,_1.1fr)] tw-gap-[20px]">
         <div className="admin-box">
           <div className="admin-box-head tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-gap-[12px] tw-mb-[18px]">
-            <h2>Wpłaty z ostatnich 7 dni</h2>
-            <span className="board-tag">PLN / dzień</span>
+            <h2>{t('revenue.days')}</h2>
+            <span className="board-tag">{t('revenue.daily')}</span>
           </div>
 
           <div
             className="tw-grid tw-grid-cols-[repeat(7,_minmax(0,_1fr))] tw-gap-[10px] tw-h-[210px] [align-items:end] tw-pt-[10px]"
             role="img"
-            aria-label="Wykres dziennych wpłat z ostatnich 7 dni"
+            aria-label={t('revenue.chart')}
           >
             {stats.daily.map((day) => {
               return (
@@ -68,7 +75,9 @@ export function RevenueOverview() {
                       style={{ height: `${Math.round((day.amount / maxDay) * 100)}%` }}
                     />
                   </div>
-                  <span className="tw-text-[0.78rem] tw-text-muted">{day.day}</span>
+                  <span className="tw-text-[0.78rem] tw-text-muted">
+                    {stats.isPreview ? t(day.day, { defaultValue: day.day }) : day.day}
+                  </span>
                 </div>
               );
             })}
@@ -77,9 +86,9 @@ export function RevenueOverview() {
 
         <div className="admin-box">
           <div className="admin-box-head tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-gap-[12px] tw-mb-[18px]">
-            <h2>Ostatnie transakcje Stripe → MC</h2>
+            <h2>{t('revenue.transactions')}</h2>
             <Link to={paths.shop} className="inline-link">
-              Otwórz sklep
+              {t('revenue.shop')}
             </Link>
           </div>
 
@@ -88,9 +97,9 @@ export function RevenueOverview() {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Gracz</th>
-                  <th>Kwota</th>
-                  <th>Metoda</th>
+                  <th>{t('revenue.player')}</th>
+                  <th>{t('revenue.amount')}</th>
+                  <th>{t('revenue.method')}</th>
                   <th>Status</th>
                 </tr>
               </thead>
@@ -105,11 +114,19 @@ export function RevenueOverview() {
                         <strong>{transaction.nick}</strong>
                       </td>
                       <td className="tw-font-mono tw-font-semibold tw-text-accent-bright">
-                        +{formatRevenue(transaction.amount)}
+                        +{formatRevenue(transaction.amount, i18n.language)}
                       </td>
-                      <td>{transaction.method}</td>
                       <td>
-                        <span className="tx-ok">{transaction.status}</span>
+                        {stats.isPreview
+                          ? t(transaction.method, { defaultValue: transaction.method })
+                          : transaction.method}
+                      </td>
+                      <td>
+                        <span className="tx-ok">
+                          {stats.isPreview
+                            ? t(transaction.status, { defaultValue: transaction.status })
+                            : transaction.status}
+                        </span>
                       </td>
                     </tr>
                   );
