@@ -7,6 +7,7 @@ test('displays the project placeholder', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'TweakMC', level: 1 })).toBeVisible();
   await expect(page.getByText('Strona w przygotowaniu.')).toBeVisible();
+  await expect(page.getByRole('main')).toHaveCSS('padding-top', '32px');
   const width = await page.locator('html').evaluate((root) => root.scrollWidth - root.clientWidth);
   expect(width).toBeLessThanOrEqual(0);
   expect(errors).toEqual([]);
