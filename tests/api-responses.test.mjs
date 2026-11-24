@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { adminStatsSchema } from '../src/features/admin/schemas/admin-stats.ts';
+import { settingsSaveConfirmationSchema } from '../src/features/admin/schemas/settings-save-confirmation.ts';
 import { checkoutUrlSchema } from '../src/features/shop/schemas/checkout-url.ts';
 import { walletBalanceSchema } from '../src/features/shop/schemas/wallet-balance.ts';
 import { parseTopUpAmount } from '../src/features/shop/utils/parse-top-up-amount.ts';
@@ -9,6 +10,24 @@ import { shopActivitySchema } from '../src/features/supporters/schemas/shop-acti
 import { readJsonResponse } from '../src/shared/utils/read-json-response.ts';
 
 const { Response } = globalThis;
+
+test('requires an explicit JSON confirmation of an admin settings save', async () => {
+  const confirmation = { saved: true };
+  assert.deepEqual(
+    await readJsonResponse(Response.json(confirmation), settingsSaveConfirmationSchema),
+    confirmation,
+  );
+
+  for (const response of [
+    new Response('<html>Sign in</html>', { headers: { 'Content-Type': 'text/html' } }),
+    Response.json({}),
+    Response.json({ saved: false }),
+    Response.json({ saved: 'true' }),
+    Response.json(confirmation, { status: 403 }),
+  ]) {
+    assert.equal(await readJsonResponse(response, settingsSaveConfirmationSchema), null);
+  }
+});
 
 test('accepts only checkout amounts in range that can be paid exactly in grosze', () => {
   for (const input of ['', '2', '1000.01', '25.999', '10abc', '1e2']) {

@@ -175,7 +175,7 @@
   },
   "toast": {
     "synced": "Saved to server",
-    "applied": "Changes applied",
+    "applied": "Changes applied in this browser only",
     "reset": "Default settings restored on the server",
     "resetLocal": "Default settings restored in this browser"
   },
