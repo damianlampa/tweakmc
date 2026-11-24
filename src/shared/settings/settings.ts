@@ -1,5 +1,6 @@
-import { isRecord } from '@/shared/utils/is-record';
-import { isThemeId, type ThemeId } from '@/shared/config/themes';
+import { isRecord } from './utils/is-record';
+import { isThemeId } from './utils/is-theme-id';
+import type { ThemeId } from '@/shared/config/themes';
 import { site } from '@/shared/config/site';
 
 const STORAGE_KEY = 'tweakmc-admin-settings-v1';

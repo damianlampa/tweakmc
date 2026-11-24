@@ -1,50 +1,9 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { THEMES, type SceneProps } from '@/shared/config/themes';
-import { attachDrag, runWhenVisible } from './scene-interaction';
-
-type TankPart = [
-  x: number,
-  y: number,
-  z: number,
-  width: number,
-  height: number,
-  depth: number,
-  color: string,
-];
-type Palette = typeof THEMES.default.tank;
-
-function buildHullParts(p: Palette): TankPart[] {
-  return [
-    [0, 1.0, 4.7, 16.4, 2.2, 2.4, p.dark],
-    [0, 1.0, -4.7, 16.4, 2.2, 2.4, p.dark],
-    [8.5, 1.5, 4.7, 1.1, 1.5, 2.4, p.dark],
-    [-8.5, 1.5, 4.7, 1.1, 1.5, 2.4, p.dark],
-    [8.5, 1.5, -4.7, 1.1, 1.5, 2.4, p.dark],
-    [-8.5, 1.5, -4.7, 1.1, 1.5, 2.4, p.dark],
-    [0, 2.1, 5.95, 14.8, 1.2, 0.35, p.armor],
-    [0, 2.1, -5.95, 14.8, 1.2, 0.35, p.armor],
-    [0, 2.9, 0, 15.2, 1.9, 11.4, p.hull],
-    [6.8, 2.5, 0, 3.2, 1.2, 9.2, p.armor],
-    [-0.8, 4.1, 0, 12.2, 0.65, 8.2, p.armor],
-    [-6.8, 4.45, 0, 2.4, 0.35, 6.2, p.dark],
-  ];
-}
-
-// Turret geometry is relative to the pivot at (-1, 0, 0).
-function buildTurretParts(p: Palette): TankPart[] {
-  return [
-    [0, 5.5, 0, 7.6, 2.3, 6.8, p.hull],
-    [4.0, 5.3, 0, 1.6, 1.7, 4.0, p.armor],
-    [0, 6.8, 0, 5.4, 0.45, 4.8, p.armor],
-    [-1.6, 7.2, 1.4, 2.0, 0.6, 2.0, p.trim],
-    [4.85, 5.7, 1.1, 0.25, 0.45, 1.1, p.optic],
-    [9.8, 5.35, 0, 10.6, 0.82, 0.82, p.armor],
-    [6.2, 5.35, 0, 2.2, 1.1, 1.1, p.trim],
-    [15.3, 5.35, 0, 1.4, 1.15, 1.15, p.dark],
-    [-3.2, 9.6, -2.4, 0.22, 6.2, 0.22, p.dark],
-  ];
-}
+import { attachDrag, runWhenVisible } from '../utils/scene-interaction';
+import type { TankPart } from '../types/tank-part';
+import { buildHullParts, buildTurretParts } from '../utils/build-tank-parts';
 
 export default function Tank({ theme = 'default', motion = true }: SceneProps) {
   const wrapRef = useRef<HTMLDivElement>(null);

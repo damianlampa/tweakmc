@@ -10,7 +10,3 @@ export const homeSections = {
   earthSmp: 'earthsmp',
   join: 'dolacz',
 } as const;
-
-export function homeSectionPath(section: keyof typeof homeSections) {
-  return `${paths.home}#${homeSections[section]}`;
-}

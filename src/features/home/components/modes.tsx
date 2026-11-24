@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
-import { paths, homeSections, homeSectionPath } from '@/router/paths';
+import { paths, homeSections } from '@/router/paths';
+import { homeSectionPath } from '@/router/utils/home-section-path';
 import { THEMES } from '@/shared/config/themes';
 import type { Settings } from '@/shared/settings/settings';
 import { SectionDecor } from '@/shared/components/section-decor';

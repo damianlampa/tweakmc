@@ -1,5 +1,6 @@
 import { Icon } from '@/shared/components/icons';
-import { copyIp, useCopied } from '../hooks/use-copy-ip';
+import { copyIp } from '../utils/copy-ip';
+import { useCopied } from '../hooks/use-copy-ip';
 import { IpText } from './ip-text';
 
 export function IpBar({ id, compact = false }: { id?: string; compact?: boolean }) {

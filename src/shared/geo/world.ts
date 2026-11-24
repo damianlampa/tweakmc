@@ -4,27 +4,12 @@ import type { Topology, GeometryCollection } from 'topojson-specification';
 import { feature } from 'topojson-client';
 import { geoEquirectangular, geoPath } from 'd3-geo';
 import land110 from 'world-atlas/land-110m.json';
+import { toUnitVector } from './utils/to-unit-vector';
+import { createSeededRandom } from './utils/create-seeded-random';
 
 const W = 720;
 const H = 360;
 let cache: ReturnType<typeof buildWorld> | undefined;
-
-function rng(seed: number) {
-  let s = seed >>> 0;
-
-  return () => {
-    s = (s * 1664525 + 1013904223) >>> 0;
-
-    return s / 4294967296;
-  };
-}
-
-export function toVec(lat: number, lon: number) {
-  const la = (lat * Math.PI) / 180;
-  const lo = (lon * Math.PI) / 180;
-
-  return [Math.cos(la) * Math.cos(lo), Math.sin(la), -Math.cos(la) * Math.sin(lo)];
-}
 
 export function getWorld() {
   return (cache ??= buildWorld());
@@ -56,16 +41,17 @@ function buildWorld() {
     return data[(y * W + x) * 4] > 127;
   };
 
-  const rand = rng(1410);
+  const rand = createSeededRandom(1410);
   const seeds: { lat: number; lon: number; v: number[] }[] = [];
   while (seeds.length < 54) {
     const lat = Math.asin(rand() * 2 - 1) * (180 / Math.PI);
     const lon = rand() * 360 - 180;
-    if (lat > -58 && lat < 76 && isLand(lat, lon)) seeds.push({ lat, lon, v: toVec(lat, lon) });
+    if (lat > -58 && lat < 76 && isLand(lat, lon))
+      seeds.push({ lat, lon, v: toUnitVector(lat, lon) });
   }
 
   const nearest = (lat: number, lon: number) => {
-    const v = toVec(lat, lon);
+    const v = toUnitVector(lat, lon);
     let best = 0;
     let bd = -2;
     seeds.forEach((s, i) => {

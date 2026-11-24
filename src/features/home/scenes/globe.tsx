@@ -2,14 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { getWorld } from '@/shared/geo/world';
 import { THEMES, type SceneProps } from '@/shared/config/themes';
-import { attachDrag, runWhenVisible } from './scene-interaction';
-
-function formatCoord(lat: number, lon: number) {
-  const ns = lat >= 0 ? 'N' : 'S';
-  const ew = lon >= 0 ? 'E' : 'W';
-
-  return `${Math.abs(Math.round(lat))}°${ns} ${Math.abs(Math.round(lon))}°${ew}`;
-}
+import { formatCoordinates } from '../utils/format-coordinates';
+import { attachDrag, runWhenVisible } from '../utils/scene-interaction';
 
 export default function Globe({ theme = 'default', motion = true }: SceneProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -257,7 +251,7 @@ export default function Globe({ theme = 'default', motion = true }: SceneProps) 
           setTip({
             r: next,
             front: world.fronts.has(next),
-            coord: s ? formatCoord(s.lat, s.lon) : '',
+            coord: s ? formatCoordinates(s.lat, s.lon) : '',
           });
         } else {
           setTip(null);

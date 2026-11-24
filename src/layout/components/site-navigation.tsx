@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useMatch } from 'react-router';
-import { paths, homeSectionPath } from '@/router/paths';
+import { paths } from '@/router/paths';
+import { homeSectionPath } from '@/router/utils/home-section-path';
 import { site } from '@/shared/config/site';
 import { THEMES } from '@/shared/config/themes';
 import type { Settings } from '@/shared/settings/settings';
-import { copyIp, useCopied } from '@/shared/server-ip/hooks/use-copy-ip';
+import { copyIp } from '@/shared/server-ip/utils/copy-ip';
+import { useCopied } from '@/shared/server-ip/hooks/use-copy-ip';
 import { IpText } from '@/shared/server-ip';
 import { Icon } from '@/shared/components/icons';
 

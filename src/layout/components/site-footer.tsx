@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
-import { paths, homeSectionPath } from '@/router/paths';
+import { paths } from '@/router/paths';
+import { homeSectionPath } from '@/router/utils/home-section-path';
 import { site } from '@/shared/config/site';
 import { THEMES } from '@/shared/config/themes';
 import type { Settings } from '@/shared/settings/settings';

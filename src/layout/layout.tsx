@@ -1,5 +1,5 @@
 import { Outlet, ScrollRestoration, useMatches } from 'react-router';
-import { getScrollKey } from '@/router/get-scroll-key';
+import { getScrollKey } from '@/router/utils/get-scroll-key';
 import { useSettings } from '@/shared/settings/hooks/use-settings';
 import { CopyStatus } from '@/shared/server-ip';
 import SeasonFx from './components/season-fx';
