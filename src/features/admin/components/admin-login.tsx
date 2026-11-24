@@ -9,6 +9,7 @@ const DEMO_PIN = 'tweakmc2026';
 export function AdminLogin({ settings, onLogin }: { settings: Settings; onLogin: () => void }) {
   const [pin, setPin] = useState('');
   const [pinErr, setPinErr] = useState('');
+
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (pin.trim() === DEMO_PIN) {

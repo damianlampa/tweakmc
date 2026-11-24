@@ -8,12 +8,14 @@ export function useWalletBalance(trimmedNick: string) {
     | { nick: string; status: 'idle' | 'offline' | 'loading'; balance: null }
     | { nick: string; status: 'connected'; balance: number }
   >({ nick: '', status: 'idle', balance: null });
+
   useEffect(() => {
     if (!validNick) return;
 
     const ctrl = new AbortController();
     const timer = setTimeout(async () => {
       setWallet({ nick: trimmedNick, status: 'loading', balance: null });
+
       try {
         const res = await fetchWalletBalance(trimmedNick, ctrl.signal);
 

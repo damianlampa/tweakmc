@@ -18,14 +18,19 @@ export function Layout() {
         Przejdź do treści
       </a>
       {settings.sections.seasonFx && <SeasonFx theme={settings.theme} motion={settings.motion} />}
+
       <SiteNavigation settings={settings} />
 
       <main id="main">
         <Outlet context={routeSettings} />
       </main>
+
       <SiteFooter settings={settings} />
+
       {isHome && <PhoneBar />}
+
       <CopyStatus />
+
       <ScrollRestoration getKey={getScrollKey} />
     </>
   );

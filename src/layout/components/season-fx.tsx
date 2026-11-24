@@ -18,11 +18,13 @@ export default function SeasonFx({ theme = 'default', motion = true }: SceneProp
     let W = 0;
     let H = 0;
     let dpr = 1;
+
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       W = canvas.width = Math.floor(window.innerWidth * dpr);
       H = canvas.height = Math.floor(window.innerHeight * dpr);
     };
+
     resize();
     window.addEventListener('resize', resize, { passive: true });
 
@@ -55,6 +57,7 @@ export default function SeasonFx({ theme = 'default', motion = true }: SceneProp
     });
 
     let raf = 0;
+
     const tick = (t: number) => {
       ctx.clearRect(0, 0, W, H);
       for (let i = 0; i < parts.length; i++) {
@@ -83,6 +86,7 @@ export default function SeasonFx({ theme = 'default', motion = true }: SceneProp
       }
       raf = requestAnimationFrame(tick);
     };
+
     raf = requestAnimationFrame(tick);
 
     return () => {

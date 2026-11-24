@@ -13,11 +13,17 @@ export function HomePage() {
   return (
     <>
       {settings.sections.hero && <Hero settings={settings} />}
+
       {settings.sections.ticker && <Ticker />}
+
       {settings.sections.modes && <Modes settings={settings} />}
+
       {settings.sections.earthsmp && <EarthSMP settings={settings} />}
+
       {settings.sections.join && <Join settings={settings} />}
+
       {settings.sections.topboards && <HomeBoards settings={settings} />}
+
       {settings.sections.discord && <DiscordBanner settings={settings} />}
     </>
   );

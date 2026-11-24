@@ -7,6 +7,7 @@ import { TopUpForm } from './components/top-up-form';
 
 export default function ShopPage() {
   const { settings } = useRouteSettings();
+
   if (!settings.sections.shopPage) {
     return (
       <section className="page-shell sec-dark">

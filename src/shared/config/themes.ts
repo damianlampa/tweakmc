@@ -142,6 +142,7 @@ export const THEMES = {
 
 export type ThemeId = keyof typeof THEMES;
 export type SceneProps = { theme?: ThemeId; motion?: boolean };
+
 export function isThemeId(value: unknown): value is ThemeId {
   return typeof value === 'string' && Object.hasOwn(THEMES, value);
 }

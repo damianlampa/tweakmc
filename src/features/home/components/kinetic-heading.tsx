@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 export function KineticHeading({ text, accentWord }: { text: string; accentWord: string }) {
   const ref = useRef<HTMLHeadingElement>(null);
   const [shown, setShown] = useState(false);
+
   useEffect(() => {
     const el = ref.current;
 
@@ -21,6 +22,7 @@ export function KineticHeading({ text, accentWord }: { text: string; accentWord:
 
     return () => io.disconnect();
   }, []);
+
   const words = text.split(' ');
 
   return (

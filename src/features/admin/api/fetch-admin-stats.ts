@@ -29,6 +29,7 @@ export async function fetchAdminStats(signal: AbortSignal): Promise<AdminStats> 
   if (!site.shopApiEnabled) {
     return PREVIEW_ADMIN_STATS;
   }
+
   try {
     const res = await fetch('/api/admin/stats', {
       signal,

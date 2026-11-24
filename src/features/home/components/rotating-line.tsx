@@ -9,6 +9,7 @@ const HERO_ROLES = [
 
 export function RotatingLine() {
   const [idx, setIdx] = useState(0);
+
   useEffect(() => {
     const id = setInterval(() => setIdx((v) => (v + 1) % HERO_ROLES.length), 3200);
 

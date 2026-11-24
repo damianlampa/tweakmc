@@ -11,6 +11,7 @@ export async function createStripeCheckout({
   if (!site.shopApiEnabled) {
     return { mode: 'preview' };
   }
+
   try {
     const res = await fetch(site.stripeCheckoutEndpoint, {
       method: 'POST',
@@ -18,12 +19,14 @@ export async function createStripeCheckout({
       body: JSON.stringify({ nick, amount }),
     });
     const contentType = res.headers.get('content-type') || '';
+
     if (res.ok && contentType.includes('application/json')) {
       const data: unknown = await res.json();
 
       if (!isRecord(data)) return { mode: 'preview' };
 
       const checkoutUrl = data.url || data.checkoutUrl;
+
       if (typeof checkoutUrl === 'string' && checkoutUrl) {
         return { mode: 'live', checkoutUrl };
       }

@@ -5,6 +5,7 @@ export async function syncAdminSettings(settings: Settings) {
   if (!site.shopApiEnabled) {
     return { synced: false, mode: 'local' };
   }
+
   try {
     const res = await fetch('/api/admin/settings', {
       method: 'POST',

@@ -5,6 +5,7 @@ export function attachDrag(
   let down = false;
   let lastX = 0;
   let lastY = 0;
+
   const onDown = (e: PointerEvent) => {
     down = true;
     lastX = e.clientX;
@@ -12,6 +13,7 @@ export function attachDrag(
     state.dragging = true;
     el.setPointerCapture?.(e.pointerId);
   };
+
   const onMove = (e: PointerEvent) => {
     if (!down) return;
 
@@ -23,10 +25,12 @@ export function attachDrag(
     state.ry += state.vy;
     if (e.pointerType === 'mouse') state.rx = Math.max(-0.6, Math.min(1.1, state.rx + dy * 0.004));
   };
+
   const onUp = () => {
     down = false;
     state.dragging = false;
   };
+
   el.addEventListener('pointerdown', onDown);
   el.addEventListener('pointermove', onMove);
   el.addEventListener('pointerup', onUp);
@@ -53,6 +57,7 @@ export function runWhenVisible(el: HTMLElement, tick: (delta: number) => void) {
     }
   });
   io.observe(el);
+
   function loop(t: number) {
     cancelAnimationFrame(raf);
 
@@ -63,6 +68,7 @@ export function runWhenVisible(el: HTMLElement, tick: (delta: number) => void) {
     tick(dt);
     raf = requestAnimationFrame(loop);
   }
+
   raf = requestAnimationFrame(loop);
 
   return () => {

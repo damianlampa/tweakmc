@@ -3,6 +3,7 @@ import { IpBar } from '@/shared/server-ip';
 
 export function PhoneBar() {
   const [visible, setVisible] = useState(false);
+
   useEffect(() => {
     const hero = document.getElementById('start');
 

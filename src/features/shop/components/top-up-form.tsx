@@ -28,6 +28,7 @@ export function TopUpForm() {
   const validNick = NICK_RE.test(trimmedNick);
 
   const wallet = useWalletBalance(trimmedNick);
+
   const setCleanAmount = (next: number | string) => {
     const clamped = clampAmount(next);
     setAmount(clamped);
@@ -40,6 +41,7 @@ export function TopUpForm() {
     setAmountText(val);
     setCheckoutNotice('');
     const num = parseFloat(val.replace(',', '.'));
+
     if (!Number.isNaN(num) && num >= site.shopMin && num <= site.shopMax) {
       setAmount(Math.round(num * 100) / 100);
     }
@@ -49,21 +51,25 @@ export function TopUpForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!validNick) {
       setError('Podaj poprawny nick z Minecrafta (3–16 znaków: litery, cyfry lub _).');
       setCheckoutNotice('');
 
       return;
     }
+
     setError('');
     setSubmitting(true);
     const res = await createStripeCheckout({ nick: trimmedNick, amount });
     setSubmitting(false);
+
     if (res.mode === 'live' && res.checkoutUrl) {
       window.location.href = res.checkoutUrl;
 
       return;
     }
+
     setCheckoutNotice(
       `Tryb podglądu UI — gotowe do podpięcia Stripe + pluginu MC: ${trimmedNick} → +${formatPln(amount)} do /portfel (${site.stripeCheckoutEndpoint}).`,
     );

@@ -45,8 +45,10 @@ export function loadSettings(): Settings {
 
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
+
     if (raw) {
       const parsed: unknown = JSON.parse(raw);
+
       if (isRecord(parsed)) {
         if (isThemeId(parsed.theme)) merged.theme = parsed.theme;
         if (typeof parsed.motion === 'boolean') merged.motion = parsed.motion;
@@ -71,6 +73,7 @@ export function loadSettings(): Settings {
   }
 
   const q = new URLSearchParams(window.location.search).get('motyw');
+
   if (isThemeId(q)) {
     merged.theme = q;
   }

@@ -25,6 +25,7 @@ export async function copyIp() {
 
 export function useCopied() {
   const [copied, setCopied] = useState(false);
+
   useEffect(() => {
     copiedListeners.add(setCopied);
 

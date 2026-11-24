@@ -26,6 +26,7 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       setScrollPct(max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0);
     };
+
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
@@ -102,6 +103,7 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
               Discord
             </a>
           </nav>
+
           <button type="button" className="btn btn-primary nav-cta" onClick={copyIp}>
             {copied ? Icon.check : Icon.copy}
             <span>{copied ? 'Skopiowano' : 'Skopiuj IP'}</span>

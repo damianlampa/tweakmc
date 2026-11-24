@@ -4,6 +4,7 @@ import { fetchAdminStats } from '../api';
 
 export function useAdminStats(authed: boolean) {
   const [stats, setStats] = useState<AdminStats | null>(null);
+
   useEffect(() => {
     if (!authed) return;
 

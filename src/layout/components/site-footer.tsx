@@ -40,6 +40,7 @@ export function SiteFooter({ settings }: { settings: Settings }) {
               Discord
             </a>
           </nav>
+
           <p className="legal tw-ml-auto tw-text-[0.86rem] tw-text-muted">
             TweakMC.pl nie jest powiązany z Mojang AB ani Microsoft.
           </p>

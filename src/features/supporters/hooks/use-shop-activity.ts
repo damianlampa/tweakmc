@@ -4,6 +4,7 @@ import { PREVIEW_SHOP_ACTIVITY } from '../data/preview-shop-activity';
 
 export function useShopActivity() {
   const [activity, setActivity] = useState(PREVIEW_SHOP_ACTIVITY);
+
   useEffect(() => {
     const ctrl = new AbortController();
     fetchShopActivity(ctrl.signal)

@@ -4,6 +4,7 @@ import { THEMES, type SceneProps } from '@/shared/config/themes';
 
 export default function PixelMap({ theme = 'default' }: SceneProps) {
   const ref = useRef<HTMLCanvasElement>(null);
+
   useEffect(() => {
     const c = ref.current;
 

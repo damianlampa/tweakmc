@@ -12,6 +12,7 @@ export function SeasonalCorner({ theme, side }: { theme: ThemeId; side: 'tl' | '
       </svg>
     );
   }
+
   if (theme === 'halloween') {
     return (
       <svg className={`season-mark season-mark-${side}`} viewBox="0 0 140 140" aria-hidden="true">
@@ -24,6 +25,7 @@ export function SeasonalCorner({ theme, side }: { theme: ThemeId; side: 'tl' | '
       </svg>
     );
   }
+
   if (theme === 'spring') {
     return (
       <svg className={`season-mark season-mark-${side}`} viewBox="0 0 120 120" aria-hidden="true">

@@ -8,15 +8,18 @@ export async function fetchWalletBalance(
   if (!site.shopApiEnabled) {
     return { connected: false, balance: null };
   }
+
   try {
     const res = await fetch(`${site.walletApiBase}?nick=${encodeURIComponent(nick)}`, {
       signal,
       headers: { Accept: 'application/json' },
     });
     const contentType = res.headers.get('content-type') || '';
+
     if (!res.ok || !contentType.includes('application/json')) {
       return { connected: false, balance: null };
     }
+
     const data: unknown = await res.json();
 
     if (!isRecord(data)) return { connected: false, balance: null };

@@ -28,6 +28,7 @@ export default function Globe({ theme = 'default', motion = true }: SceneProps) 
     const small = window.innerWidth < 900;
 
     let renderer: THREE.WebGLRenderer;
+
     try {
       renderer = new THREE.WebGLRenderer({
         canvas,
@@ -84,6 +85,7 @@ export default function Globe({ theme = 'default', motion = true }: SceneProps) 
       const lon = (Math.atan2(-n.z, n.x) * 180) / Math.PI;
       const land = world.isLand(lat, lon);
       let h;
+
       if (land) {
         region[i] = world.regionOf(lat, lon);
         const cHex = world.fronts.has(region[i]) ? pal.war : pal.land[region[i] % pal.land.length];
@@ -180,6 +182,7 @@ export default function Globe({ theme = 'default', motion = true }: SceneProps) 
       group.rotation.set(state.rx, state.ry, 0, 'XYZ');
       renderer.render(scene, camera);
     };
+
     const ro = new ResizeObserver(resize);
     ro.observe(wrap);
     resize();
@@ -192,12 +195,14 @@ export default function Globe({ theme = 'default', motion = true }: SceneProps) 
     let elapsed = 0;
 
     const highlight = new THREE.Color(pal.highlight);
+
     const paint = (r: number, on: boolean) => {
       for (let i = 0; i < N; i++) {
         if (region[i] === r) mesh.setColorAt(i, on ? highlight : base[i]);
       }
       if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
     };
+
     const onMove = (e: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
       pointer = {
@@ -207,9 +212,11 @@ export default function Globe({ theme = 'default', motion = true }: SceneProps) 
         h: rect.height,
       };
     };
+
     const onLeave = () => {
       pointer = null;
     };
+
     canvas.addEventListener('pointermove', onMove);
     canvas.addEventListener('pointerleave', onLeave);
 
@@ -233,6 +240,7 @@ export default function Globe({ theme = 'default', motion = true }: SceneProps) 
       }
 
       let next = -1;
+
       if (pointer) {
         mouse.set((pointer.x / pointer.w) * 2 - 1, -(pointer.y / pointer.h) * 2 + 1);
         ray.setFromCamera(mouse, camera);

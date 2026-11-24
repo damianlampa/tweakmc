@@ -70,6 +70,7 @@ function buildWorld() {
     let bd = -2;
     seeds.forEach((s, i) => {
       const d = s.v[0] * v[0] + s.v[1] * v[1] + s.v[2] * v[2];
+
       if (d > bd) {
         bd = d;
         best = i;

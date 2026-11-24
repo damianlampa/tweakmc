@@ -6,6 +6,7 @@ import { PREVIEW_SHOP_ACTIVITY } from '../data/preview-shop-activity';
 function isDonor(value: unknown): value is Donor {
   return isRecord(value) && typeof value.nick === 'string' && typeof value.amount === 'number';
 }
+
 function isPurchase(value: unknown): value is ShopActivity['recentPurchases'][number] {
   return isDonor(value) && 'timeAgo' in value && typeof value.timeAgo === 'string';
 }
@@ -14,15 +15,18 @@ export async function fetchShopActivity(signal: AbortSignal): Promise<ShopActivi
   if (!site.shopApiEnabled) {
     return PREVIEW_SHOP_ACTIVITY;
   }
+
   try {
     const res = await fetch(site.shopActivityEndpoint, {
       signal,
       headers: { Accept: 'application/json' },
     });
     const contentType = res.headers.get('content-type') || '';
+
     if (!res.ok || !contentType.includes('application/json')) {
       return PREVIEW_SHOP_ACTIVITY;
     }
+
     const data: unknown = await res.json();
 
     if (!isRecord(data)) return PREVIEW_SHOP_ACTIVITY;

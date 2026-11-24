@@ -59,6 +59,7 @@ export default function Tank({ theme = 'default', motion = true }: SceneProps) {
     const pal = (THEMES[theme] || THEMES.default).tank;
     const paused = !motion;
     let renderer: THREE.WebGLRenderer;
+
     try {
       renderer = new THREE.WebGLRenderer({
         canvas,
@@ -164,12 +165,15 @@ export default function Tank({ theme = 'default', motion = true }: SceneProps) {
     const state = { ry: -0.58, rx: 0, vy: 0, dragging: false };
     const detach = attachDrag(canvas, state);
     let hovering = false;
+
     const onEnter = () => {
       hovering = true;
     };
+
     const onLeave = () => {
       hovering = false;
     };
+
     canvas.addEventListener('pointerenter', onEnter);
     canvas.addEventListener('pointerleave', onLeave);
 
@@ -188,6 +192,7 @@ export default function Tank({ theme = 'default', motion = true }: SceneProps) {
       group.rotation.y = state.ry;
       renderer.render(scene, camera);
     };
+
     const ro = new ResizeObserver(resize);
     ro.observe(wrap);
     resize();
