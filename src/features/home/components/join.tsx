@@ -1,3 +1,4 @@
+import { homeSections } from '@/router/paths';
 import { type Settings } from '@/shared/settings/settings';
 import { SectionDecor } from '@/shared/components/side-decor';
 import { IpText, IpBar } from '@/shared/server-ip/server-ip';
@@ -16,7 +17,7 @@ const STEPS = [
 
 export function Join({ settings }: { settings: Settings }) {
   return (
-    <section className="sec sec-elev" id="dolacz">
+    <section className="sec sec-elev" id={homeSections.join}>
       <SectionDecor
         theme={settings.theme}
         variant="left"

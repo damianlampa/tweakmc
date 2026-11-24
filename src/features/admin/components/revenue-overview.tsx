@@ -1,5 +1,6 @@
+import { Link } from 'react-router';
+import { paths } from '@/router/paths';
 import type { AdminStats } from '../types/admin-stats';
-import type { Navigate } from '@/shared/types/page';
 
 function formatPln(val: number) {
   return (
@@ -10,7 +11,7 @@ function formatPln(val: number) {
   );
 }
 
-export function RevenueOverview({ stats, navigate }: { stats: AdminStats; navigate: Navigate }) {
+export function RevenueOverview({ stats }: { stats: AdminStats }) {
   const maxDay = Math.max(...stats.daily.map((d) => d.amount), 1);
   return (
     <div className="tw-grid tw-gap-[20px]">
@@ -74,16 +75,9 @@ export function RevenueOverview({ stats, navigate }: { stats: AdminStats; naviga
         <div className="admin-box">
           <div className="admin-box-head tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-gap-[12px] tw-mb-[18px]">
             <h2>Ostatnie transakcje Stripe → MC</h2>
-            <a
-              href="/sklep"
-              className="inline-link"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/sklep');
-              }}
-            >
+            <Link to={paths.shop} className="inline-link">
               Otwórz sklep
-            </a>
+            </Link>
           </div>
           <div className="tw-overflow-x-auto">
             <table className="tx-table">

@@ -1,10 +1,12 @@
 import { useState, type FormEvent } from 'react';
-import type { PageProps } from '@/shared/types/page';
+import { Link } from 'react-router';
+import { paths } from '@/router/paths';
+import type { Settings } from '@/shared/settings/settings';
 import { SectionDecor } from '@/shared/components/side-decor';
 
 const DEMO_PIN = 'tweakmc2026';
 
-export function AdminLogin({ settings, navigate, onLogin }: PageProps & { onLogin: () => void }) {
+export function AdminLogin({ settings, onLogin }: { settings: Settings; onLogin: () => void }) {
   const [pin, setPin] = useState('');
   const [pinErr, setPinErr] = useState('');
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
@@ -26,16 +28,9 @@ export function AdminLogin({ settings, navigate, onLogin }: PageProps & { onLogi
       />
       <div className="wrap">
         <form className="admin-login-card" onSubmit={handleLogin}>
-          <a
-            href="/"
-            className="back-link"
-            onClick={(e) => {
-              e.preventDefault();
-              navigate('/');
-            }}
-          >
+          <Link to={paths.home} className="back-link">
             ← Powrót na stronę
-          </a>
+          </Link>
           <h1>Panel Administratora</h1>
           <p className="tw-mt-[16px] tw-max-w-[58ch] tw-text-muted tw-text-[1.08rem]">
             Zarządzanie zarobkami, sezonem, logotypami, mapą i widocznością wszystkich sekcji

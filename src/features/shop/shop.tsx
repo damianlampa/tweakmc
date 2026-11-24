@@ -1,8 +1,12 @@
-import type { PageProps } from '@/shared/types/page';
+import { Link } from 'react-router';
+import { paths } from '@/router/paths';
+import { useRouteSettings } from '@/router/use-route-settings';
 import { Supporters } from '@/features/supporters';
 import { SectionDecor } from '@/shared/components/side-decor';
 import { TopUpForm } from './components/top-up-form';
-export default function ShopPage({ settings, navigate }: PageProps) {
+
+export default function ShopPage() {
+  const { settings } = useRouteSettings();
   if (!settings.sections.shopPage) {
     return (
       <section className="page-shell sec-dark">
@@ -20,16 +24,9 @@ export default function ShopPage({ settings, navigate }: PageProps) {
               {settings.maintenanceMsg}
             </p>
             <div className="tw-flex tw-flex-wrap tw-gap-[12px] tw-mt-[28px]">
-              <a
-                href="/"
-                className="btn btn-primary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate('/');
-                }}
-              >
+              <Link to={paths.home} className="btn btn-primary">
                 Wróć na stronę główną
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -48,16 +45,9 @@ export default function ShopPage({ settings, navigate }: PageProps) {
       <div className="wrap">
         <div className="tw-flex tw-flex-wrap tw-justify-between tw-items-end tw-gap-[20px] tw-mb-[32px]">
           <div>
-            <a
-              href="/"
-              className="back-link"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/');
-              }}
-            >
+            <Link to={paths.home} className="back-link">
               ← Powrót na stronę główną
-            </a>
+            </Link>
             <h1 className="tw-text-[clamp(2.4rem,_5vw,_4rem)] tw-mt-[10px]">
               Doładuj swój <span className="tw-text-accent-bright">portfel</span>
             </h1>

@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react';
+import { Link, useLocation, useMatch } from 'react-router';
+import { paths, homeSectionPath } from '@/router/paths';
 import { site } from '@/shared/config/site';
 import { THEMES } from '@/shared/config/themes';
-import { type PageProps, type Route } from '@/shared/types/page';
+import type { Settings } from '@/shared/settings/settings';
 import { copyIp, useCopied } from '@/shared/server-ip/hooks/use-copy-ip';
 import { IpText } from '@/shared/server-ip/server-ip';
 import { Icon } from '@/shared/components/icons';
 
-export function SiteNavigation({ route, navigate, settings }: PageProps & { route: Route }) {
+export function SiteNavigation({ settings }: { settings: Settings }) {
+  const { pathname } = useLocation();
+  const mapActive = useMatch({ path: paths.map, caseSensitive: true }) !== null;
+  const shopActive = useMatch({ path: paths.shop, caseSensitive: true }) !== null;
   const [open, setOpen] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
   const copied = useCopied();
@@ -24,40 +29,49 @@ export function SiteNavigation({ route, navigate, settings }: PageProps & { rout
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
-  }, [route]);
+  }, [pathname]);
 
   const navItems = [
-    { href: '/#tryby', label: 'Tryby', active: false, show: settings.sections.modes },
-    { href: '/#earthsmp', label: 'EarthSMP', active: false, show: settings.sections.earthsmp },
-    { href: '/mapa', label: 'Mapa', active: route === '/mapa', show: settings.sections.mapPage },
-    { href: '/#dolacz', label: 'Jak dołączyć', active: false, show: settings.sections.join },
     {
-      href: '/sklep',
+      href: homeSectionPath('modes'),
+      label: 'Tryby',
+      active: false,
+      show: settings.sections.modes,
+    },
+    {
+      href: homeSectionPath('earthSmp'),
+      label: 'EarthSMP',
+      active: false,
+      show: settings.sections.earthsmp,
+    },
+    { href: paths.map, label: 'Mapa', active: mapActive, show: settings.sections.mapPage },
+    {
+      href: homeSectionPath('join'),
+      label: 'Jak dołączyć',
+      active: false,
+      show: settings.sections.join,
+    },
+    {
+      href: paths.shop,
       label: 'Sklep',
-      active: route === '/sklep',
+      active: shopActive,
       show: settings.sections.shopPage,
     },
   ].filter((x) => x.show);
-
-  const handleLink = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    setOpen(false);
-    navigate(href);
-  };
 
   return (
     <header className="nav-wrap">
       <div className="wrap">
         <div className="nav">
           <div className="tw-inline-flex tw-items-center tw-gap-[14px]">
-            <a
+            <Link
               className="brand"
-              href="/"
+              to={paths.home}
               aria-label="TweakMC.pl — strona główna"
-              onClick={(e) => handleLink(e, '/')}
+              onClick={() => setOpen(false)}
             >
               <img src={activeTheme.logo} alt="TweakMC" height="44" />
-            </a>
+            </Link>
             <button
               type="button"
               className="nav-status"
@@ -70,14 +84,15 @@ export function SiteNavigation({ route, navigate, settings }: PageProps & { rout
           </div>
           <nav aria-label="Główna nawigacja" className={`nav-links ${open ? 'is-open' : ''}`}>
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.href}
-                href={item.href}
+                aria-current={item.active ? 'page' : undefined}
+                to={item.href}
                 className={`nav-link ${item.active ? 'is-current' : ''}`}
-                onClick={(e) => handleLink(e, item.href)}
+                onClick={() => setOpen(false)}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
             <a href={site.discordUrl} className="nav-link" target="_blank" rel="noreferrer">
               Discord

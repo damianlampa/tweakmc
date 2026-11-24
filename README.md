@@ -22,7 +22,7 @@ Open the [development server](http://127.0.0.1:5173).
 
 ## Source organization
 
-`src/main.tsx` loads the stylesheet and mounts React. `src/app.tsx` connects navigation and settings to the layout and selects the active feature. The shop, map and admin pages load on demand.
+`src/main.tsx` loads the stylesheet and mounts React. `src/app.tsx` mounts the React Router provider. Define page URLs and home section links in `src/router/paths.ts` and register route components in `src/router/router.tsx`. The shop, map and admin pages load on demand.
 
 | Directory                 | Responsibility                                                                               |
 | ------------------------- | -------------------------------------------------------------------------------------------- |
@@ -31,7 +31,8 @@ Open the [development server](http://127.0.0.1:5173).
 | `src/features/map`        | Dynmap controls, iframe and map preview                                                      |
 | `src/features/shop`       | Wallet balance, top-up form and checkout                                                     |
 | `src/features/supporters` | Rankings and recent purchases shared by home and shop                                        |
-| `src/layout`              | Site navigation, footer, mobile controls, seasonal effects and browser history               |
+| `src/router`              | Route paths, page matching, lazy feature loading and access to layout settings               |
+| `src/layout`              | Shared page layout, navigation, footer, mobile controls and seasonal effects                 |
 | `src/shared`              | Site configuration, themes, persistent settings, geographic data and UI used across features |
 
 Each feature exposes its entry component through `index.ts`, for example `features/admin/index.ts` exports `admin.tsx`. Keep components, hooks, response types and preview data with the feature that owns them. Where a feature calls the backend, place each operation in its own kebab-case file and export it through the feature's `api/index.ts`. Within the feature use relative imports. Use the `@/` alias for imports from elsewhere in `src`.

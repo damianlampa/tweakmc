@@ -1,29 +1,31 @@
-import SeasonFx from './components/season-fx';
+import { Outlet, ScrollRestoration, useMatches } from 'react-router';
+import { getScrollKey } from '@/router/get-scroll-key';
+import { useSettings } from '@/shared/settings/hooks/use-settings';
 import { CopyStatus } from '@/shared/server-ip/server-ip';
+import SeasonFx from './components/season-fx';
 import { SiteNavigation } from './components/site-navigation';
 import { SiteFooter } from './components/site-footer';
 import { PhoneBar } from './components/phone-bar';
-import type { ReactNode } from 'react';
-import type { PageProps, Route } from '@/shared/types/page';
 
-export function Layout({
-  route,
-  navigate,
-  settings,
-  children,
-}: PageProps & { route: Route; children: ReactNode }) {
+export function Layout() {
+  const routeSettings = useSettings();
+  const { settings } = routeSettings;
+  const isHome = useMatches().some(({ handle }) => handle === 'home');
   return (
     <>
       <a className="skip" href="#main">
         Przejdź do treści
       </a>
       {settings.sections.seasonFx && <SeasonFx theme={settings.theme} motion={settings.motion} />}
-      <SiteNavigation route={route} navigate={navigate} settings={settings} />
+      <SiteNavigation settings={settings} />
 
-      <main id="main">{children}</main>
-      <SiteFooter settings={settings} navigate={navigate} />
-      {route === '/' && <PhoneBar />}
+      <main id="main">
+        <Outlet context={routeSettings} />
+      </main>
+      <SiteFooter settings={settings} />
+      {isHome && <PhoneBar />}
       <CopyStatus />
+      <ScrollRestoration getKey={getScrollKey} />
     </>
   );
 }

@@ -1,7 +1,9 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
+import { Link } from 'react-router';
+import { paths } from '@/router/paths';
 import { site } from '@/shared/config/site';
 import { THEMES } from '@/shared/config/themes';
-import { type PageProps } from '@/shared/types/page';
+import type { Settings } from '@/shared/settings/settings';
 import { SectionDecor } from '@/shared/components/side-decor';
 import { IpBar } from '@/shared/server-ip/server-ip';
 import { Icon } from '@/shared/components/icons';
@@ -35,7 +37,7 @@ function RotatingLine() {
   );
 }
 
-export function Hero({ settings, navigate }: PageProps) {
+export function Hero({ settings }: { settings: Settings }) {
   const active = THEMES[settings.theme] || THEMES.default;
   return (
     <section className="hero" id="start" data-enter>
@@ -74,31 +76,17 @@ export function Hero({ settings, navigate }: PageProps) {
             {settings.sections.mapPage && (
               <>
                 <span className="dot" aria-hidden="true" />
-                <a
-                  href="/mapa"
-                  className="inline-link"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigate('/mapa');
-                  }}
-                >
+                <Link to={paths.map} className="inline-link">
                   Mapa na żywo
-                </a>
+                </Link>
               </>
             )}
             {settings.sections.shopPage && (
               <>
                 <span className="dot" aria-hidden="true" />
-                <a
-                  href="/sklep"
-                  className="inline-link"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigate('/sklep');
-                  }}
-                >
+                <Link to={paths.shop} className="inline-link">
                   Doładuj /portfel
-                </a>
+                </Link>
               </>
             )}
           </p>

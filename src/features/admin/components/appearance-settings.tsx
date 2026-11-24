@@ -1,5 +1,6 @@
+import { Link } from 'react-router';
+import { paths } from '@/router/paths';
 import type { Settings } from '@/shared/settings/settings';
-import type { Navigate } from '@/shared/types/page';
 import { THEMES, THEME_LIST } from '@/shared/config/themes';
 
 const MAP_FRAME_OPTIONS = [
@@ -15,11 +16,9 @@ const MAP_FRAME_OPTIONS = [
 export function AppearanceSettings({
   settings,
   patch,
-  navigate,
 }: {
   settings: Settings;
   patch: (next: Settings) => void;
-  navigate: Navigate;
 }) {
   const activeTheme = THEMES[settings.theme] || THEMES.default;
 
@@ -52,16 +51,9 @@ export function AppearanceSettings({
       <div className="admin-box">
         <div className="admin-box-head tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-gap-[12px] tw-mb-[18px]">
           <h2>Wygląd strony z mapą (/mapa)</h2>
-          <a
-            href="/mapa"
-            className="inline-link"
-            onClick={(e) => {
-              e.preventDefault();
-              navigate('/mapa');
-            }}
-          >
+          <Link to={paths.map} className="inline-link">
             Podgląd /mapa
-          </a>
+          </Link>
         </div>
         <div className="option-row tw-grid tw-grid-cols-[repeat(3,_minmax(0,_1fr))] tw-gap-[12px]">
           {MAP_FRAME_OPTIONS.map((opt) => (

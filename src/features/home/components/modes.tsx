@@ -1,14 +1,16 @@
+import { Link } from 'react-router';
+import { paths, homeSections, homeSectionPath } from '@/router/paths';
 import { THEMES } from '@/shared/config/themes';
-import { type PageProps } from '@/shared/types/page';
+import type { Settings } from '@/shared/settings/settings';
 import { SectionDecor } from '@/shared/components/side-decor';
 import { Icon } from '@/shared/components/icons';
 import { onCardMove } from '@/shared/utils/card-glow';
 import { KineticHeading } from './animated-heading';
 
-export function Modes({ settings, navigate }: PageProps) {
+export function Modes({ settings }: { settings: Settings }) {
   const activeTheme = THEMES[settings.theme] || THEMES.default;
   return (
-    <section className="sec sec-elev" id="tryby">
+    <section className="sec sec-elev" id={homeSections.modes}>
       <SectionDecor
         theme={settings.theme}
         variant="left"
@@ -37,21 +39,14 @@ export function Modes({ settings, navigate }: PageProps) {
                 pojazdami wojskowymi.
               </p>
               <div className="tw-flex tw-flex-wrap tw-gap-[8px_22px] tw-mt-[20px]">
-                <a className="mode-link" href="#earthsmp">
+                <Link className="mode-link" to={homeSectionPath('earthSmp')}>
                   <span>Poznaj mechaniki</span>
                   {Icon.arrow}
-                </a>
+                </Link>
                 {settings.sections.mapPage && (
-                  <a
-                    className="mode-link mode-link-muted"
-                    href="/mapa"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate('/mapa');
-                    }}
-                  >
+                  <Link className="mode-link mode-link-muted" to={paths.map}>
                     <span>Otwórz mapę (/mapa)</span>
-                  </a>
+                  </Link>
                 )}
               </div>
             </div>

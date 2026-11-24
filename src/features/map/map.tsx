@@ -1,12 +1,14 @@
 import { useState } from 'react';
+import { Link } from 'react-router';
+import { paths } from '@/router/paths';
 import { site } from '@/shared/config/site';
-import PixelMap from './components/pixel-map';
 import { SectionDecor } from '@/shared/components/side-decor';
-
 import { Icon as icons } from '@/shared/components/icons';
-import type { PageProps } from '@/shared/types/page';
+import { useRouteSettings } from '@/router/use-route-settings';
+import PixelMap from './components/pixel-map';
 
-export default function MapPage({ settings, navigate }: PageProps) {
+export default function MapPage() {
+  const { settings } = useRouteSettings();
   const frameStyle = settings.mapFrame || 'hud';
   const [loaded, setLoaded] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
@@ -33,16 +35,9 @@ export default function MapPage({ settings, navigate }: PageProps) {
               {settings.maintenanceMsg}
             </p>
             <div className="tw-flex tw-flex-wrap tw-gap-[12px] tw-mt-[28px]">
-              <a
-                href="/"
-                className="btn btn-primary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate('/');
-                }}
-              >
+              <Link to={paths.home} className="btn btn-primary">
                 Wróć na stronę główną
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -61,16 +56,9 @@ export default function MapPage({ settings, navigate }: PageProps) {
       <div className={frameStyle === 'fullscreen' ? 'wrap wrap-wide' : 'wrap'}>
         <div className="tw-flex tw-flex-wrap tw-justify-between tw-items-end tw-gap-[20px] tw-mb-[32px]">
           <div>
-            <a
-              href="/"
-              className="back-link"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/');
-              }}
-            >
+            <Link to={paths.home} className="back-link">
               ← Powrót na stronę główną
-            </a>
+            </Link>
             <h1 className="tw-text-[clamp(2.4rem,_5vw,_4rem)] tw-mt-[10px]">
               Mapa EarthSMP <span className="tw-text-accent-bright">na żywo</span>
             </h1>

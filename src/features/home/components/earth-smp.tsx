@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react';
+import { homeSections } from '@/router/paths';
 import { type Settings } from '@/shared/settings/settings';
 import { SectionDecor } from '@/shared/components/side-decor';
 import { Icon } from '@/shared/components/icons';
@@ -31,7 +32,7 @@ const FEATURES = [
 
 export function EarthSMP({ settings }: { settings: Settings }) {
   return (
-    <section className="sec sec-dark" id="earthsmp">
+    <section className="sec sec-dark" id={homeSections.earthSmp}>
       <SectionDecor
         theme={settings.theme}
         variant="right"

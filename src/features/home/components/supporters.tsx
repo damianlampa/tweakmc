@@ -1,10 +1,12 @@
-import { type PageProps } from '@/shared/types/page';
+import { Link } from 'react-router';
+import { paths } from '@/router/paths';
+import type { Settings } from '@/shared/settings/settings';
 import { SectionDecor } from '@/shared/components/side-decor';
 import { Supporters } from '@/features/supporters';
 import { Icon } from '@/shared/components/icons';
 import { KineticHeading } from './animated-heading';
 
-export function HomeBoards({ settings, navigate }: PageProps) {
+export function HomeBoards({ settings }: { settings: Settings }) {
   return (
     <section className="sec sec-dark" id="topki">
       <SectionDecor
@@ -23,17 +25,10 @@ export function HomeBoards({ settings, navigate }: PageProps) {
             </p>
           </div>
           {settings.sections.shopPage && (
-            <a
-              href="/sklep"
-              className="btn btn-primary"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/sklep');
-              }}
-            >
+            <Link to={paths.shop} className="btn btn-primary">
               <span>Przejdź do sklepu</span>
               {Icon.arrow}
-            </a>
+            </Link>
           )}
         </div>
         <Supporters />
