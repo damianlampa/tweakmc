@@ -47,6 +47,8 @@ Set the Minecraft server address, Discord invite, Dynmap proxy and shop endpoint
 
 When the integration is enabled, each new page load reads public settings from `GET /api/settings` before rendering the routes. Serve a JSON object with the public fields written by the authenticated `POST /api/admin/settings` handler. Omitted fields use the application defaults. For example, `{"sections":{"shopPage":false}}` disables the shop for visitors. Serve this read endpoint without credentials. If it fails or takes longer than five seconds, the frontend uses the last settings saved in the browser, or the defaults on a first visit.
 
+After persisting the settings, `POST /api/admin/settings` should return `204 No Content` or `200 OK` with an `application/json` body of `{"saved":true}`. Any other response leaves the changes local to the browser.
+
 Route `/mapa/live/` and its assets through a same-origin reverse proxy to Dynmap before the SPA fallback. Vite provides that proxy for development and preview using `site.dynmapUrl`. The embedded view waits for Dynmap to initialize its map pane. On failure it displays the preview and offers a retry. The full-screen link opens the configured map URL directly.
 
 ## Quality checks

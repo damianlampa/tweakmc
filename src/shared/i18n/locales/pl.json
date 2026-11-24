@@ -175,7 +175,7 @@
   },
   "toast": {
     "synced": "Zapisano na serwerze",
-    "applied": "Zastosowano na żywo",
+    "applied": "Zastosowano tylko w tej przeglądarce",
     "reset": "Przywrócono domyślne ustawienia na serwerze",
     "resetLocal": "Przywrócono domyślne ustawienia w tej przeglądarce"
   },

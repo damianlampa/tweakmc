@@ -15,7 +15,7 @@ export function TopUpForm() {
   const [nick, setNick] = useState('');
   const [amountText, setAmountText] = useState('25');
   const [avatarErr, setAvatarErr] = useState(false);
-  const { mutate: startCheckout, isPending: submitting } = useStripeCheckout();
+  const { startCheckout, submitting } = useStripeCheckout();
   const [error, setError] = useState<'nick' | 'amount' | 'checkout' | null>(null);
   const [checkoutNotice, setCheckoutNotice] = useState<{ nick: string; amount: number } | null>(
     null,
@@ -86,7 +86,11 @@ export function TopUpForm() {
 
   return (
     <form className="shop-grid shop-grid-top" onSubmit={handleSubmit} noValidate>
-      <div className="shop-panel glow-card" onPointerMove={onCardMove}>
+      <fieldset
+        className="shop-panel glow-card tw-m-0"
+        disabled={submitting}
+        onPointerMove={onCardMove}
+      >
         <div className="field tw-grid tw-gap-[10px]">
           <label htmlFor="shop-nick">{t('checkout.username')}</label>
           <div className={`nick-wrap ${error === 'nick' ? 'has-error' : ''}`}>
@@ -220,7 +224,7 @@ export function TopUpForm() {
             <span>{site.shopSliderMax} PLN</span>
           </div>
         </div>
-      </div>
+      </fieldset>
 
       <aside
         className="shop-summary glow-card"
