@@ -22,7 +22,21 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
   const activeTheme = THEMES[settings.theme] || THEMES.default;
 
   useEffect(() => {
-    document.body.classList.toggle('menu-open', open);
+    if (!open) return;
+
+    const mobileMenu = window.matchMedia('(max-width: 900px)');
+    const closeOnDesktop = () => {
+      if (!mobileMenu.matches) setOpen(false);
+    };
+
+    document.body.classList.add('menu-open');
+    mobileMenu.addEventListener('change', closeOnDesktop);
+    closeOnDesktop();
+
+    return () => {
+      mobileMenu.removeEventListener('change', closeOnDesktop);
+      document.body.classList.remove('menu-open');
+    };
   }, [open]);
 
   useEffect(() => {
