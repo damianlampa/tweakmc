@@ -77,6 +77,7 @@
     "easter": "Easter / Spring"
   },
   "common": {
+    "loadingSettings": "Loading site settings...",
     "maintenance": "This section is temporarily offline for maintenance. We'll be back soon!",
     "language": "Site language"
   },

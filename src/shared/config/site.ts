@@ -17,6 +17,7 @@ export const site = {
 
   // Enable once the Stripe and Minecraft endpoints are available.
   shopApiEnabled: false,
+  publicSettingsEndpoint: '/api/settings',
   walletApiBase: '/api/plugin/wallet',
   shopActivityEndpoint: '/api/shop/activity',
   stripeCheckoutEndpoint: '/api/stripe/create-checkout-session',

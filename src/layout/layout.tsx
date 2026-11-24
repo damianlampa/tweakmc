@@ -16,6 +16,14 @@ export function Layout() {
   const { settings } = routeSettings;
   const isHome = useMatches().some(({ handle }) => handle === 'home');
 
+  if (routeSettings.isLoading) {
+    return (
+      <main className="page-shell wrap" role="status">
+        {t('common.loadingSettings')}
+      </main>
+    );
+  }
+
   return (
     <>
       <a className="skip" href="#main">

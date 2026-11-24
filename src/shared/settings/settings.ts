@@ -73,13 +73,13 @@ export function loadSettings(): Settings {
     // ignore corrupt storage
   }
 
-  const q = new URLSearchParams(window.location.search).get('motyw');
+  return withThemePreview(merged);
+}
 
-  if (isThemeId(q)) {
-    merged.theme = q;
-  }
+export function withThemePreview(settings: Settings): Settings {
+  const theme = new URLSearchParams(window.location.search).get('motyw');
 
-  return merged;
+  return isThemeId(theme) ? { ...settings, theme } : settings;
 }
 
 export function saveSettings(next: Settings) {
