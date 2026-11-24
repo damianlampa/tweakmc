@@ -45,9 +45,11 @@ The site opens in Polish. The language selector in the footer switches between P
 
 Set the Minecraft server address, Discord invite, Dynmap proxy and shop endpoints in `src/shared/config/site.ts`. The shop and dashboard use preview data by default. Enable `shopApiEnabled` and rebuild after connecting the Stripe backend and Minecraft plugin. The backend must authenticate admin requests. The preview PIN only controls access to the demo interface.
 
+When the integration is enabled, each new page load reads public settings from `GET /api/settings` before rendering the routes. Serve a JSON object with the public fields written by the authenticated `POST /api/admin/settings` handler. Omitted fields use the application defaults. For example, `{"sections":{"shopPage":false}}` disables the shop for visitors. Serve this read endpoint without credentials. If it fails or takes longer than five seconds, the frontend uses the last settings saved in the browser, or the defaults on a first visit.
+
 ## Quality checks
 
-Run `npm run check` to check formatting, strict TypeScript, ESLint, API response contracts and translation catalogs. Run `npm test` for the Playwright browser suite. Run each check separately with `npm run format`, `npm run types`, `npm run lint`, `npm run test-api` or `npm run test-i18n`. Use `npm run format-fix` and `npm run lint-fix` to apply fixes.
+Run `npm test` to check formatting, strict TypeScript, ESLint, API response contracts and translation catalogs. Run each check separately with `npm run format`, `npm run types`, `npm run lint`, `npm run test-api` or `npm run test-i18n`. Use `npm run format-fix` and `npm run lint-fix` to apply fixes.
 
 During installation, the `prepare` script configures Husky. Before a commit, lint-staged runs ESLint and Prettier on staged JavaScript and TypeScript files, including JSX and TSX. Prettier formats other supported staged files. The commit-msg hook checks English Conventional Commits, for example `fix(shop): validate the player name`.
 
