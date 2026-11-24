@@ -3,10 +3,27 @@ import { test } from 'node:test';
 import { adminStatsSchema } from '../src/features/admin/schemas/admin-stats.ts';
 import { checkoutUrlSchema } from '../src/features/shop/schemas/checkout-url.ts';
 import { walletBalanceSchema } from '../src/features/shop/schemas/wallet-balance.ts';
+import { parseTopUpAmount } from '../src/features/shop/utils/parse-top-up-amount.ts';
+import { site } from '../src/shared/config/site.ts';
 import { shopActivitySchema } from '../src/features/supporters/schemas/shop-activity.ts';
 import { readJsonResponse } from '../src/shared/utils/read-json-response.ts';
 
 const { Response } = globalThis;
+
+test('accepts only checkout amounts in range that can be paid exactly in grosze', () => {
+  for (const input of ['', '2', '1000.01', '25.999', '10abc', '1e2']) {
+    assert.equal(parseTopUpAmount(input, site.shopMin, site.shopMax), null, input);
+  }
+
+  for (const [input, expected] of [
+    ['5', 5],
+    ['1000.00', 1000],
+    ['12,34', 12.34],
+    ['5.01', 5.01],
+  ]) {
+    assert.equal(parseTopUpAmount(input, site.shopMin, site.shopMax), expected, input);
+  }
+});
 
 test('keeps valid ranking entries in server order and caps both lists', () => {
   const entries = Array.from({ length: 6 }, (_, index) => ({

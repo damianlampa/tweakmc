@@ -5,7 +5,7 @@ import { NICK_RE } from '@/shared/utils/player-name';
 import { formatPln } from '@/shared/utils/format-shop-amount';
 import { Icon as icons } from '@/shared/components/icons';
 import { onCardMove } from '@/shared/utils/card-glow';
-import { clampAmount } from '../utils/clamp-amount';
+import { parseTopUpAmount } from '../utils/parse-top-up-amount';
 import { useWalletBalance } from '../hooks/use-wallet-balance';
 import { useStripeCheckout } from '../hooks/use-stripe-checkout';
 
@@ -13,53 +13,45 @@ export function TopUpForm() {
   const { t, i18n } = useTranslation();
 
   const [nick, setNick] = useState('');
-  const [amount, setAmount] = useState(25);
   const [amountText, setAmountText] = useState('25');
   const [avatarErr, setAvatarErr] = useState(false);
   const { mutate: startCheckout, isPending: submitting } = useStripeCheckout();
-  const [error, setError] = useState('');
+  const [error, setError] = useState<'nick' | 'amount' | 'checkout' | null>(null);
   const [checkoutNotice, setCheckoutNotice] = useState<{ nick: string; amount: number } | null>(
     null,
   );
 
   const trimmedNick = nick.trim();
   const validNick = NICK_RE.test(trimmedNick);
+  const amount = parseTopUpAmount(amountText, site.shopMin, site.shopMax);
+  const formattedAmount = amount === null ? '-' : formatPln(amount, i18n.language);
 
   const wallet = useWalletBalance(trimmedNick);
 
-  const setCleanAmount = (next: number | string) => {
-    const clamped = clampAmount(next);
-    setAmount(clamped);
-    setAmountText(Number.isInteger(clamped) ? String(clamped) : clamped.toFixed(2));
+  const changeAmount = (value: string) => {
+    setAmountText(value);
     setCheckoutNotice(null);
+    if (error !== 'nick') setError(null);
   };
 
-  const handleAmountInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    setAmountText(val);
-    setCheckoutNotice(null);
-    const num = parseFloat(val.replace(',', '.'));
-
-    if (!Number.isNaN(num) && num >= site.shopMin && num <= site.shopMax) {
-      setAmount(Math.round(num * 100) / 100);
-    }
+  const stepAmount = (step: number) => {
+    const next = Math.min(site.shopMax, Math.max(site.shopMin, (amount ?? site.shopMin) + step));
+    changeAmount(String(Number(next.toFixed(2))));
   };
-
-  const handleAmountBlur = () => setCleanAmount(amountText);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (submitting) return;
 
-    if (!validNick) {
-      setError('checkout.invalid');
-      setCheckoutNotice(null);
+    setCheckoutNotice(null);
 
+    if (!validNick || amount === null) {
+      setError(validNick ? 'amount' : 'nick');
       return;
     }
 
-    setError('');
+    setError(null);
     startCheckout(
       { nick: trimmedNick, amount },
       {
@@ -71,6 +63,7 @@ export function TopUpForm() {
 
           setCheckoutNotice(input);
         },
+        onError: () => setError('checkout'),
       },
     );
   };
@@ -85,16 +78,18 @@ export function TopUpForm() {
           : '—';
 
   const afterBalText =
-    wallet.status === 'connected'
-      ? formatPln(wallet.balance + amount, i18n.language)
-      : `+${formatPln(amount, i18n.language)}`;
+    amount === null
+      ? '-'
+      : wallet.status === 'connected'
+        ? formatPln(wallet.balance + amount, i18n.language)
+        : `+${formattedAmount}`;
 
   return (
     <form className="shop-grid shop-grid-top" onSubmit={handleSubmit} noValidate>
       <div className="shop-panel glow-card" onPointerMove={onCardMove}>
         <div className="field tw-grid tw-gap-[10px]">
           <label htmlFor="shop-nick">{t('checkout.username')}</label>
-          <div className={`nick-wrap ${error ? 'has-error' : ''}`}>
+          <div className={`nick-wrap ${error === 'nick' ? 'has-error' : ''}`}>
             <div className="avatar-box" aria-hidden="true">
               {validNick && !avatarErr ? (
                 <img
@@ -113,6 +108,8 @@ export function TopUpForm() {
               type="text"
               maxLength={16}
               autoComplete="off"
+              aria-invalid={error === 'nick'}
+              aria-describedby={error === 'nick' ? 'shop-nick-error' : undefined}
               spellCheck={false}
               placeholder={t('checkout.placeholder')}
               value={nick}
@@ -120,14 +117,14 @@ export function TopUpForm() {
                 const value = e.target.value;
                 setNick(value);
                 setAvatarErr(false);
-                if (error) setError('');
+                if (error !== 'amount') setError(null);
                 if (checkoutNotice) setCheckoutNotice(null);
               }}
             />
           </div>
-          {error && (
-            <p className="field-error" role="alert">
-              {t(error)}
+          {error === 'nick' && (
+            <p id="shop-nick-error" className="field-error" role="alert">
+              {t('checkout.invalid')}
             </p>
           )}
         </div>
@@ -145,7 +142,7 @@ export function TopUpForm() {
                   key={presetAmount}
                   type="button"
                   className={`preset-btn ${amount === presetAmount ? 'is-active' : ''}`}
-                  onClick={() => setCleanAmount(presetAmount)}
+                  onClick={() => changeAmount(String(presetAmount))}
                 >
                   <strong>{presetAmount}</strong>
                   <span>PLN</span>
@@ -165,7 +162,7 @@ export function TopUpForm() {
               <button
                 type="button"
                 className="step-btn"
-                onClick={() => setCleanAmount(amount - 5)}
+                onClick={() => stepAmount(-5)}
                 aria-label={t('checkout.decrease')}
               >
                 −5
@@ -173,7 +170,7 @@ export function TopUpForm() {
               <button
                 type="button"
                 className="step-btn"
-                onClick={() => setCleanAmount(amount + 5)}
+                onClick={() => stepAmount(5)}
                 aria-label={t('checkout.increase')}
               >
                 +5
@@ -187,24 +184,30 @@ export function TopUpForm() {
               type="number"
               min={site.shopMin}
               max={site.shopMax}
-              step="0.5"
+              step="0.01"
               inputMode="decimal"
+              aria-invalid={error === 'amount'}
+              aria-describedby={error === 'amount' ? 'shop-amount-error' : undefined}
               value={amountText}
-              onChange={handleAmountInput}
-              onBlur={handleAmountBlur}
+              onChange={(event) => changeAmount(event.target.value)}
             />
             <span className="tw-font-mono tw-text-[0.92rem] tw-font-semibold tw-text-muted">
               PLN
             </span>
           </div>
+          {error === 'amount' && (
+            <p id="shop-amount-error" className="field-error" role="alert">
+              {t('checkout.invalidAmount', { min: site.shopMin, max: site.shopMax })}
+            </p>
+          )}
           <input
             type="range"
             className="amount-slider"
             min={site.shopMin}
             max={site.shopSliderMax}
             step={5}
-            value={amount}
-            onChange={(e) => setCleanAmount(e.target.value)}
+            value={amount ?? site.shopMin}
+            onChange={(event) => changeAmount(event.target.value)}
             aria-label={t('checkout.slider')}
           />
           <div
@@ -253,7 +256,7 @@ export function TopUpForm() {
 
         <div className="summary-total">
           <span>{t('checkout.total')}</span>
-          <strong>{formatPln(amount, i18n.language)}</strong>
+          <strong>{formattedAmount}</strong>
         </div>
 
         <button type="submit" className="btn btn-primary pay-submit" disabled={submitting}>
@@ -261,9 +264,17 @@ export function TopUpForm() {
           <span>
             {submitting
               ? t('checkout.connecting')
-              : t('checkout.pay', { amount: formatPln(amount, i18n.language) })}
+              : amount === null
+                ? t('checkout.continue')
+                : t('checkout.pay', { amount: formattedAmount })}
           </span>
         </button>
+
+        {error === 'checkout' && (
+          <p className="field-error" role="alert">
+            {t('checkout.failed')}
+          </p>
+        )}
 
         {checkoutNotice && (
           <p className="checkout-notice" role="status">

@@ -174,7 +174,8 @@
   "toast": {
     "synced": "Zapisano na serwerze",
     "applied": "Zastosowano na żywo",
-    "reset": "Przywrócono domyślne ustawienia"
+    "reset": "Przywrócono domyślne ustawienia na serwerze",
+    "resetLocal": "Przywrócono domyślne ustawienia w tej przeglądarce"
   },
   "discord": {
     "news": "Starty sezonów, patche i nowe tryby",
@@ -264,6 +265,9 @@
     "label": "Interaktywny czołg z bloków 3D na ciemnym terenie; przeciągnij, aby obrócić"
   },
   "checkout": {
+    "invalidAmount": "Wpisz kwotę od {{min}} do {{max}} zł z dokładnością do dwóch miejsc po przecinku.",
+    "failed": "Nie udało się otworzyć płatności. Spróbuj ponownie.",
+    "continue": "Przejdź do płatności",
     "invalid": "Podaj poprawny nick z Minecrafta (3–16 znaków: litery, cyfry lub _).",
     "unavailable": "Po podpięciu pluginu",
     "username": "Nick z Minecrafta",

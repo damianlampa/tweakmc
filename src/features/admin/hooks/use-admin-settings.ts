@@ -5,20 +5,25 @@ import { useSyncAdminSettings } from './use-sync-admin-settings';
 
 export function useAdminSettings() {
   const { settings, updateSettings } = useRouteSettings();
-  const { mutate, reset: dismissPendingFeedback } = useSyncAdminSettings();
+  const { mutate } = useSyncAdminSettings();
   const { message, showToast } = useAdminToast();
 
-  const applySettings = (next: Settings) => {
+  const applySettings = (next: Settings, restoringDefaults = false) => {
     updateSettings(next);
     mutate(next, {
-      onSuccess: ({ synced }) => showToast(synced ? 'toast.synced' : 'toast.applied'),
+      onSuccess: ({ synced }) => {
+        if (restoringDefaults) {
+          showToast(synced ? 'toast.reset' : 'toast.resetLocal');
+          return;
+        }
+
+        showToast(synced ? 'toast.synced' : 'toast.applied');
+      },
     });
   };
 
   const restoreDefaults = () => {
-    dismissPendingFeedback();
-    updateSettings(resetSettings());
-    showToast('toast.reset');
+    applySettings(resetSettings(), true);
   };
 
   return { settings, applySettings, restoreDefaults, message };
