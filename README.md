@@ -1,46 +1,56 @@
 # TweakMC.pl
 
-Frontend sieci serwerów Minecraft TweakMC. Aplikacja korzysta z Reacta, Vite, Tailwind CSS i Three.js.
+The TweakMC Minecraft network frontend uses React, TypeScript, Vite, Tailwind CSS and Three.js. The product interface is in Polish.
 
-## Uruchomienie lokalne
+## Local development
 
-Do pracy potrzebujesz Node.js 22 od wersji 22.22.1 albo Node.js 24 lub nowszego, a także npm i Git. W katalogu projektu zainstaluj zależności i uruchom serwer deweloperski.
+Use Node.js 22.22.1 or later in the 22.x series, or Node.js 24 or later, with npm and Git. From the project root, run:
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Otwórz [lokalny podgląd](http://127.0.0.1:5173).
+Open the [development server](http://127.0.0.1:5173).
 
-## Podstrony
+| Route    | View                                                                                                             |
+| -------- | ---------------------------------------------------------------------------------------------------------------- |
+| `/`      | Home page with the interactive globe, game modes, EarthSMP, joining instructions, supporter rankings and Discord |
+| `/sklep` | Player wallet top-ups and recent purchases                                                                       |
+| `/mapa`  | EarthSMP map preview and live Dynmap through the domain proxy                                                    |
+| `/admin` | Demo dashboard for revenue, sections and appearance. The local preview password is `tweakmc2026`.                |
 
-| Adres    | Zawartość                                                                                         |
-| -------- | ------------------------------------------------------------------------------------------------- |
-| `/`      | Strona główna z globusem 3D, trybami gry, EarthSMP, instrukcją dołączenia, rankingiem i Discordem |
-| `/sklep` | Doładowania portfela gracza                                                                       |
-| `/mapa`  | Podgląd mapy i Dynmap przez proxy                                                                 |
-| `/admin` | Panel demonstracyjny. Hasło testowe to `tweakmc2026`                                              |
+## Source organization
 
-## Kontrole projektu
+`src/main.tsx` loads the stylesheet and mounts React. `src/app.tsx` connects navigation and settings to the layout and selects the active feature. The shop, map and admin pages load on demand.
 
-`npm test` uruchamia kolejno sprawdzenie formatowania, typów w plikach JS/JSX oraz lint. Poszczególne kontrole można uruchomić przez `npm run format`, `npm run types` i `npm run lint`. Polecenie `npm run format-fix` zapisuje poprawki formatowania.
+| Directory                 | Responsibility                                                                               |
+| ------------------------- | -------------------------------------------------------------------------------------------- |
+| `src/features/admin`      | Preview login, revenue, section settings and appearance                                      |
+| `src/features/home`       | Landing page sections and their globe and tank scenes                                        |
+| `src/features/map`        | Dynmap controls, iframe and map preview                                                      |
+| `src/features/shop`       | Wallet balance, top-up form and checkout                                                     |
+| `src/features/supporters` | Rankings and recent purchases shared by home and shop                                        |
+| `src/layout`              | Site navigation, footer, mobile controls, seasonal effects and browser history               |
+| `src/shared`              | Site configuration, themes, persistent settings, geographic data and UI used across features |
 
-### Commity i hooki Git
+Each feature exposes its entry component through `index.ts`, for example `features/admin/index.ts` exports `admin.tsx`. Keep components, hooks, response types and preview data with the feature that owns them. Where a feature calls the backend, place each operation in its own kebab-case file and export it through the feature's `api/index.ts`. Within the feature use relative imports. Use the `@/` alias for imports from elsewhere in `src`.
 
-Podczas `npm ci` skrypt `prepare` włącza Husky w lokalnym repozytorium. Przed commitem `lint-staged` uruchamia ESLint z automatycznymi poprawkami dla przygotowanych plików JavaScript i JSX, a następnie formatuje je Prettierem. Pozostałe obsługiwane pliki formatuje sam Prettier. Poprawki trafiają do indeksu Git. Cały projekt można poprawić poleceniami `npm run lint-fix` i `npm run format-fix`.
+## Integrations
 
-Hook `commit-msg` sprawdza wiadomość według Conventional Commits. Podaj typ, opcjonalny zakres w nawiasie i krótki opis zmiany, np. `fix(sklep): popraw walidację nicku` albo `docs: opisz uruchomienie mapy`.
+Set the Minecraft server address, Discord invite, Dynmap proxy and shop endpoints in `src/shared/config/site.ts`. The shop and dashboard use preview data by default. Enable `shopApiEnabled` and rebuild after connecting the Stripe backend and Minecraft plugin. The backend must authenticate admin requests. The preview PIN only controls access to the demo interface.
 
-## Konfiguracja integracji
+## Quality checks
 
-Adresy serwera Minecraft, Discorda, mapy i endpointów sklepu znajdują się w `src/config.js`. Sklep domyślnie wyświetla dane poglądowe. Po podłączeniu backendu Stripe i pluginu Minecraft ustaw `shopApiEnabled` na `true` i ponownie zbuduj aplikację. Backend odpowiada za autoryzację endpointów administratora.
+Run `npm test` to check formatting, strict TypeScript and ESLint. Run each check separately with `npm run format`, `npm run types` or `npm run lint`. Use `npm run format-fix` and `npm run lint-fix` to apply fixes.
 
-## Build i wdrożenie
+During installation, the `prepare` script configures Husky. Before a commit, lint-staged runs ESLint and Prettier on staged JavaScript and TypeScript files, including JSX and TSX. Prettier formats other supported staged files. The commit-msg hook checks English Conventional Commits, for example `fix(shop): validate the player name`.
+
+## Production build
 
 ```sh
 npm run build
 npm run preview
 ```
 
-Podgląd produkcyjny działa pod [adresem lokalnym](http://127.0.0.1:4173). Na hosting opublikuj zawartość `dist/` wraz z plikami `.htaccess` dla Apache i `_redirects` dla hostingu obsługującego tę regułę. W Netlify lub Cloudflare Pages ustaw polecenie budowania `npm run build` i katalog publikacji `dist`. Gotowy folder można też przesłać przez [Netlify Drop](https://app.netlify.com/drop).
+Open the [production preview](http://127.0.0.1:4173). Deploy the contents of `dist/` including the supplied `.htaccess` for Apache or `_redirects` for compatible hosts. On Netlify or Cloudflare Pages, use `npm run build` as the build command and `dist` as the output directory. A built directory can also be uploaded with [Netlify Drop](https://app.netlify.com/drop).
