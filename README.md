@@ -47,7 +47,7 @@ Set the Minecraft server address, Discord invite, Dynmap proxy and shop endpoint
 
 ## Quality checks
 
-Run `npm test` to check formatting, strict TypeScript, ESLint, API response contracts and translation catalogs. Run each check separately with `npm run format`, `npm run types`, `npm run lint`, `npm run test-api` or `npm run test-i18n`. Use `npm run format-fix` and `npm run lint-fix` to apply fixes.
+Run `npm run check` to check formatting, strict TypeScript, ESLint, API response contracts and translation catalogs. Run `npm test` for the Playwright browser suite. Run each check separately with `npm run format`, `npm run types`, `npm run lint`, `npm run test-api` or `npm run test-i18n`. Use `npm run format-fix` and `npm run lint-fix` to apply fixes.
 
 During installation, the `prepare` script configures Husky. Before a commit, lint-staged runs ESLint and Prettier on staged JavaScript and TypeScript files, including JSX and TSX. Prettier formats other supported staged files. The commit-msg hook checks English Conventional Commits, for example `fix(shop): validate the player name`.
 
