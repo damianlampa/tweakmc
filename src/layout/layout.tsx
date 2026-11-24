@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet, ScrollRestoration, useMatches } from 'react-router';
 import { getScrollKey } from '@/router/utils/get-scroll-key';
@@ -25,7 +26,10 @@ export function Layout() {
       <SiteNavigation settings={settings} />
 
       <main id="main">
-        <Outlet context={routeSettings} />
+        <Suspense fallback={null}>
+          <Outlet context={routeSettings} />
+          <ScrollRestoration getKey={getScrollKey} />
+        </Suspense>
       </main>
 
       <SiteFooter settings={settings} />
@@ -33,8 +37,6 @@ export function Layout() {
       {isHome && <PhoneBar />}
 
       <CopyStatus />
-
-      <ScrollRestoration getKey={getScrollKey} />
     </>
   );
 }
