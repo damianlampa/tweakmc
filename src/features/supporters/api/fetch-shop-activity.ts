@@ -24,7 +24,9 @@ export async function fetchShopActivity(signal: AbortSignal): Promise<ShopActivi
       return PREVIEW_SHOP_ACTIVITY;
     }
     const data: unknown = await res.json();
+
     if (!isRecord(data)) return PREVIEW_SHOP_ACTIVITY;
+
     return {
       isPreview: false,
       topDonors: Array.isArray(data.topDonors) ? data.topDonors.filter(isDonor).slice(0, 3) : [],
@@ -34,6 +36,7 @@ export async function fetchShopActivity(signal: AbortSignal): Promise<ShopActivi
     };
   } catch (err) {
     if (err instanceof Error && err.name === 'AbortError') throw err;
+
     return PREVIEW_SHOP_ACTIVITY;
   }
 }

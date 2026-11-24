@@ -9,6 +9,7 @@ export function useShopActivity() {
     fetchShopActivity(ctrl.signal)
       .then((data) => setActivity(data))
       .catch(() => {});
+
     return () => ctrl.abort();
   }, []);
 
