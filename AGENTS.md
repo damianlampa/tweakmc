@@ -2,7 +2,7 @@
 
 ## Project
 
-TweakMC is the frontend for a Minecraft server network. The public checkout contains a working placeholder, its build tooling and its browser tests. Describe features in the README only when they are present in this checkout.
+TweakMC is the frontend for a Minecraft server network. The public checkout contains the TypeScript application, its build tooling and its browser tests. Describe features in the README only when they are present in this checkout.
 
 Read `AGENTS.md.local` before starting if it exists. It contains private instructions for this checkout and must remain untracked.
 
@@ -15,11 +15,11 @@ Read `AGENTS.md.local` before starting if it exists. It contains private instruc
 
 ## Implementation
 
-- Preserve the current layout of `src/`. The HTML entry is `index.html`, React mounts the page in `src/main.jsx`, and `src/styles.css` imports Tailwind. Use kebab-case for source file names and React naming conventions for components.
-- Use the configured `tw:` prefix for Tailwind utilities. Keep the stylesheet import and Vite plugin consistent when changing the CSS pipeline.
-- TypeScript checks JS and JSX through `allowJs` and `checkJs`. Narrow nullable DOM values before using them and address type errors where they arise.
+- Preserve the current layout of `src/`. The HTML entry is `index.html`, React mounts the page in `src/main.tsx`, and `src/styles.css` imports Tailwind. Use kebab-case for source file names and React naming conventions for components.
+- Use the configured `tw-` prefix for Tailwind utilities. Keep the stylesheet import and Vite plugin consistent when changing the CSS pipeline.
+- TypeScript checks the application with strict mode enabled. Narrow nullable DOM values before using them and address type errors where they arise.
 - Use semantic elements, accessible names, keyboard-operable controls and visible focus. Respect reduced-motion preferences when adding animation.
-- Write code, documentation, commit messages and PR text in English. Keep the public placeholder in English.
+- Write code, documentation, commit messages and PR text in English.
 
 ## Dependency changes
 

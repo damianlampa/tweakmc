@@ -1,40 +1,17 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
 import { paths } from '@/router/paths';
-import { useRouteSettings } from '@/router/use-route-settings';
-import type { Settings } from '@/shared/settings/settings';
-import { resetSettings } from '@/shared/settings/settings';
 import { AppearanceSettings } from './components/appearance-settings';
 import { SectionSettings } from './components/section-settings';
 import { RevenueOverview } from './components/revenue-overview';
-import { useSyncAdminSettings } from './hooks/use-sync-admin-settings';
+import { useAdminSettings } from './hooks/use-admin-settings';
 import { AdminLogin } from './components/admin-login';
 import { usePreviewSession } from './hooks/use-preview-session';
 
 export default function AdminPage() {
-  const { settings, updateSettings } = useRouteSettings();
   const { authed, handleLogin, handleLogout } = usePreviewSession();
+  const { settings, applySettings, restoreDefaults, message } = useAdminSettings();
   const [tab, setTab] = useState<'overview' | 'toggles' | 'appearance'>('overview');
-  const { mutate: saveSettings } = useSyncAdminSettings();
-  const [toast, setToast] = useState('');
-
-  const showToast = (msg: string) => {
-    setToast(msg);
-    setTimeout(() => setToast(''), 2600);
-  };
-
-  const patch = (next: Settings) => {
-    updateSettings(next);
-    saveSettings(next, {
-      onSuccess: ({ synced }) => showToast(synced ? 'Zapisano na serwerze' : 'Zastosowano na żywo'),
-    });
-  };
-
-  const handleReset = () => {
-    const fresh = resetSettings();
-    updateSettings(fresh);
-    showToast('Przywrócono domyślne ustawienia');
-  };
 
   if (!authed) return <AdminLogin settings={settings} onLogin={handleLogin} />;
 
@@ -52,12 +29,12 @@ export default function AdminPage() {
           </div>
 
           <div className="tw-flex tw-flex-wrap tw-items-center tw-gap-[10px]">
-            {toast && (
+            {message && (
               <span className="admin-toast" role="status">
-                {toast}
+                {message}
               </span>
             )}
-            <button type="button" className="btn btn-secondary btn-sm" onClick={handleReset}>
+            <button type="button" className="btn btn-secondary btn-sm" onClick={restoreDefaults}>
               Resetuj domyślne
             </button>
             <button type="button" className="btn btn-secondary btn-sm" onClick={handleLogout}>
@@ -92,9 +69,9 @@ export default function AdminPage() {
 
         {tab === 'overview' && <RevenueOverview />}
 
-        {tab === 'toggles' && <SectionSettings settings={settings} patch={patch} />}
+        {tab === 'toggles' && <SectionSettings settings={settings} patch={applySettings} />}
 
-        {tab === 'appearance' && <AppearanceSettings settings={settings} patch={patch} />}
+        {tab === 'appearance' && <AppearanceSettings settings={settings} patch={applySettings} />}
       </div>
     </section>
   );

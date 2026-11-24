@@ -2237,13 +2237,13 @@ strong {
     backdrop-filter: blur(12px);
     border-top: 1px solid var(--line-strong);
     transform: translateY(110%);
-    @apply tw-pointer-events-none;
+    @apply tw-pointer-events-none tw-invisible;
     transition: transform 0.28s var(--ease);
   }
 
   .phone-bar.is-visible {
     transform: translateY(0);
-    @apply tw-pointer-events-auto;
+    @apply tw-pointer-events-auto tw-visible;
   }
 }
 

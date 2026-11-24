@@ -1,6 +1,7 @@
 export function WaveWord({ text, className = '' }: { text: string; className?: string }) {
   return (
-    <span className={`wave-word ${className}`} aria-label={text}>
+    <span className={`wave-word ${className}`}>
+      <span className="sr-only">{text}</span>
       {[...text].map((character, characterIndex) => {
         return (
           <span

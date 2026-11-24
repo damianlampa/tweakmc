@@ -6,7 +6,7 @@ import hooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 
 export default defineConfig([
-  globalIgnores(['dist/**', '.idea/**', '.husky/_/**']),
+  globalIgnores(['dist/**', '.idea/**', '.husky/_/**', 'playwright-report/**', 'test-results/**']),
   js.configs.recommended,
   { files: ['**/*.{ts,tsx}'], extends: [tseslint.configs.recommended] },
   {
