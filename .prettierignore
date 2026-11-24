@@ -1,0 +1,9 @@
+dist
+.idea
+node_modules
+package-lock.json
+public
+.husky/_/
+
+playwright-report/
+test-results/
