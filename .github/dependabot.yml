@@ -11,6 +11,8 @@ updates:
     commit-message:
       prefix: chore
     groups:
+      react-runtime:
+        patterns: ['react', 'react-dom', '@types/react', '@types/react-dom']
       vite-and-react-plugin:
         patterns: ['vite', '@vitejs/plugin-react']
       tailwind:
