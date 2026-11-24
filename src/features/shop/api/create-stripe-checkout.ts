@@ -1,5 +1,6 @@
-import { isRecord } from '@/shared/utils/is-record';
+import { readJsonResponse } from '@/shared/utils/read-json-response';
 import { site } from '@/shared/config/site';
+import { checkoutUrlSchema } from '../schemas/checkout-url';
 
 export async function createStripeCheckout({
   nick,
@@ -18,21 +19,10 @@ export async function createStripeCheckout({
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({ nick, amount }),
     });
-    const contentType = res.headers.get('content-type') || '';
 
-    if (res.ok && contentType.includes('application/json')) {
-      const data: unknown = await res.json();
+    const checkoutUrl = await readJsonResponse(res, checkoutUrlSchema);
 
-      if (!isRecord(data)) return { mode: 'preview' };
-
-      const checkoutUrl = data.url || data.checkoutUrl;
-
-      if (typeof checkoutUrl === 'string' && checkoutUrl) {
-        return { mode: 'live', checkoutUrl };
-      }
-    }
-
-    return { mode: 'preview' };
+    return checkoutUrl ? { mode: 'live', checkoutUrl } : { mode: 'preview' };
   } catch {
     return { mode: 'preview' };
   }

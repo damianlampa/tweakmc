@@ -1,10 +1,4 @@
-export interface Donor {
-  nick: string;
-  amount: number;
-}
+import type { z } from 'zod';
+import type { shopActivitySchema } from '../schemas/shop-activity';
 
-export interface ShopActivity {
-  isPreview: boolean;
-  topDonors: Donor[];
-  recentPurchases: (Donor & { timeAgo: string })[];
-}
+export type ShopActivity = z.infer<typeof shopActivitySchema> & { isPreview: boolean };

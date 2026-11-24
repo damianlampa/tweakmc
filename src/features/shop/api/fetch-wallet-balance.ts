@@ -1,5 +1,6 @@
-import { isRecord } from '@/shared/utils/is-record';
+import { readJsonResponse } from '@/shared/utils/read-json-response';
 import { site } from '@/shared/config/site';
+import { walletBalanceSchema } from '../schemas/wallet-balance';
 
 export async function fetchWalletBalance(
   nick: string,
@@ -14,23 +15,10 @@ export async function fetchWalletBalance(
       signal,
       headers: { Accept: 'application/json' },
     });
-    const contentType = res.headers.get('content-type') || '';
 
-    if (!res.ok || !contentType.includes('application/json')) {
-      return { connected: false, balance: null };
-    }
+    const balance = await readJsonResponse(res, walletBalanceSchema);
 
-    const data: unknown = await res.json();
-
-    if (!isRecord(data)) return { connected: false, balance: null };
-
-    const raw = data.balance ?? data.wallet ?? data.amount;
-    const balance = typeof raw === 'number' ? raw : parseFloat(String(raw));
-
-    return {
-      connected: true,
-      balance: Number.isFinite(balance) ? balance : 0,
-    };
+    return balance === null ? { connected: false, balance: null } : { connected: true, balance };
   } catch (err) {
     if (err instanceof Error && err.name === 'AbortError') throw err;
 

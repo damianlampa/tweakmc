@@ -11,21 +11,24 @@
     "format-fix": "prettier --write .",
     "types": "tsc --noEmit",
     "lint": "eslint . --max-warnings=0",
-    "test": "npm run format && npm run types && npm run lint",
+    "test": "npm run format && npm run types && npm run lint && npm run test-api",
     "prepare": "node .husky/install.mjs",
-    "lint-fix": "eslint . --fix --max-warnings=0"
+    "lint-fix": "eslint . --fix --max-warnings=0",
+    "test-api": "node --test tests/api-responses.test.mjs"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.3.0",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "@fontsource-variable/space-grotesk": "^5.3.0",
+    "@tanstack/react-query": "^5.108.4",
     "d3-geo": "^3.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router": "^7.18.7",
     "three": "^0.170.0",
     "topojson-client": "^3.1.0",
-    "world-atlas": "^2.0.2"
+    "world-atlas": "^2.0.2",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@commitlint/cli": "21.2.4",
