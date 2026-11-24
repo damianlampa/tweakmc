@@ -1,7 +1,7 @@
 import { Outlet, ScrollRestoration, useMatches } from 'react-router';
 import { getScrollKey } from '@/router/get-scroll-key';
 import { useSettings } from '@/shared/settings/hooks/use-settings';
-import { CopyStatus } from '@/shared/server-ip/server-ip';
+import { CopyStatus } from '@/shared/server-ip';
 import SeasonFx from './components/season-fx';
 import { SiteNavigation } from './components/site-navigation';
 import { SiteFooter } from './components/site-footer';
@@ -11,6 +11,7 @@ export function Layout() {
   const routeSettings = useSettings();
   const { settings } = routeSettings;
   const isHome = useMatches().some(({ handle }) => handle === 'home');
+
   return (
     <>
       <a className="skip" href="#main">

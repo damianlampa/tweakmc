@@ -53,7 +53,9 @@ export default function Tank({ theme = 'default', motion = true }: SceneProps) {
   useEffect(() => {
     const wrap = wrapRef.current;
     const canvas = canvasRef.current;
+
     if (!wrap || !canvas) return;
+
     const pal = (THEMES[theme] || THEMES.default).tank;
     const paused = !motion;
     let renderer: THREE.WebGLRenderer;
@@ -66,6 +68,7 @@ export default function Tank({ theme = 'default', motion = true }: SceneProps) {
       });
     } catch {
       wrap.classList.add('is-fallback');
+
       return;
     }
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -91,7 +94,9 @@ export default function Tank({ theme = 'default', motion = true }: SceneProps) {
     for (let x = -S; x < S; x++) {
       for (let z = -S; z < S; z++) {
         const d = Math.hypot(x + 0.5, z + 0.5);
+
         if (d > S) continue;
+
         const n = Math.sin(x * 0.65) * Math.cos(z * 0.5) + Math.sin((x + z) * 0.3);
         const road = Math.abs(z) < 3.0;
         const h = road ? 1 : 1 + Math.max(0, Math.round(n * 0.7));
@@ -118,19 +123,20 @@ export default function Tank({ theme = 'default', motion = true }: SceneProps) {
         m.setMatrixAt(i, dummy.matrix);
         m.setColorAt(i, col.set(p[6]));
       });
+
       return m;
     };
 
     const baseMesh = makeInstanced([
       ...tiles,
-      ...buildHullParts(pal).map((p): TankPart => [
-        p[0],
-        p[1] + 0.05,
-        p[2],
-        p[3],
-        p[4],
-        p[5],
-        p[6],
+      ...buildHullParts(pal).map((hullPart): TankPart => [
+        hullPart[0],
+        hullPart[1] + 0.05,
+        hullPart[2],
+        hullPart[3],
+        hullPart[4],
+        hullPart[5],
+        hullPart[6],
       ]),
     ]);
 
@@ -170,7 +176,9 @@ export default function Tank({ theme = 'default', motion = true }: SceneProps) {
     const resize = () => {
       const w = wrap.clientWidth;
       const h = wrap.clientHeight;
+
       if (!w || !h) return;
+
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
       const fit = w / h < 1 ? 1.38 : 1.02;

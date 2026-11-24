@@ -40,6 +40,7 @@ export function loadSettings(): Settings {
     ...DEFAULT_SETTINGS,
     sections: { ...DEFAULT_SETTINGS.sections },
   };
+
   if (typeof window === 'undefined') return merged;
 
   try {
@@ -73,6 +74,7 @@ export function loadSettings(): Settings {
   if (isThemeId(q)) {
     merged.theme = q;
   }
+
   return merged;
 }
 
@@ -90,6 +92,7 @@ export function resetSettings() {
   } catch {
     // ignore
   }
+
   return {
     ...DEFAULT_SETTINGS,
     sections: { ...DEFAULT_SETTINGS.sections },

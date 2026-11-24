@@ -1,9 +1,9 @@
 import { lazy, Suspense } from 'react';
 import { homeSections } from '@/router/paths';
 import { type Settings } from '@/shared/settings/settings';
-import { SectionDecor } from '@/shared/components/side-decor';
+import { SectionDecor } from '@/shared/components/section-decor';
 import { Icon } from '@/shared/components/icons';
-import { KineticHeading } from './animated-heading';
+import { KineticHeading } from './kinetic-heading';
 
 const Tank = lazy(() => import('../scenes/tank'));
 
@@ -40,6 +40,7 @@ export function EarthSMP({ settings }: { settings: Settings }) {
         labelLeft="GEOPOLITYKA"
         labelRight="POJAZDY // 3D"
       />
+
       <div className={`wrap earth-grid ${settings.sections.tank3d ? '' : 'hero-grid-single'}`}>
         <div className="earth-copy">
           <KineticHeading text="Flagowy tryb: EarthSMP" accentWord="EarthSMP" />
@@ -47,16 +48,19 @@ export function EarthSMP({ settings }: { settings: Settings }) {
             Pierwszy tryb na TweakMC. Łączy klasyczny survival z geopolityką na prawdziwej mapie
             Ziemi — bez paczek modów na wejściu.
           </p>
+
           <ul className="features tw-list-none tw-m-[36px_0_0] tw-p-0">
-            {FEATURES.map((f) => (
-              <li key={f.title}>
-                <span className="feat-icon">{f.icon}</span>
-                <div>
-                  <h3>{f.title}</h3>
-                  <p>{f.text}</p>
-                </div>
-              </li>
-            ))}
+            {FEATURES.map((feature) => {
+              return (
+                <li key={feature.title}>
+                  <span className="feat-icon">{feature.icon}</span>
+                  <div>
+                    <h3>{feature.title}</h3>
+                    <p>{feature.text}</p>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         </div>
         {settings.sections.tank3d && (

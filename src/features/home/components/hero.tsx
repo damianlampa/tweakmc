@@ -1,44 +1,20 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense } from 'react';
 import { Link } from 'react-router';
 import { paths } from '@/router/paths';
 import { site } from '@/shared/config/site';
 import { THEMES } from '@/shared/config/themes';
 import type { Settings } from '@/shared/settings/settings';
-import { SectionDecor } from '@/shared/components/side-decor';
-import { IpBar } from '@/shared/server-ip/server-ip';
+import { SectionDecor } from '@/shared/components/section-decor';
+import { IpBar } from '@/shared/server-ip';
 import { Icon } from '@/shared/components/icons';
-import { WaveWord } from './animated-heading';
+import { RotatingLine } from './rotating-line';
+import { WaveWord } from './wave-word';
 
 const Globe = lazy(() => import('../scenes/globe'));
 
-const HERO_ROLES = [
-  'EarthSMP · prawdziwa mapa Ziemi',
-  'Państwa, sojusze i wojny o granice',
-  'Czołgi i pojazdy wojskowe na froncie',
-  'Nowe tryby sieci już w przygotowaniu',
-];
-
-function RotatingLine() {
-  const [idx, setIdx] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setIdx((v) => (v + 1) % HERO_ROLES.length), 3200);
-    return () => clearInterval(id);
-  }, []);
-  return (
-    <div
-      className="tw-inline-flex tw-items-center tw-gap-[10px] tw-mt-[18px] tw-min-h-[28px] tw-overflow-hidden tw-font-mono tw-text-[0.92rem] tw-font-semibold tw-text-accent-bright"
-      aria-live="polite"
-    >
-      <span className="rotate-dot" aria-hidden="true" />
-      <span key={idx} className="rotate-text">
-        {HERO_ROLES[idx]}
-      </span>
-    </div>
-  );
-}
-
 export function Hero({ settings }: { settings: Settings }) {
   const active = THEMES[settings.theme] || THEMES.default;
+
   return (
     <section className="hero" id="start" data-enter>
       <SectionDecor
@@ -48,6 +24,7 @@ export function Hero({ settings }: { settings: Settings }) {
         labelLeft="TWEAKMC // NET"
         labelRight="52°N · 21°E"
       />
+
       <div className={`wrap hero-grid ${settings.sections.heroGlobe ? '' : 'hero-grid-single'}`}>
         <div className="hero-copy">
           <h1 className="hero-title">
@@ -59,6 +36,7 @@ export function Hero({ settings }: { settings: Settings }) {
             Nowoczesny Minecraft Java bez zbędnych modów. Startujemy z flagowym trybem{' '}
             <strong>EarthSMP</strong> — a kolejne tryby sieci są już w przygotowaniu.
           </p>
+
           <div className="hero-actions tw-flex tw-flex-wrap tw-items-center tw-gap-[14px] tw-mt-[32px]">
             <IpBar id="hero-copy" />
             <a
@@ -71,6 +49,7 @@ export function Hero({ settings }: { settings: Settings }) {
               <span>Wbij na Discorda</span>
             </a>
           </div>
+
           <p className="tw-flex tw-flex-wrap tw-items-center tw-gap-[12px] tw-mt-[26px] tw-text-muted tw-text-[0.92rem]">
             <span>{active.badge || 'Minecraft Java'}</span>
             {settings.sections.mapPage && (

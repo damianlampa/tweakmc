@@ -11,8 +11,10 @@ let cache: ReturnType<typeof buildWorld> | undefined;
 
 function rng(seed: number) {
   let s = seed >>> 0;
+
   return () => {
     s = (s * 1664525 + 1013904223) >>> 0;
+
     return s / 4294967296;
   };
 }
@@ -20,6 +22,7 @@ function rng(seed: number) {
 export function toVec(lat: number, lon: number) {
   const la = (lat * Math.PI) / 180;
   const lo = (lon * Math.PI) / 180;
+
   return [Math.cos(la) * Math.cos(lo), Math.sin(la), -Math.cos(la) * Math.sin(lo)];
 }
 
@@ -49,6 +52,7 @@ function buildWorld() {
   const isLand = (lat: number, lon: number) => {
     const x = Math.min(W - 1, Math.max(0, Math.floor(((lon + 180) / 360) * W)));
     const y = Math.min(H - 1, Math.max(0, Math.floor(((90 - lat) / 180) * H)));
+
     return data[(y * W + x) * 4] > 127;
   };
 
@@ -71,6 +75,7 @@ function buildWorld() {
         best = i;
       }
     });
+
     return best;
   };
 

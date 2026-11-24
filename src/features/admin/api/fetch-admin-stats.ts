@@ -5,6 +5,7 @@ import { PREVIEW_ADMIN_STATS } from '../data/preview-admin-stats';
 
 function isStats(value: unknown): value is Omit<AdminStats, 'isPreview'> {
   if (!isRecord(value)) return false;
+
   return (
     ['totalRevenue', 'monthRevenue', 'totalTransactions', 'avgOrder'].every(
       (key) => typeof value[key] === 'number',
@@ -35,11 +36,15 @@ export async function fetchAdminStats(signal: AbortSignal): Promise<AdminStats> 
       headers: { Accept: 'application/json' },
     });
     const ct = res.headers.get('content-type') || '';
+
     if (!res.ok || !ct.includes('application/json')) return PREVIEW_ADMIN_STATS;
+
     const data: unknown = await res.json();
+
     return isStats(data) ? { ...data, isPreview: false } : PREVIEW_ADMIN_STATS;
   } catch (err) {
     if (err instanceof Error && err.name === 'AbortError') throw err;
+
     return PREVIEW_ADMIN_STATS;
   }
 }

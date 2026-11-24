@@ -1,10 +1,10 @@
 import { Link } from 'react-router';
 import { paths } from '@/router/paths';
 import type { Settings } from '@/shared/settings/settings';
-import { SectionDecor } from '@/shared/components/side-decor';
+import { SectionDecor } from '@/shared/components/section-decor';
 import { Supporters } from '@/features/supporters';
 import { Icon } from '@/shared/components/icons';
-import { KineticHeading } from './animated-heading';
+import { KineticHeading } from './kinetic-heading';
 
 export function HomeBoards({ settings }: { settings: Settings }) {
   return (
@@ -15,6 +15,7 @@ export function HomeBoards({ settings }: { settings: Settings }) {
         labelLeft="TOPKI // PORTFEL"
         labelRight="SKLEP // STRIPE"
       />
+
       <div className="wrap">
         <div className="tw-flex tw-flex-wrap tw-justify-between tw-items-end tw-gap-[24px] tw-mb-[32px]">
           <div>

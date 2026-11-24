@@ -14,6 +14,7 @@ export function attachDrag(
   };
   const onMove = (e: PointerEvent) => {
     if (!down) return;
+
     const dx = e.clientX - lastX;
     const dy = e.clientY - lastY;
     lastX = e.clientX;
@@ -30,6 +31,7 @@ export function attachDrag(
   el.addEventListener('pointermove', onMove);
   el.addEventListener('pointerup', onUp);
   el.addEventListener('pointercancel', onUp);
+
   return () => {
     el.removeEventListener('pointerdown', onDown);
     el.removeEventListener('pointermove', onMove);
@@ -53,13 +55,16 @@ export function runWhenVisible(el: HTMLElement, tick: (delta: number) => void) {
   io.observe(el);
   function loop(t: number) {
     cancelAnimationFrame(raf);
+
     if (!visible) return;
+
     const dt = Math.min(0.05, (t - last) / 1000);
     last = t;
     tick(dt);
     raf = requestAnimationFrame(loop);
   }
   raf = requestAnimationFrame(loop);
+
   return () => {
     io.disconnect();
     cancelAnimationFrame(raf);

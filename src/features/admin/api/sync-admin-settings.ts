@@ -12,6 +12,7 @@ export async function syncAdminSettings(settings: Settings) {
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify(settings),
     });
+
     return { synced: res.ok, mode: res.ok ? 'remote' : 'local' };
   } catch {
     return { synced: false, mode: 'local' };

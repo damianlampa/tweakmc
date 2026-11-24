@@ -18,15 +18,19 @@ export async function fetchWalletBalance(
       return { connected: false, balance: null };
     }
     const data: unknown = await res.json();
+
     if (!isRecord(data)) return { connected: false, balance: null };
+
     const raw = data.balance ?? data.wallet ?? data.amount;
     const balance = typeof raw === 'number' ? raw : parseFloat(String(raw));
+
     return {
       connected: true,
       balance: Number.isFinite(balance) ? balance : 0,
     };
   } catch (err) {
     if (err instanceof Error && err.name === 'AbortError') throw err;
+
     return { connected: false, balance: null };
   }
 }

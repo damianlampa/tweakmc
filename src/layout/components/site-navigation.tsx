@@ -5,7 +5,7 @@ import { site } from '@/shared/config/site';
 import { THEMES } from '@/shared/config/themes';
 import type { Settings } from '@/shared/settings/settings';
 import { copyIp, useCopied } from '@/shared/server-ip/hooks/use-copy-ip';
-import { IpText } from '@/shared/server-ip/server-ip';
+import { IpText } from '@/shared/server-ip';
 import { Icon } from '@/shared/components/icons';
 
 export function SiteNavigation({ settings }: { settings: Settings }) {
@@ -28,6 +28,7 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+
     return () => window.removeEventListener('scroll', onScroll);
   }, [pathname]);
 
@@ -82,18 +83,21 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
               <IpText />
             </button>
           </div>
+
           <nav aria-label="Główna nawigacja" className={`nav-links ${open ? 'is-open' : ''}`}>
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                aria-current={item.active ? 'page' : undefined}
-                to={item.href}
-                className={`nav-link ${item.active ? 'is-current' : ''}`}
-                onClick={() => setOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((navItem) => {
+              return (
+                <Link
+                  key={navItem.href}
+                  aria-current={navItem.active ? 'page' : undefined}
+                  to={navItem.href}
+                  className={`nav-link ${navItem.active ? 'is-current' : ''}`}
+                  onClick={() => setOpen(false)}
+                >
+                  {navItem.label}
+                </Link>
+              );
+            })}
             <a href={site.discordUrl} className="nav-link" target="_blank" rel="noreferrer">
               Discord
             </a>

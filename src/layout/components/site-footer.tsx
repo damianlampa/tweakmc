@@ -3,7 +3,7 @@ import { paths, homeSectionPath } from '@/router/paths';
 import { site } from '@/shared/config/site';
 import { THEMES } from '@/shared/config/themes';
 import type { Settings } from '@/shared/settings/settings';
-import { IpBar } from '@/shared/server-ip/server-ip';
+import { IpBar } from '@/shared/server-ip';
 
 export function SiteFooter({ settings }: { settings: Settings }) {
   const activeTheme = THEMES[settings.theme] || THEMES.default;
@@ -13,6 +13,7 @@ export function SiteFooter({ settings }: { settings: Settings }) {
     { href: paths.map, label: 'Mapa', show: settings.sections.mapPage },
     { href: paths.shop, label: 'Sklep', show: settings.sections.shopPage },
   ].filter((x) => x.show);
+
   return (
     <footer className="close">
       <div className="wrap">
@@ -23,15 +24,18 @@ export function SiteFooter({ settings }: { settings: Settings }) {
           <div className="foot-ip">
             <IpBar compact />
           </div>
+
           <nav
             aria-label="Nawigacja w stopce"
             className="foot-links tw-flex tw-flex-wrap tw-gap-[6px_22px]"
           >
-            {footItems.map((item) => (
-              <Link key={item.href} to={item.href} className="nav-link">
-                {item.label}
-              </Link>
-            ))}
+            {footItems.map((footerLink) => {
+              return (
+                <Link key={footerLink.href} to={footerLink.href} className="nav-link">
+                  {footerLink.label}
+                </Link>
+              );
+            })}
             <a href={site.discordUrl} className="nav-link" target="_blank" rel="noreferrer">
               Discord
             </a>

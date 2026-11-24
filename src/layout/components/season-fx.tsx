@@ -6,9 +6,13 @@ export default function SeasonFx({ theme = 'default', motion = true }: SceneProp
 
   useEffect(() => {
     const canvas = ref.current;
+
     if (!canvas || !motion) return;
+
     const ctx = canvas.getContext('2d');
+
     if (!ctx) return;
+
     const cfg = THEMES[theme]?.fx || THEMES.default.fx;
 
     let W = 0;
@@ -32,6 +36,7 @@ export default function SeasonFx({ theme = 'default', motion = true }: SceneProp
             ? Math.random() * 0.22
             : 0.78 + Math.random() * 0.22
           : Math.random();
+
       return {
         x: edgeBias * W,
         y: Math.random() * H,
@@ -87,5 +92,6 @@ export default function SeasonFx({ theme = 'default', motion = true }: SceneProp
   }, [theme, motion]);
 
   if (!motion) return null;
+
   return <canvas ref={ref} className="season-fx" aria-hidden="true" />;
 }

@@ -20,12 +20,15 @@ export async function createStripeCheckout({
     const contentType = res.headers.get('content-type') || '';
     if (res.ok && contentType.includes('application/json')) {
       const data: unknown = await res.json();
+
       if (!isRecord(data)) return { mode: 'preview' };
+
       const checkoutUrl = data.url || data.checkoutUrl;
       if (typeof checkoutUrl === 'string' && checkoutUrl) {
         return { mode: 'live', checkoutUrl };
       }
     }
+
     return { mode: 'preview' };
   } catch {
     return { mode: 'preview' };

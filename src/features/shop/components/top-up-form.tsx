@@ -9,7 +9,9 @@ import { createStripeCheckout } from '../api';
 
 function clampAmount(raw: string | number) {
   const num = parseFloat(String(raw).replace(',', '.'));
+
   if (Number.isNaN(num)) return site.shopMin;
+
   return Math.round(Math.min(site.shopMax, Math.max(site.shopMin, num)) * 100) / 100;
 }
 
@@ -50,6 +52,7 @@ export function TopUpForm() {
     if (!validNick) {
       setError('Podaj poprawny nick z Minecrafta (3–16 znaków: litery, cyfry lub _).');
       setCheckoutNotice('');
+
       return;
     }
     setError('');
@@ -58,6 +61,7 @@ export function TopUpForm() {
     setSubmitting(false);
     if (res.mode === 'live' && res.checkoutUrl) {
       window.location.href = res.checkoutUrl;
+
       return;
     }
     setCheckoutNotice(
@@ -127,17 +131,19 @@ export function TopUpForm() {
             role="group"
             aria-label="Gotowe kwoty doładowania"
           >
-            {site.shopAmounts.map((preset) => (
-              <button
-                key={preset}
-                type="button"
-                className={`preset-btn ${amount === preset ? 'is-active' : ''}`}
-                onClick={() => setCleanAmount(preset)}
-              >
-                <strong>{preset}</strong>
-                <span>PLN</span>
-              </button>
-            ))}
+            {site.shopAmounts.map((presetAmount) => {
+              return (
+                <button
+                  key={presetAmount}
+                  type="button"
+                  className={`preset-btn ${amount === presetAmount ? 'is-active' : ''}`}
+                  onClick={() => setCleanAmount(presetAmount)}
+                >
+                  <strong>{presetAmount}</strong>
+                  <span>PLN</span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -165,6 +171,7 @@ export function TopUpForm() {
               </button>
             </div>
           </div>
+
           <div className="amount-input-wrap">
             <input
               id="shop-amount"
@@ -209,21 +216,25 @@ export function TopUpForm() {
         aria-label="Podsumowanie doładowania"
       >
         <h3>Podsumowanie</h3>
+
         <dl className="summary-rows">
           <div>
             <dt>Konto gracza</dt>
             <dd className={validNick ? 'is-set' : ''}>{trimmedNick || 'Nie wpisano'}</dd>
           </div>
+
           <div>
             <dt>
               Aktualne <code className="inline-code">/portfel</code>
             </dt>
             <dd className={wallet.status === 'connected' ? 'is-set' : ''}>{currentBalText}</dd>
           </div>
+
           <div>
             <dt>Doładowanie z pluginu</dt>
             <dd className="is-accent">{afterBalText}</dd>
           </div>
+
           <div>
             <dt>Prowizja</dt>
             <dd className="is-set">0,00 PLN</dd>
@@ -256,9 +267,9 @@ export function TopUpForm() {
             className="pay-list tw-flex tw-flex-wrap tw-gap-[7px] tw-list-none tw-m-0 tw-p-0"
             aria-label="Obsługiwane metody płatności"
           >
-            {site.payments.map((p) => (
-              <li key={p}>{p}</li>
-            ))}
+            {site.payments.map((paymentMethod) => {
+              return <li key={paymentMethod}>{paymentMethod}</li>;
+            })}
           </ul>
         </div>
       </aside>

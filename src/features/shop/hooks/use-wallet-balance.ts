@@ -10,12 +10,15 @@ export function useWalletBalance(trimmedNick: string) {
   >({ nick: '', status: 'idle', balance: null });
   useEffect(() => {
     if (!validNick) return;
+
     const ctrl = new AbortController();
     const timer = setTimeout(async () => {
       setWallet({ nick: trimmedNick, status: 'loading', balance: null });
       try {
         const res = await fetchWalletBalance(trimmedNick, ctrl.signal);
+
         if (ctrl.signal.aborted) return;
+
         setWallet(
           res.connected
             ? { nick: trimmedNick, status: 'connected', balance: res.balance }
@@ -25,6 +28,7 @@ export function useWalletBalance(trimmedNick: string) {
         // A new name or unmount can cancel the request.
       }
     }, 350);
+
     return () => {
       clearTimeout(timer);
       ctrl.abort();

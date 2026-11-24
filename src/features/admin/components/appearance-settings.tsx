@@ -29,22 +29,28 @@ export function AppearanceSettings({
           <h2>Aktywny sezon i automatyczna zmiana logo</h2>
           <span className="board-tag">Aktywne: {activeTheme.label}</span>
         </div>
+
         <div className="season-cards tw-grid tw-grid-cols-[repeat(4,_minmax(0,_1fr))] tw-gap-[14px]">
-          {THEME_LIST.map((t) => (
-            <button
-              key={t.id}
-              type="button"
-              className={`season-admin-card ${settings.theme === t.id ? 'is-active' : ''}`}
-              onClick={() => patch({ ...settings, theme: t.id })}
-            >
-              <div className="season-logo-pair tw-flex tw-items-center tw-justify-center tw-gap-[10px] tw-h-[62px]">
-                <img src={t.logo} alt={`Logo ${t.label}`} />
-                <img src={t.earthLogo} alt={`EarthSMP ${t.label}`} />
-              </div>
-              <strong>{t.label}</strong>
-              <span>{settings.theme === t.id ? 'Aktywny motyw' : 'Kliknij, aby włączyć'}</span>
-            </button>
-          ))}
+          {THEME_LIST.map((theme) => {
+            return (
+              <button
+                key={theme.id}
+                type="button"
+                className={`season-admin-card ${settings.theme === theme.id ? 'is-active' : ''}`}
+                onClick={() => patch({ ...settings, theme: theme.id })}
+              >
+                <div className="season-logo-pair tw-flex tw-items-center tw-justify-center tw-gap-[10px] tw-h-[62px]">
+                  <img src={theme.logo} alt={`Logo ${theme.label}`} />
+                  <img src={theme.earthLogo} alt={`EarthSMP ${theme.label}`} />
+                </div>
+
+                <strong>{theme.label}</strong>
+                <span>
+                  {settings.theme === theme.id ? 'Aktywny motyw' : 'Kliknij, aby włączyć'}
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -55,18 +61,21 @@ export function AppearanceSettings({
             Podgląd /mapa
           </Link>
         </div>
+
         <div className="option-row tw-grid tw-grid-cols-[repeat(3,_minmax(0,_1fr))] tw-gap-[12px]">
-          {MAP_FRAME_OPTIONS.map((opt) => (
-            <button
-              key={opt.id}
-              type="button"
-              className={`option-card ${settings.mapFrame === opt.id ? 'is-active' : ''}`}
-              onClick={() => patch({ ...settings, mapFrame: opt.id })}
-            >
-              <strong>{opt.label}</strong>
-              <span>{opt.desc}</span>
-            </button>
-          ))}
+          {MAP_FRAME_OPTIONS.map((frameOption) => {
+            return (
+              <button
+                key={frameOption.id}
+                type="button"
+                className={`option-card ${settings.mapFrame === frameOption.id ? 'is-active' : ''}`}
+                onClick={() => patch({ ...settings, mapFrame: frameOption.id })}
+              >
+                <strong>{frameOption.label}</strong>
+                <span>{frameOption.desc}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>

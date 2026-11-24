@@ -78,6 +78,7 @@ export function SectionSettings({
       <div className="admin-box">
         <div className="admin-box-head tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-gap-[12px] tw-mb-[18px]">
           <h2>Przełączniki podstron i sekcji</h2>
+
           <div className="tw-flex tw-flex-wrap tw-gap-[8px]">
             <button
               type="button"
@@ -102,15 +103,23 @@ export function SectionSettings({
         </div>
 
         <div className="toggle-grid tw-grid tw-grid-cols-[repeat(2,_minmax(0,_1fr))] tw-gap-[12px]">
-          {SECTION_TOGGLES.map((item) => {
-            const on = !!settings.sections[item.key];
+          {SECTION_TOGGLES.map((sectionToggle) => {
+            const isEnabled = settings.sections[sectionToggle.key];
+
             return (
-              <label key={item.key} className={`toggle-row ${on ? 'is-on' : 'is-off'}`}>
+              <label
+                key={sectionToggle.key}
+                className={`toggle-row ${isEnabled ? 'is-on' : 'is-off'}`}
+              >
                 <div>
-                  <strong>{item.label}</strong>
-                  <span>{item.desc}</span>
+                  <strong>{sectionToggle.label}</strong>
+                  <span>{sectionToggle.desc}</span>
                 </div>
-                <input type="checkbox" checked={on} onChange={() => toggleSection(item.key)} />
+                <input
+                  type="checkbox"
+                  checked={isEnabled}
+                  onChange={() => toggleSection(sectionToggle.key)}
+                />
                 <span className="switch-ui" aria-hidden="true" />
               </label>
             );
@@ -135,6 +144,7 @@ export function SectionSettings({
         <div className="admin-box-head tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-gap-[12px] tw-mb-[18px]">
           <h2>Komunikat przy wyłączonej Mapie lub Sklepie</h2>
         </div>
+
         <div className="nick-wrap">
           <input
             type="text"

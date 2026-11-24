@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router';
 import { paths } from '@/router/paths';
 import { site } from '@/shared/config/site';
-import { SectionDecor } from '@/shared/components/side-decor';
+import { SectionDecor } from '@/shared/components/section-decor';
 import { Icon as icons } from '@/shared/components/icons';
 import { useRouteSettings } from '@/router/use-route-settings';
 import PixelMap from './components/pixel-map';
@@ -27,6 +27,7 @@ export default function MapPage() {
           labelLeft="MAPA // OFFLINE"
           labelRight="TWEAKMC.PL"
         />
+
         <div className="wrap">
           <div className="disabled-card">
             <span className="disabled-tag">Mapa tymczasowo niedostępna</span>
@@ -34,6 +35,7 @@ export default function MapPage() {
             <p className="tw-mt-[16px] tw-max-w-[58ch] tw-text-muted tw-text-[1.08rem]">
               {settings.maintenanceMsg}
             </p>
+
             <div className="tw-flex tw-flex-wrap tw-gap-[12px] tw-mt-[28px]">
               <Link to={paths.home} className="btn btn-primary">
                 Wróć na stronę główną
@@ -53,6 +55,7 @@ export default function MapPage() {
         labelLeft="DYNMAP // LIVE"
         labelRight="ZIEMIA 1:1000"
       />
+
       <div className={frameStyle === 'fullscreen' ? 'wrap wrap-wide' : 'wrap'}>
         <div className="tw-flex tw-flex-wrap tw-justify-between tw-items-end tw-gap-[20px] tw-mb-[32px]">
           <div>
@@ -67,6 +70,7 @@ export default function MapPage() {
               mapie Ziemi.
             </p>
           </div>
+
           <div className="map-controls tw-flex tw-flex-wrap tw-gap-[12px]">
             <button type="button" className="btn btn-secondary btn-sm" onClick={reload}>
               {icons.refresh}
@@ -92,6 +96,7 @@ export default function MapPage() {
               {site.dynmapDisplayPath}
             </code>
           </div>
+
           <div className="map-frame map-frame-tall">
             <PixelMap theme={settings.theme} />
             <iframe

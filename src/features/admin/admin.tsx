@@ -37,6 +37,7 @@ export default function AdminPage() {
   };
 
   if (!authed) return <AdminLogin settings={settings} onLogin={handleLogin} />;
+
   return (
     <section className="page-shell sec-dark admin-page">
       <div className="wrap">
@@ -49,6 +50,7 @@ export default function AdminPage() {
               Admin Panel · TweakMC
             </h1>
           </div>
+
           <div className="tw-flex tw-flex-wrap tw-items-center tw-gap-[10px]">
             {toast && (
               <span className="admin-toast" role="status">

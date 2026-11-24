@@ -7,6 +7,7 @@ import { attachDrag, runWhenVisible } from './scene-interaction';
 function formatCoord(lat: number, lon: number) {
   const ns = lat >= 0 ? 'N' : 'S';
   const ew = lon >= 0 ? 'E' : 'W';
+
   return `${Math.abs(Math.round(lat))}°${ns} ${Math.abs(Math.round(lon))}°${ew}`;
 }
 
@@ -18,7 +19,9 @@ export default function Globe({ theme = 'default', motion = true }: SceneProps) 
   useEffect(() => {
     const wrap = wrapRef.current;
     const canvas = canvasRef.current;
+
     if (!wrap || !canvas) return;
+
     const world = getWorld();
     const pal = (THEMES[theme] || THEMES.default).globe;
     const paused = !motion;
@@ -34,6 +37,7 @@ export default function Globe({ theme = 'default', motion = true }: SceneProps) 
       });
     } catch {
       wrap.classList.add('is-fallback');
+
       return;
     }
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -167,7 +171,9 @@ export default function Globe({ theme = 'default', motion = true }: SceneProps) 
     const resize = () => {
       const w = wrap.clientWidth;
       const h = wrap.clientHeight;
+
       if (!w || !h) return;
+
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();

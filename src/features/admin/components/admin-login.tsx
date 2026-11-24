@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { Link } from 'react-router';
 import { paths } from '@/router/paths';
 import type { Settings } from '@/shared/settings/settings';
-import { SectionDecor } from '@/shared/components/side-decor';
+import { SectionDecor } from '@/shared/components/section-decor';
 
 const DEMO_PIN = 'tweakmc2026';
 
@@ -26,6 +26,7 @@ export function AdminLogin({ settings, onLogin }: { settings: Settings; onLogin:
         labelLeft="ADMIN // AUTH"
         labelRight="TWEAKMC.PL"
       />
+
       <div className="wrap">
         <form className="admin-login-card" onSubmit={handleLogin}>
           <Link to={paths.home} className="back-link">
@@ -36,6 +37,7 @@ export function AdminLogin({ settings, onLogin }: { settings: Settings; onLogin:
             Zarządzanie zarobkami, sezonem, logotypami, mapą i widocznością wszystkich sekcji
             TweakMC.pl.
           </p>
+
           <div className="field tw-grid tw-gap-[10px]">
             <label htmlFor="admin-pin">Hasło dostępu</label>
             <div className={`nick-wrap ${pinErr ? 'has-error' : ''}`}>
@@ -52,6 +54,7 @@ export function AdminLogin({ settings, onLogin }: { settings: Settings; onLogin:
             </div>
             {pinErr && <p className="field-error">{pinErr}</p>}
           </div>
+
           <button type="submit" className="btn btn-primary pay-submit">
             Zaloguj się do panelu
           </button>

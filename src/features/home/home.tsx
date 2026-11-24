@@ -9,6 +9,7 @@ import { DiscordBanner } from './components/discord-banner';
 
 export function HomePage() {
   const { settings } = useRouteSettings();
+
   return (
     <>
       {settings.sections.hero && <Hero settings={settings} />}

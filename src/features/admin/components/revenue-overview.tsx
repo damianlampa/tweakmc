@@ -12,7 +12,8 @@ function formatPln(val: number) {
 }
 
 export function RevenueOverview({ stats }: { stats: AdminStats }) {
-  const maxDay = Math.max(...stats.daily.map((d) => d.amount), 1);
+  const maxDay = Math.max(...stats.daily.map((day) => day.amount), 1);
+
   return (
     <div className="tw-grid tw-gap-[20px]">
       {stats.isPreview && (
@@ -29,14 +30,17 @@ export function RevenueOverview({ stats }: { stats: AdminStats }) {
           <span>Łączne zarobki</span>
           <strong>{formatPln(stats.totalRevenue)}</strong>
         </div>
+
         <div className="kpi-card">
           <span>Zarobki (ten miesiąc)</span>
           <strong className="tw-text-accent-bright">{formatPln(stats.monthRevenue)}</strong>
         </div>
+
         <div className="kpi-card">
           <span>Liczba wpłat</span>
           <strong>{stats.totalTransactions}</strong>
         </div>
+
         <div className="kpi-card">
           <span>Średnie doładowanie</span>
           <strong>{formatPln(stats.avgOrder)}</strong>
@@ -49,26 +53,29 @@ export function RevenueOverview({ stats }: { stats: AdminStats }) {
             <h2>Wpłaty z ostatnich 7 dni</h2>
             <span className="board-tag">PLN / dzień</span>
           </div>
+
           <div
             className="tw-grid tw-grid-cols-[repeat(7,_minmax(0,_1fr))] tw-gap-[10px] tw-h-[210px] [align-items:end] tw-pt-[10px]"
             role="img"
             aria-label="Wykres dziennych wpłat z ostatnich 7 dni"
           >
-            {stats.daily.map((d) => (
-              <div
-                className="tw-flex tw-flex-col tw-items-center tw-gap-[6px] tw-h-full"
-                key={d.day}
-              >
-                <span className="tw-font-mono tw-text-[0.72rem] tw-text-muted">{d.amount}</span>
-                <div className="bar-track">
-                  <div
-                    className="bar-fill"
-                    style={{ height: `${Math.round((d.amount / maxDay) * 100)}%` }}
-                  />
+            {stats.daily.map((day) => {
+              return (
+                <div
+                  className="tw-flex tw-flex-col tw-items-center tw-gap-[6px] tw-h-full"
+                  key={day.day}
+                >
+                  <span className="tw-font-mono tw-text-[0.72rem] tw-text-muted">{day.amount}</span>
+                  <div className="bar-track">
+                    <div
+                      className="bar-fill"
+                      style={{ height: `${Math.round((day.amount / maxDay) * 100)}%` }}
+                    />
+                  </div>
+                  <span className="tw-text-[0.78rem] tw-text-muted">{day.day}</span>
                 </div>
-                <span className="tw-text-[0.78rem] tw-text-muted">{d.day}</span>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -79,6 +86,7 @@ export function RevenueOverview({ stats }: { stats: AdminStats }) {
               Otwórz sklep
             </Link>
           </div>
+
           <div className="tw-overflow-x-auto">
             <table className="tx-table">
               <thead>
@@ -91,23 +99,25 @@ export function RevenueOverview({ stats }: { stats: AdminStats }) {
                 </tr>
               </thead>
               <tbody>
-                {stats.transactions.map((tx) => (
-                  <tr key={tx.id}>
-                    <td>
-                      <code>{tx.id}</code>
-                    </td>
-                    <td>
-                      <strong>{tx.nick}</strong>
-                    </td>
-                    <td className="tw-font-mono tw-font-semibold tw-text-accent-bright">
-                      +{formatPln(tx.amount)}
-                    </td>
-                    <td>{tx.method}</td>
-                    <td>
-                      <span className="tx-ok">{tx.status}</span>
-                    </td>
-                  </tr>
-                ))}
+                {stats.transactions.map((transaction) => {
+                  return (
+                    <tr key={transaction.id}>
+                      <td>
+                        <code>{transaction.id}</code>
+                      </td>
+                      <td>
+                        <strong>{transaction.nick}</strong>
+                      </td>
+                      <td className="tw-font-mono tw-font-semibold tw-text-accent-bright">
+                        +{formatPln(transaction.amount)}
+                      </td>
+                      <td>{transaction.method}</td>
+                      <td>
+                        <span className="tx-ok">{transaction.status}</span>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

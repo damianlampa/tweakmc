@@ -1,9 +1,9 @@
 import { site } from '@/shared/config/site';
 import { type Settings } from '@/shared/settings/settings';
-import { SectionDecor } from '@/shared/components/side-decor';
+import { SectionDecor } from '@/shared/components/section-decor';
 import { Icon } from '@/shared/components/icons';
 import { onCardMove } from '@/shared/utils/card-glow';
-import { WaveWord } from './animated-heading';
+import { WaveWord } from './wave-word';
 
 const DISCORD_CHANNELS = [
   { name: '#ogłoszenia', desc: 'Starty sezonów, patche i nowe tryby' },
@@ -21,6 +21,7 @@ export function DiscordBanner({ settings }: { settings: Settings }) {
         labelLeft="DISCORD // LIVE"
         labelRight="SPOŁECZNOŚĆ"
       />
+
       <div className="wrap">
         <div className="discord-card glow-card" onPointerMove={onCardMove}>
           <div className="discord-copy">
@@ -35,6 +36,7 @@ export function DiscordBanner({ settings }: { settings: Settings }) {
               Tu dzieją się ogłoszenia, konkursy, zapowiedzi kolejnych trybów i rekrutacja do państw
               na EarthSMP.
             </p>
+
             <div className="tw-flex tw-flex-wrap tw-items-center tw-gap-[14px] tw-mt-[28px]">
               <a
                 className="btn btn-discord"
@@ -63,13 +65,16 @@ export function DiscordBanner({ settings }: { settings: Settings }) {
                 <i />
               </span>
             </div>
+
             <ul className="discord-channels tw-list-none tw-m-0 tw-p-0 tw-grid tw-gap-[9px]">
-              {DISCORD_CHANNELS.map((ch, idx) => (
-                <li key={ch.name} style={{ '--i': idx }}>
-                  <span className="ch-name">{ch.name}</span>
-                  <span className="tw-text-[0.82rem] tw-text-muted">{ch.desc}</span>
-                </li>
-              ))}
+              {DISCORD_CHANNELS.map((channel, channelIndex) => {
+                return (
+                  <li key={channel.name} style={{ '--i': channelIndex }}>
+                    <span className="ch-name">{channel.name}</span>
+                    <span className="tw-text-[0.82rem] tw-text-muted">{channel.desc}</span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
