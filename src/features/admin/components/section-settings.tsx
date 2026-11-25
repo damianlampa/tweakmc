@@ -3,6 +3,7 @@ import { classes } from '@/shared/utils/classes';
 import { useTranslation } from 'react-i18next';
 import type { Settings } from '@/shared/settings/settings';
 import { DEFAULT_SETTINGS } from '@/shared/settings/settings';
+import { AdminCard } from './admin-card';
 
 const SECTION_TOGGLES: { key: keyof Settings['sections']; label: string; desc: string }[] = [
   {
@@ -80,7 +81,7 @@ export function SectionSettings({
 
   return (
     <div className="grid gap-5">
-      <div className="admin-card">
+      <AdminCard>
         <div className="[&_h2]:text-xl/none flex flex-wrap items-center justify-between gap-3 mb-[18px]">
           <h2>{t('sections.title')}</h2>
 
@@ -116,10 +117,11 @@ export function SectionSettings({
                 key={sectionToggle.key}
                 className={classes(
                   'relative flex items-center justify-between gap-[14px] p-[14px_16px] rounded-[12px] ' +
-                    '[border:1px_solid_var(--line)] bg-surface cursor-pointer ' +
-                    '[transition:border-color_0.2s,_background-color_0.2s] hover:[border-color:rgba(var(--bright-rgb),_0.4)] ' +
+                    '[border:1px_solid_theme(colors.white/9%)] bg-surface christmas:bg-christmas-surface halloween:bg-halloween-surface spring:bg-spring-surface cursor-pointer ' +
+                    '[transition:border-color_0.2s,_background-color_0.2s] hover:border-purple-400/40 christmas:hover:border-sky-300/40 halloween:hover:border-orange-300/40 spring:hover:border-emerald-300/40 ' +
                     '[&.is-off]:opacity-[0.65] [&_strong]:block [&_strong]:text-base/relaxed [&_span:not(.switch-ui)]:block ' +
-                    '[&_span:not(.switch-ui)]:text-xs/relaxed [&_span:not(.switch-ui)]:text-muted ' +
+                    '[&_span:not(.switch-ui)]:text-xs/relaxed [&_span:not(.switch-ui)]:text-muted christmas:[&_span:not(.switch-ui)]:text-christmas-muted ' +
+                    'halloween:[&_span:not(.switch-ui)]:text-halloween-muted spring:[&_span:not(.switch-ui)]:text-spring-muted ' +
                     '[&_span:not(.switch-ui)]:mt-[2px] [&_input]:absolute [&_input]:opacity-[0] [&_input]:pointer-events-none',
                   isEnabled ? 'is-on' : 'is-off',
                 )}
@@ -136,11 +138,11 @@ export function SectionSettings({
                 />
                 <span
                   className={
-                    'switch-ui relative w-[46px] h-[26px] shrink-0 rounded-[999px] [background:rgba(255,_255,_255,_0.14)] ' +
+                    'switch-ui relative w-[46px] h-[26px] shrink-0 rounded-[999px] bg-white/[0.14] ' +
                     "[transition:background-color_0.22s] [&::after]:[content:''] [&::after]:absolute [&::after]:left-[3px] " +
                     '[&::after]:top-[3px] [&::after]:w-[20px] [&::after]:h-[20px] [&::after]:rounded-[50%] ' +
-                    '[&::after]:[background:#ffffff] [&::after]:[transition:transform_0.22s_var(--ease)] ' +
-                    'peer-checked:bg-accent peer-checked:[&::after]:[transform:translateX(20px)]'
+                    '[&::after]:bg-white [&::after]:[transition:transform_0.22s_var(--ease)] ' +
+                    'peer-checked:bg-purple-600 christmas:peer-checked:bg-sky-600 halloween:peer-checked:bg-orange-600 spring:peer-checked:bg-emerald-600 peer-checked:[&::after]:[transform:translateX(20px)]'
                   }
                   aria-hidden="true"
                 />
@@ -151,10 +153,11 @@ export function SectionSettings({
           <label
             className={classes(
               'relative flex items-center justify-between gap-[14px] p-[14px_16px] rounded-[12px] ' +
-                '[border:1px_solid_var(--line)] bg-surface cursor-pointer ' +
-                '[transition:border-color_0.2s,_background-color_0.2s] hover:[border-color:rgba(var(--bright-rgb),_0.4)] ' +
+                '[border:1px_solid_theme(colors.white/9%)] bg-surface christmas:bg-christmas-surface halloween:bg-halloween-surface spring:bg-spring-surface cursor-pointer ' +
+                '[transition:border-color_0.2s,_background-color_0.2s] hover:border-purple-400/40 christmas:hover:border-sky-300/40 halloween:hover:border-orange-300/40 spring:hover:border-emerald-300/40 ' +
                 '[&.is-off]:opacity-[0.65] [&_strong]:block [&_strong]:text-base/relaxed [&_span:not(.switch-ui)]:block ' +
-                '[&_span:not(.switch-ui)]:text-xs/relaxed [&_span:not(.switch-ui)]:text-muted ' +
+                '[&_span:not(.switch-ui)]:text-xs/relaxed [&_span:not(.switch-ui)]:text-muted christmas:[&_span:not(.switch-ui)]:text-christmas-muted ' +
+                'halloween:[&_span:not(.switch-ui)]:text-halloween-muted spring:[&_span:not(.switch-ui)]:text-spring-muted ' +
                 '[&_span:not(.switch-ui)]:mt-[2px] [&_input]:absolute [&_input]:opacity-[0] [&_input]:pointer-events-none',
               settings.motion ? 'is-on' : 'is-off',
             )}
@@ -171,30 +174,32 @@ export function SectionSettings({
             />
             <span
               className={
-                'switch-ui relative w-[46px] h-[26px] shrink-0 rounded-[999px] [background:rgba(255,_255,_255,_0.14)] ' +
+                'switch-ui relative w-[46px] h-[26px] shrink-0 rounded-[999px] bg-white/[0.14] ' +
                 "[transition:background-color_0.22s] [&::after]:[content:''] [&::after]:absolute [&::after]:left-[3px] " +
                 '[&::after]:top-[3px] [&::after]:w-[20px] [&::after]:h-[20px] [&::after]:rounded-[50%] ' +
-                '[&::after]:[background:#ffffff] [&::after]:[transition:transform_0.22s_var(--ease)] ' +
-                'peer-checked:bg-accent peer-checked:[&::after]:[transform:translateX(20px)]'
+                '[&::after]:bg-white [&::after]:[transition:transform_0.22s_var(--ease)] ' +
+                'peer-checked:bg-purple-600 christmas:peer-checked:bg-sky-600 halloween:peer-checked:bg-orange-600 spring:peer-checked:bg-emerald-600 peer-checked:[&::after]:[transform:translateX(20px)]'
               }
               aria-hidden="true"
             />
           </label>
         </div>
-      </div>
+      </AdminCard>
 
-      <div className="admin-card">
+      <AdminCard>
         <div className="[&_h2]:text-xl/none flex flex-wrap items-center justify-between gap-3 mb-[18px]">
           <h2>{t('sections.maintenance')}</h2>
         </div>
 
         <div
           className={
-            'flex items-center gap-[12px] p-[6px_14px_6px_8px] rounded-[12px] [border:1px_solid_var(--line-strong)] ' +
-            'bg-surface [transition:border-color_0.2s] focus-within:[border-color:var(--accent-bright)] ' +
-            '[&.has-error]:[border-color:var(--war)] [&_input]:w-full [&_input]:min-h-[42px] [&_input]:bg-transparent ' +
+            'flex items-center gap-[12px] p-[6px_14px_6px_8px] rounded-[12px] [border:1px_solid_theme(colors.white/18%)] ' +
+            'bg-surface christmas:bg-christmas-surface halloween:bg-halloween-surface spring:bg-spring-surface [transition:border-color_0.2s] ' +
+            'focus-within:border-purple-400 christmas:focus-within:border-sky-300 halloween:focus-within:border-orange-300 spring:focus-within:border-emerald-300 ' +
+            '[&.has-error]:border-red-500 [&_input]:w-full [&_input]:min-h-[42px] [&_input]:bg-transparent ' +
             '[&_input]:[border:0] [&_input]:text-ink [&_input]:font-display [&_input]:font-semibold [&_input]:text-base/none ' +
-            '[&_input]:[outline:none] [&_input::placeholder]:text-muted [&_input::placeholder]:font-normal ' +
+            '[&_input]:[outline:none] [&_input::placeholder]:text-muted christmas:[&_input::placeholder]:text-christmas-muted ' +
+            'halloween:[&_input::placeholder]:text-halloween-muted spring:[&_input::placeholder]:text-spring-muted [&_input::placeholder]:font-normal ' +
             '[&_input::placeholder]:font-body'
           }
         >
@@ -209,7 +214,7 @@ export function SectionSettings({
             placeholder={t('sections.placeholder')}
           />
         </div>
-      </div>
+      </AdminCard>
     </div>
   );
 }

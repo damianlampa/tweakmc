@@ -1,3 +1,4 @@
+import { pageGlow } from '@/shared/styles/background-classes';
 import { buttonClasses } from '@/shared/components/button-classes';
 import { classes } from '@/shared/utils/classes';
 import { useTranslation } from 'react-i18next';
@@ -25,7 +26,8 @@ export default function AdminPage() {
       className={
         'relative min-h-[100svh] ' +
         '[padding-block:calc(var(--nav-h)_+_clamp(32px,_5vh,_64px))_clamp(80px,_10vh,_120px)] overflow-hidden ' +
-        '[background:radial-gradient(620px_380px_at_85%_20%,_rgba(var(--accent-rgb),_0.12),_transparent_72%),_var(--bg)] ' +
+        pageGlow +
+        ' ' +
         'admin-page'
       }
     >
@@ -34,7 +36,11 @@ export default function AdminPage() {
           <div>
             <Link
               to={paths.home}
-              className="inline-flex items-center min-h-[36px] text-sm/relaxed font-medium text-muted no-underline [transition:color_0.2s] hover:text-accent-bright"
+              className={
+                'inline-flex items-center min-h-[36px] text-sm/relaxed font-medium text-muted christmas:text-christmas-muted halloween:text-halloween-muted ' +
+                'spring:text-spring-muted no-underline [transition:color_0.2s] hover:text-purple-400 ' +
+                'christmas:hover:text-sky-300 halloween:hover:text-orange-300 spring:hover:text-emerald-300'
+              }
             >
               {t('admin.homePreview')}
             </Link>
@@ -44,7 +50,7 @@ export default function AdminPage() {
           <div className="flex flex-wrap items-center gap-2.5">
             {message && (
               <span
-                className="p-[8px_14px] rounded-[8px] [background:rgba(34,_197,_94,_0.16)] [border:1px_solid_rgba(34,_197,_94,_0.4)] [color:#86efac] text-sm/relaxed font-semibold"
+                className="p-[8px_14px] rounded-[8px] bg-green-500/[0.16] [border:1px_solid_theme(colors.green.500/40%)] text-green-300 text-sm/relaxed font-semibold"
                 role="status"
               >
                 {t(message)}
@@ -68,16 +74,19 @@ export default function AdminPage() {
         </div>
 
         <nav
-          className="flex flex-wrap gap-2 mb-[24px] pb-[16px] [border-bottom:1px_solid_var(--line)]"
+          className="flex flex-wrap gap-2 mb-[24px] pb-[16px] [border-bottom:1px_solid_theme(colors.white/9%)]"
           aria-label={t('admin.sections')}
         >
           <button
             type="button"
             className={classes(
-              'min-h-[44px] px-[18px] py-0 rounded-[10px] [border:1px_solid_var(--line-strong)] bg-surface text-muted ' +
+              'min-h-[44px] px-[18px] py-0 rounded-[10px] [border:1px_solid_theme(colors.white/18%)] bg-surface christmas:bg-christmas-surface ' +
+                'halloween:bg-halloween-surface spring:bg-spring-surface text-muted christmas:text-christmas-muted halloween:text-halloween-muted ' +
+                'spring:text-spring-muted ' +
                 'font-body font-semibold text-sm/none cursor-pointer ' +
-                '[transition:background-color_0.2s,_color_0.2s,_border-color_0.2s] hover:text-ink [&.is-active]:bg-accent ' +
-                '[&.is-active]:[border-color:var(--accent-bright)] [&.is-active]:[color:#ffffff]',
+                '[transition:background-color_0.2s,_color_0.2s,_border-color_0.2s] hover:text-ink [&.is-active]:bg-purple-600 christmas:[&.is-active]:bg-sky-600 ' +
+                'halloween:[&.is-active]:bg-orange-600 spring:[&.is-active]:bg-emerald-600 ' +
+                '[&.is-active]:border-purple-400 christmas:[&.is-active]:border-sky-300 halloween:[&.is-active]:border-orange-300 spring:[&.is-active]:border-emerald-300 [&.is-active]:text-white',
               tab === 'overview' ? 'is-active' : '',
             )}
             onClick={() => setTab('overview')}
@@ -87,10 +96,13 @@ export default function AdminPage() {
           <button
             type="button"
             className={classes(
-              'min-h-[44px] px-[18px] py-0 rounded-[10px] [border:1px_solid_var(--line-strong)] bg-surface text-muted ' +
+              'min-h-[44px] px-[18px] py-0 rounded-[10px] [border:1px_solid_theme(colors.white/18%)] bg-surface christmas:bg-christmas-surface ' +
+                'halloween:bg-halloween-surface spring:bg-spring-surface text-muted christmas:text-christmas-muted halloween:text-halloween-muted ' +
+                'spring:text-spring-muted ' +
                 'font-body font-semibold text-sm/none cursor-pointer ' +
-                '[transition:background-color_0.2s,_color_0.2s,_border-color_0.2s] hover:text-ink [&.is-active]:bg-accent ' +
-                '[&.is-active]:[border-color:var(--accent-bright)] [&.is-active]:[color:#ffffff]',
+                '[transition:background-color_0.2s,_color_0.2s,_border-color_0.2s] hover:text-ink [&.is-active]:bg-purple-600 christmas:[&.is-active]:bg-sky-600 ' +
+                'halloween:[&.is-active]:bg-orange-600 spring:[&.is-active]:bg-emerald-600 ' +
+                '[&.is-active]:border-purple-400 christmas:[&.is-active]:border-sky-300 halloween:[&.is-active]:border-orange-300 spring:[&.is-active]:border-emerald-300 [&.is-active]:text-white',
               tab === 'toggles' ? 'is-active' : '',
             )}
             onClick={() => setTab('toggles')}
@@ -100,10 +112,13 @@ export default function AdminPage() {
           <button
             type="button"
             className={classes(
-              'min-h-[44px] px-[18px] py-0 rounded-[10px] [border:1px_solid_var(--line-strong)] bg-surface text-muted ' +
+              'min-h-[44px] px-[18px] py-0 rounded-[10px] [border:1px_solid_theme(colors.white/18%)] bg-surface christmas:bg-christmas-surface ' +
+                'halloween:bg-halloween-surface spring:bg-spring-surface text-muted christmas:text-christmas-muted halloween:text-halloween-muted ' +
+                'spring:text-spring-muted ' +
                 'font-body font-semibold text-sm/none cursor-pointer ' +
-                '[transition:background-color_0.2s,_color_0.2s,_border-color_0.2s] hover:text-ink [&.is-active]:bg-accent ' +
-                '[&.is-active]:[border-color:var(--accent-bright)] [&.is-active]:[color:#ffffff]',
+                '[transition:background-color_0.2s,_color_0.2s,_border-color_0.2s] hover:text-ink [&.is-active]:bg-purple-600 christmas:[&.is-active]:bg-sky-600 ' +
+                'halloween:[&.is-active]:bg-orange-600 spring:[&.is-active]:bg-emerald-600 ' +
+                '[&.is-active]:border-purple-400 christmas:[&.is-active]:border-sky-300 halloween:[&.is-active]:border-orange-300 spring:[&.is-active]:border-emerald-300 [&.is-active]:text-white',
               tab === 'appearance' ? 'is-active' : '',
             )}
             onClick={() => setTab('appearance')}

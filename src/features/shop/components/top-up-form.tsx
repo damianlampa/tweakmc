@@ -1,4 +1,6 @@
+import { cardSpotlight } from '@/shared/styles/background-classes';
 import { buttonClasses } from '@/shared/components/button-classes';
+import { CodeLabel } from '@/shared/components/code-label';
 import { classes } from '@/shared/utils/classes';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
@@ -88,21 +90,30 @@ export function TopUpForm() {
 
   return (
     <form
-      className="[align-items:start] grid grid-cols-[minmax(0,_1.15fr)_minmax(0,_0.85fr)] gap-[24px] max-wide:grid-cols-[minmax(0,_1fr)] mt-0"
+      className="[align-items:start] grid grid-cols-[minmax(0,_1.15fr)_minmax(0,_0.85fr)] gap-[24px] max-lg:grid-cols-[minmax(0,_1fr)] mt-0"
       onSubmit={handleSubmit}
       noValidate
     >
       <fieldset
         className={
-          'min-w-0 p-[clamp(22px,_3.2vw,_36px)] rounded-[18px] [border:1px_solid_rgba(var(--bright-rgb),_0.26)] ' +
-          '[background:radial-gradient(420px_280px_at_0%_0%,_rgba(var(--accent-rgb),_0.22),_transparent_68%),_linear-gradient(_150deg,_rgba(var(--accent-rgb),_0.1)_0%,_var(--bg)_56%,_rgba(var(--accent-rgb),_0.08)_100%_)] ' +
-          '[box-shadow:inset_0_1px_0_rgba(var(--bright-rgb),_0.24),_0_24px_56px_-28px_rgba(0,_0,_0,_0.85)] grid ' +
+          'min-w-0 p-[clamp(22px,_3.2vw,_36px)] rounded-[18px] [border:1px_solid_theme(colors.purple.400/26%)] ' +
+          'christmas:[border:1px_solid_theme(colors.sky.300/26%)] halloween:[border:1px_solid_theme(colors.orange.300/26%)] ' +
+          'spring:[border:1px_solid_theme(colors.emerald.300/26%)] ' +
+          '[background:radial-gradient(420px_280px_at_0%_0%,_theme(colors.purple.600/22%),_transparent_68%),_linear-gradient(_150deg,_theme(colors.purple.600/10%)_0%,_theme(colors.background)_56%,_theme(colors.purple.600/8%)_100%_)] ' +
+          'christmas:[background:radial-gradient(420px_280px_at_0%_0%,_theme(colors.sky.500/22%),_transparent_68%),_linear-gradient(_150deg,_theme(colors.sky.500/10%)_0%,_theme(colors.christmas.background)_56%,_theme(colors.sky.500/8%)_100%_)] ' +
+          'halloween:[background:radial-gradient(420px_280px_at_0%_0%,_theme(colors.orange.600/22%),_transparent_68%),_linear-gradient(_150deg,_theme(colors.orange.600/10%)_0%,_theme(colors.halloween.background)_56%,_theme(colors.orange.600/8%)_100%_)] ' +
+          'spring:[background:radial-gradient(420px_280px_at_0%_0%,_theme(colors.emerald.500/22%),_transparent_68%),_linear-gradient(_150deg,_theme(colors.emerald.500/10%)_0%,_theme(colors.spring.background)_56%,_theme(colors.emerald.500/8%)_100%_)] ' +
+          '[box-shadow:inset_0_1px_0_theme(colors.purple.400/24%),_0_24px_56px_-28px_theme(colors.black/85%)] ' +
+          'christmas:[box-shadow:inset_0_1px_0_theme(colors.sky.300/24%),_0_24px_56px_-28px_theme(colors.black/85%)] ' +
+          'halloween:[box-shadow:inset_0_1px_0_theme(colors.orange.300/24%),_0_24px_56px_-28px_theme(colors.black/85%)] ' +
+          'spring:[box-shadow:inset_0_1px_0_theme(colors.emerald.300/24%),_0_24px_56px_-28px_theme(colors.black/85%)] grid ' +
           "gap-[28px] relative [&::before]:[content:''] [&::before]:absolute [&::before]:inset-0 " +
           '[&::before]:rounded-[inherit] ' +
-          '[&::before]:[background:radial-gradient(_320px_circle_at_var(--mx,_50%)_var(--my,_50%),_rgba(var(--bright-rgb),_0.12),_transparent_62%_)] ' +
+          cardSpotlight +
+          ' ' +
           '[&::before]:opacity-[0] [&::before]:[transition:opacity_0.3s] [&::before]:pointer-events-none ' +
           '[&::before]:z-0 [&:hover::before]:opacity-[1] [&>*]:relative [&>*]:z-[1] ' +
-          '[.discord-card&::before]:[background:radial-gradient(_340px_circle_at_var(--mx,_50%)_var(--my,_50%),_rgba(129,_140,_248,_0.2),_transparent_62%_)] ' +
+          '[.discord-card&::before]:[background:radial-gradient(_340px_circle_at_var(--mx,_50%)_var(--my,_50%),_theme(colors.indigo.400/20%),_transparent_62%_)] ' +
           'm-0'
         }
         disabled={submitting}
@@ -112,17 +123,23 @@ export function TopUpForm() {
           <label htmlFor="shop-nick">{t('checkout.username')}</label>
           <div
             className={classes(
-              'flex items-center gap-[12px] p-[6px_14px_6px_8px] rounded-[12px] [border:1px_solid_var(--line-strong)] ' +
-                'bg-surface [transition:border-color_0.2s] focus-within:[border-color:var(--accent-bright)] ' +
-                '[&.has-error]:[border-color:var(--war)] [&_input]:w-full [&_input]:min-h-[42px] [&_input]:bg-transparent ' +
+              'flex items-center gap-[12px] p-[6px_14px_6px_8px] rounded-[12px] [border:1px_solid_theme(colors.white/18%)] ' +
+                'bg-surface christmas:bg-christmas-surface halloween:bg-halloween-surface spring:bg-spring-surface [transition:border-color_0.2s] ' +
+                'focus-within:border-purple-400 christmas:focus-within:border-sky-300 halloween:focus-within:border-orange-300 spring:focus-within:border-emerald-300 ' +
+                '[&.has-error]:border-red-500 [&_input]:w-full [&_input]:min-h-[42px] [&_input]:bg-transparent ' +
                 '[&_input]:[border:0] [&_input]:text-ink [&_input]:font-display [&_input]:font-semibold [&_input]:text-base/none ' +
-                '[&_input]:[outline:none] [&_input::placeholder]:text-muted [&_input::placeholder]:font-normal ' +
+                '[&_input]:[outline:none] [&_input::placeholder]:text-muted christmas:[&_input::placeholder]:text-christmas-muted ' +
+                'halloween:[&_input::placeholder]:text-halloween-muted spring:[&_input::placeholder]:text-spring-muted [&_input::placeholder]:font-normal ' +
                 '[&_input::placeholder]:font-body',
               error === 'nick' ? 'has-error' : '',
             )}
           >
             <div
-              className="w-[40px] h-[40px] shrink-0 rounded-[8px] bg-bg [border:1px_solid_var(--line)] grid place-items-center text-muted overflow-hidden [&_img]:w-full [&_img]:h-full [&_img]:[image-rendering:pixelated]"
+              className={
+                'w-[40px] h-[40px] shrink-0 rounded-[8px] bg-background christmas:bg-christmas-background halloween:bg-halloween-background ' +
+                'spring:bg-spring-background [border:1px_solid_theme(colors.white/9%)] grid place-items-center text-muted christmas:text-christmas-muted ' +
+                'halloween:text-halloween-muted spring:text-spring-muted overflow-hidden [&_img]:w-full [&_img]:h-full [&_img]:[image-rendering:pixelated]'
+              }
               aria-hidden="true"
             >
               {validNick && !avatarErr ? (
@@ -157,7 +174,7 @@ export function TopUpForm() {
             />
           </div>
           {error === 'nick' && (
-            <p id="shop-nick-error" className="text-sm/relaxed [color:#fca5a5]" role="alert">
+            <p id="shop-nick-error" className="text-sm/relaxed text-red-300" role="alert">
               {t('checkout.invalid')}
             </p>
           )}
@@ -177,15 +194,25 @@ export function TopUpForm() {
                   type="button"
                   className={classes(
                     'preset-btn flex items-baseline justify-center gap-[5px] min-h-[56px] p-[12px_8px] rounded-[10px] ' +
-                      '[border:1px_solid_var(--line-strong)] bg-surface text-ink cursor-pointer ' +
+                      '[border:1px_solid_theme(colors.white/18%)] bg-surface christmas:bg-christmas-surface halloween:bg-halloween-surface spring:bg-spring-surface text-ink cursor-pointer ' +
                       '[transition:border-color_0.2s,_background-color_0.2s,_transform_0.2s_var(--ease)] ' +
-                      'hover:[border-color:rgba(var(--bright-rgb),_0.55)] hover:bg-surface-hover ' +
+                      'hover:border-purple-400/55 christmas:hover:border-sky-300/55 halloween:hover:border-orange-300/55 spring:hover:border-emerald-300/55 ' +
+                      'hover:bg-surface-hover christmas:hover:bg-christmas-surface-hover halloween:hover:bg-halloween-surface-hover spring:hover:bg-spring-surface-hover ' +
                       'hover:[transform:translateY(-2px)] ' +
-                      '[&.is-active]:[background:linear-gradient(_135deg,_var(--accent)_0%,_var(--accent-hover)_58%,_var(--accent-bright)_100%_)] ' +
-                      '[&.is-active]:[border-color:rgba(255,_255,_255,_0.35)] ' +
-                      '[&.is-active]:[box-shadow:0_12px_28px_-8px_rgba(var(--accent-rgb),_0.8)] [&_strong]:font-display ' +
+                      '[&.is-active]:[background:linear-gradient(135deg,var(--tw-gradient-stops))] ' +
+                      'from-0% via-[58%] to-100% ' +
+                      'from-purple-600 via-purple-500 to-purple-400 ' +
+                      'christmas:from-sky-600 christmas:via-sky-500 christmas:to-sky-300 ' +
+                      'halloween:from-orange-600 halloween:via-orange-500 halloween:to-orange-300 ' +
+                      'spring:from-emerald-600 spring:via-emerald-500 spring:to-emerald-300 ' +
+                      '[&.is-active]:border-white/35 ' +
+                      '[&.is-active]:[box-shadow:0_12px_28px_-8px_theme(colors.purple.600/80%)] ' +
+                      'christmas:[&.is-active]:[box-shadow:0_12px_28px_-8px_theme(colors.sky.500/80%)] ' +
+                      'halloween:[&.is-active]:[box-shadow:0_12px_28px_-8px_theme(colors.orange.600/80%)] ' +
+                      'spring:[&.is-active]:[box-shadow:0_12px_28px_-8px_theme(colors.emerald.500/80%)] [&_strong]:font-display ' +
                       '[&_strong]:text-2xl/tight [&_strong]:[font-variant-numeric:tabular-nums] [&_span]:text-xs/relaxed ' +
-                      '[&_span]:text-muted [&_span]:font-semibold [&.is-active_span]:[color:rgba(255,_255,_255,_0.9)]',
+                      '[&_span]:text-muted christmas:[&_span]:text-christmas-muted halloween:[&_span]:text-halloween-muted spring:[&_span]:text-spring-muted ' +
+                      '[&_span]:font-semibold [&.is-active_span]:text-white/90',
                     amount === presetAmount ? 'is-active' : '',
                   )}
                   onClick={() => changeAmount(String(presetAmount))}
@@ -208,10 +235,11 @@ export function TopUpForm() {
               <button
                 type="button"
                 className={
-                  'step-btn min-w-[44px] min-h-[36px] px-2.5 py-0 rounded-[8px] [border:1px_solid_var(--line-strong)] ' +
-                  'bg-surface text-ink font-mono font-semibold text-sm/none cursor-pointer ' +
-                  '[transition:background-color_0.2s,_border-color_0.2s] hover:bg-surface-hover ' +
-                  'hover:[border-color:var(--accent-bright)]'
+                  'step-btn min-w-[44px] min-h-[36px] px-2.5 py-0 rounded-[8px] [border:1px_solid_theme(colors.white/18%)] ' +
+                  'bg-surface christmas:bg-christmas-surface halloween:bg-halloween-surface spring:bg-spring-surface text-ink font-mono font-semibold text-sm/none cursor-pointer ' +
+                  '[transition:background-color_0.2s,_border-color_0.2s] hover:bg-surface-hover christmas:hover:bg-christmas-surface-hover ' +
+                  'halloween:hover:bg-halloween-surface-hover spring:hover:bg-spring-surface-hover ' +
+                  'hover:border-purple-400 christmas:hover:border-sky-300 halloween:hover:border-orange-300 spring:hover:border-emerald-300'
                 }
                 onClick={() => stepAmount(-5)}
                 aria-label={t('checkout.decrease')}
@@ -221,10 +249,11 @@ export function TopUpForm() {
               <button
                 type="button"
                 className={
-                  'step-btn min-w-[44px] min-h-[36px] px-2.5 py-0 rounded-[8px] [border:1px_solid_var(--line-strong)] ' +
-                  'bg-surface text-ink font-mono font-semibold text-sm/none cursor-pointer ' +
-                  '[transition:background-color_0.2s,_border-color_0.2s] hover:bg-surface-hover ' +
-                  'hover:[border-color:var(--accent-bright)]'
+                  'step-btn min-w-[44px] min-h-[36px] px-2.5 py-0 rounded-[8px] [border:1px_solid_theme(colors.white/18%)] ' +
+                  'bg-surface christmas:bg-christmas-surface halloween:bg-halloween-surface spring:bg-spring-surface text-ink font-mono font-semibold text-sm/none cursor-pointer ' +
+                  '[transition:background-color_0.2s,_border-color_0.2s] hover:bg-surface-hover christmas:hover:bg-christmas-surface-hover ' +
+                  'halloween:hover:bg-halloween-surface-hover spring:hover:bg-spring-surface-hover ' +
+                  'hover:border-purple-400 christmas:hover:border-sky-300 halloween:hover:border-orange-300 spring:hover:border-emerald-300'
                 }
                 onClick={() => stepAmount(5)}
                 aria-label={t('checkout.increase')}
@@ -236,8 +265,8 @@ export function TopUpForm() {
 
           <div
             className={
-              'flex items-center p-[4px_16px] rounded-[12px] [border:1px_solid_var(--line-strong)] bg-surface ' +
-              'focus-within:[border-color:var(--accent-bright)] [&_input]:w-full [&_input]:min-h-[46px] ' +
+              'flex items-center p-[4px_16px] rounded-[12px] [border:1px_solid_theme(colors.white/18%)] bg-surface christmas:bg-christmas-surface halloween:bg-halloween-surface spring:bg-spring-surface ' +
+              'focus-within:border-purple-400 christmas:focus-within:border-sky-300 halloween:focus-within:border-orange-300 spring:focus-within:border-emerald-300 [&_input]:w-full [&_input]:min-h-[46px] ' +
               '[&_input]:bg-transparent [&_input]:[border:0] [&_input]:text-ink ' +
               '[&_input]:font-display [&_input]:font-bold [&_input]:text-2xl/none [&_input]:[font-variant-numeric:tabular-nums] ' +
               '[&_input]:[outline:none]'
@@ -255,16 +284,18 @@ export function TopUpForm() {
               value={amountText}
               onChange={(event) => changeAmount(event.target.value)}
             />
-            <span className="font-mono text-sm/relaxed font-semibold text-muted">PLN</span>
+            <span className="font-mono text-sm/relaxed font-semibold text-muted christmas:text-christmas-muted halloween:text-halloween-muted spring:text-spring-muted">
+              PLN
+            </span>
           </div>
           {error === 'amount' && (
-            <p id="shop-amount-error" className="text-sm/relaxed [color:#fca5a5]" role="alert">
+            <p id="shop-amount-error" className="text-sm/relaxed text-red-300" role="alert">
               {t('checkout.invalidAmount', { min: site.shopMin, max: site.shopMax })}
             </p>
           )}
           <input
             type="range"
-            className="w-full h-[6px] mt-[6px] [accent-color:var(--accent-hover)] cursor-pointer"
+            className="w-full h-[6px] mt-[6px] accent-purple-500 christmas:accent-sky-500 halloween:accent-orange-500 spring:accent-emerald-500 cursor-pointer"
             min={site.shopMin}
             max={site.shopSliderMax}
             step={5}
@@ -273,7 +304,7 @@ export function TopUpForm() {
             aria-label={t('checkout.slider')}
           />
           <div
-            className="flex justify-between mt-[2px] font-mono text-xs/relaxed text-muted"
+            className="flex justify-between mt-[2px] font-mono text-xs/relaxed text-muted christmas:text-christmas-muted halloween:text-halloween-muted spring:text-spring-muted"
             aria-hidden="true"
           >
             <span>{site.shopMin} PLN</span>
@@ -286,16 +317,28 @@ export function TopUpForm() {
 
       <aside
         className={
-          'min-w-0 p-[clamp(22px,_3.2vw,_36px)] rounded-[18px] [border:1px_solid_rgba(var(--bright-rgb),_0.26)] ' +
-          '[background:radial-gradient(420px_280px_at_0%_0%,_rgba(var(--accent-rgb),_0.22),_transparent_68%),_linear-gradient(_150deg,_rgba(var(--accent-rgb),_0.1)_0%,_var(--bg)_56%,_rgba(var(--accent-rgb),_0.08)_100%_)] ' +
-          '[box-shadow:inset_0_1px_0_rgba(var(--bright-rgb),_0.24),_0_24px_56px_-28px_rgba(0,_0,_0,_0.85)] ' +
-          '[background:radial-gradient(420px_280px_at_92%_0%,_rgba(var(--accent-rgb),_0.34),_transparent_68%),_radial-gradient(360px_260px_at_8%_100%,_rgba(var(--bright-rgb),_0.16),_transparent_70%),_linear-gradient(_160deg,_rgba(var(--accent-rgb),_0.14)_0%,_var(--bg)_62%,_rgba(var(--accent-rgb),_0.12)_100%_)] ' +
+          'min-w-0 p-[clamp(22px,_3.2vw,_36px)] rounded-[18px] [border:1px_solid_theme(colors.purple.400/26%)] ' +
+          'christmas:[border:1px_solid_theme(colors.sky.300/26%)] halloween:[border:1px_solid_theme(colors.orange.300/26%)] ' +
+          'spring:[border:1px_solid_theme(colors.emerald.300/26%)] ' +
+          '[background:radial-gradient(420px_280px_at_0%_0%,_theme(colors.purple.600/22%),_transparent_68%),_linear-gradient(_150deg,_theme(colors.purple.600/10%)_0%,_theme(colors.background)_56%,_theme(colors.purple.600/8%)_100%_)] ' +
+          'christmas:[background:radial-gradient(420px_280px_at_0%_0%,_theme(colors.sky.500/22%),_transparent_68%),_linear-gradient(_150deg,_theme(colors.sky.500/10%)_0%,_theme(colors.christmas.background)_56%,_theme(colors.sky.500/8%)_100%_)] ' +
+          'halloween:[background:radial-gradient(420px_280px_at_0%_0%,_theme(colors.orange.600/22%),_transparent_68%),_linear-gradient(_150deg,_theme(colors.orange.600/10%)_0%,_theme(colors.halloween.background)_56%,_theme(colors.orange.600/8%)_100%_)] ' +
+          'spring:[background:radial-gradient(420px_280px_at_0%_0%,_theme(colors.emerald.500/22%),_transparent_68%),_linear-gradient(_150deg,_theme(colors.emerald.500/10%)_0%,_theme(colors.spring.background)_56%,_theme(colors.emerald.500/8%)_100%_)] ' +
+          '[box-shadow:inset_0_1px_0_theme(colors.purple.400/24%),_0_24px_56px_-28px_theme(colors.black/85%)] ' +
+          'christmas:[box-shadow:inset_0_1px_0_theme(colors.sky.300/24%),_0_24px_56px_-28px_theme(colors.black/85%)] ' +
+          'halloween:[box-shadow:inset_0_1px_0_theme(colors.orange.300/24%),_0_24px_56px_-28px_theme(colors.black/85%)] ' +
+          'spring:[box-shadow:inset_0_1px_0_theme(colors.emerald.300/24%),_0_24px_56px_-28px_theme(colors.black/85%)] ' +
+          '[background:radial-gradient(420px_280px_at_92%_0%,_theme(colors.purple.600/34%),_transparent_68%),_radial-gradient(360px_260px_at_8%_100%,_theme(colors.purple.400/16%),_transparent_70%),_linear-gradient(_160deg,_theme(colors.purple.600/14%)_0%,_theme(colors.background)_62%,_theme(colors.purple.600/12%)_100%_)] ' +
+          'christmas:[background:radial-gradient(420px_280px_at_92%_0%,_theme(colors.sky.500/34%),_transparent_68%),_radial-gradient(360px_260px_at_8%_100%,_theme(colors.sky.300/16%),_transparent_70%),_linear-gradient(_160deg,_theme(colors.sky.500/14%)_0%,_theme(colors.christmas.background)_62%,_theme(colors.sky.500/12%)_100%_)] ' +
+          'halloween:[background:radial-gradient(420px_280px_at_92%_0%,_theme(colors.orange.600/34%),_transparent_68%),_radial-gradient(360px_260px_at_8%_100%,_theme(colors.orange.300/16%),_transparent_70%),_linear-gradient(_160deg,_theme(colors.orange.600/14%)_0%,_theme(colors.halloween.background)_62%,_theme(colors.orange.600/12%)_100%_)] ' +
+          'spring:[background:radial-gradient(420px_280px_at_92%_0%,_theme(colors.emerald.500/34%),_transparent_68%),_radial-gradient(360px_260px_at_8%_100%,_theme(colors.emerald.300/16%),_transparent_70%),_linear-gradient(_160deg,_theme(colors.emerald.500/14%)_0%,_theme(colors.spring.background)_62%,_theme(colors.emerald.500/12%)_100%_)] ' +
           "[&_h3]:text-2xl/tight [&_h3]:mb-[20px] relative [&::before]:[content:''] [&::before]:absolute " +
           '[&::before]:inset-0 [&::before]:rounded-[inherit] ' +
-          '[&::before]:[background:radial-gradient(_320px_circle_at_var(--mx,_50%)_var(--my,_50%),_rgba(var(--bright-rgb),_0.12),_transparent_62%_)] ' +
+          cardSpotlight +
+          ' ' +
           '[&::before]:opacity-[0] [&::before]:[transition:opacity_0.3s] [&::before]:pointer-events-none ' +
           '[&::before]:z-0 [&:hover::before]:opacity-[1] [&>*]:relative [&>*]:z-[1] ' +
-          '[.discord-card&::before]:[background:radial-gradient(_340px_circle_at_var(--mx,_50%)_var(--my,_50%),_rgba(129,_140,_248,_0.2),_transparent_62%_)]'
+          '[.discord-card&::before]:[background:radial-gradient(_340px_circle_at_var(--mx,_50%)_var(--my,_50%),_theme(colors.indigo.400/20%),_transparent_62%_)]'
         }
         onPointerMove={onCardMove}
         aria-label={t('checkout.summaryLabel')}
@@ -304,10 +347,12 @@ export function TopUpForm() {
 
         <dl
           className={
-            'm-0 grid gap-[14px] pb-[20px] [border-bottom:1px_solid_var(--line)] [&_div]:flex [&_div]:items-center ' +
-            '[&_div]:justify-between [&_div]:gap-[12px] [&_dt]:text-muted [&_dt]:text-base/relaxed [&_dd]:m-0 ' +
-            '[&_dd]:font-semibold [&_dd]:[font-variant-numeric:tabular-nums] [&_dd]:text-muted [&_dd.is-set]:text-ink ' +
-            '[&_dd.is-accent]:text-accent-bright'
+            'm-0 grid gap-[14px] pb-[20px] [border-bottom:1px_solid_theme(colors.white/9%)] [&_div]:flex [&_div]:items-center ' +
+            '[&_div]:justify-between [&_div]:gap-[12px] [&_dt]:text-muted christmas:[&_dt]:text-christmas-muted halloween:[&_dt]:text-halloween-muted ' +
+            'spring:[&_dt]:text-spring-muted [&_dt]:text-base/relaxed [&_dd]:m-0 ' +
+            '[&_dd]:font-semibold [&_dd]:[font-variant-numeric:tabular-nums] [&_dd]:text-muted christmas:[&_dd]:text-christmas-muted ' +
+            'halloween:[&_dd]:text-halloween-muted spring:[&_dd]:text-spring-muted [&_dd.is-set]:text-ink ' +
+            '[&_dd.is-accent]:text-purple-400 christmas:[&_dd.is-accent]:text-sky-300 halloween:[&_dd.is-accent]:text-orange-300 spring:[&_dd.is-accent]:text-emerald-300'
           }
         >
           <div>
@@ -320,7 +365,7 @@ export function TopUpForm() {
           <div>
             <dt>
               {t('checkout.balance')}
-              <code className="code-label">/portfel</code>
+              <CodeLabel>/portfel</CodeLabel>
             </dt>
             <dd className={classes(wallet.status === 'connected' ? 'is-set' : '')}>
               {currentBalText}
@@ -340,7 +385,8 @@ export function TopUpForm() {
 
         <div
           className={
-            'flex items-baseline justify-between [padding-block:20px_24px] [&_span]:text-base/relaxed [&_span]:text-muted ' +
+            'flex items-baseline justify-between [padding-block:20px_24px] [&_span]:text-base/relaxed [&_span]:text-muted christmas:[&_span]:text-christmas-muted ' +
+            'halloween:[&_span]:text-halloween-muted spring:[&_span]:text-spring-muted ' +
             '[&_strong]:font-display [&_strong]:text-3xl/tight [&_strong]:[font-variant-numeric:tabular-nums] ' +
             '[&_strong]:text-ink'
           }
@@ -368,14 +414,18 @@ export function TopUpForm() {
         </button>
 
         {error === 'checkout' && (
-          <p className="text-sm/relaxed [color:#fca5a5]" role="alert">
+          <p className="text-sm/relaxed text-red-300" role="alert">
             {t('checkout.failed')}
           </p>
         )}
 
         {checkoutNotice && (
           <p
-            className="mt-[14px] p-[12px_14px] rounded-[10px] [border:1px_solid_rgba(var(--bright-rgb),_0.45)] [background:rgba(var(--accent-rgb),_0.14)] text-ink text-sm/normal [overflow-wrap:anywhere]"
+            className={
+              'mt-[14px] p-[12px_14px] rounded-[10px] [border:1px_solid_theme(colors.purple.400/45%)] christmas:[border:1px_solid_theme(colors.sky.300/45%)] ' +
+              'halloween:[border:1px_solid_theme(colors.orange.300/45%)] spring:[border:1px_solid_theme(colors.emerald.300/45%)] bg-purple-600/[0.14] ' +
+              'christmas:bg-sky-500/[0.14] halloween:bg-orange-600/[0.14] spring:bg-emerald-500/[0.14] text-ink text-sm/normal [overflow-wrap:anywhere]'
+            }
             role="status"
           >
             {t('checkout.notice', {
@@ -386,13 +436,22 @@ export function TopUpForm() {
           </p>
         )}
 
-        <div className="mt-[22px] pt-[18px] [border-top:1px_solid_var(--line)] [&>span]:block [&>span]:text-sm/relaxed [&>span]:text-muted [&>span]:mb-[10px]">
+        <div
+          className={
+            'mt-[22px] pt-[18px] [border-top:1px_solid_theme(colors.white/9%)] [&>span]:block [&>span]:text-sm/relaxed [&>span]:text-muted ' +
+            'christmas:[&>span]:text-christmas-muted halloween:[&>span]:text-halloween-muted spring:[&>span]:text-spring-muted [&>span]:mb-[10px]'
+          }
+        >
           <span>
             {t('checkout.pipeline')}
-            <code className="code-label">/portfel</code>)
+            <CodeLabel>/portfel</CodeLabel>)
           </span>
           <ul
-            className="[&_li]:p-[6px_10px] [&_li]:rounded-[7px] [&_li]:bg-surface [&_li]:[border:1px_solid_var(--line)] [&_li]:text-xs/relaxed [&_li]:font-medium [&_li]:text-muted flex flex-wrap gap-[7px] list-none m-0 p-0"
+            className={
+              '[&_li]:p-[6px_10px] [&_li]:rounded-[7px] [&_li]:bg-surface christmas:[&_li]:bg-christmas-surface halloween:[&_li]:bg-halloween-surface ' +
+              'spring:[&_li]:bg-spring-surface [&_li]:[border:1px_solid_theme(colors.white/9%)] [&_li]:text-xs/relaxed [&_li]:font-medium [&_li]:text-muted ' +
+              'christmas:[&_li]:text-christmas-muted halloween:[&_li]:text-halloween-muted spring:[&_li]:text-spring-muted flex flex-wrap gap-[7px] list-none m-0 p-0'
+            }
             aria-label={t('checkout.methods')}
           >
             {site.payments.map((paymentMethod) => {

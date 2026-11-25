@@ -1,4 +1,6 @@
+import { pageGlow } from '@/shared/styles/background-classes';
 import { buttonClasses } from '@/shared/components/button-classes';
+import { CodeLabel } from '@/shared/components/code-label';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { paths } from '@/router/paths';
@@ -14,8 +16,8 @@ export function HomeBoards({ settings }: { settings: Settings }) {
   return (
     <section
       className={
-        'relative overflow-hidden [padding-block:clamp(72px,_10vh,_116px)] [border-top:1px_solid_var(--line)] ' +
-        '[background:radial-gradient(620px_380px_at_85%_20%,_rgba(var(--accent-rgb),_0.12),_transparent_72%),_var(--bg)]'
+        'relative overflow-hidden [padding-block:clamp(72px,_10vh,_116px)] [border-top:1px_solid_theme(colors.white/9%)] ' +
+        pageGlow
       }
       id="topki"
     >
@@ -30,9 +32,9 @@ export function HomeBoards({ settings }: { settings: Settings }) {
         <div className="flex flex-wrap justify-between items-end gap-[24px] mb-[32px]">
           <div>
             <KineticHeading text={t('supporters.title')} accentWord="TweakMC" />
-            <p className="mt-4 max-w-[58ch] text-muted text-base/relaxed">
+            <p className="mt-4 max-w-[58ch] text-muted christmas:text-christmas-muted halloween:text-halloween-muted spring:text-spring-muted text-base/relaxed">
               {t('supporters.intro')}
-              <code className="code-label">/portfel</code>
+              <CodeLabel>/portfel</CodeLabel>
               {t('supporters.more')}
             </p>
           </div>

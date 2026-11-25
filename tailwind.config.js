@@ -7,27 +7,38 @@ export default {
   theme: {
     extend: {
       colors: {
-        ...Object.fromEntries(
-          [
-            'bg',
-            'bg-elev',
-            'surface',
-            'surface-hover',
-            'ink',
-            'muted',
-            'accent',
-            'accent-hover',
-            'accent-bright',
-            'line',
-            'line-strong',
-            'decor',
-            'war',
-            'ok',
-          ].map((name) => [name, `var(--${name})`]),
-        ),
+        background: '#0d0719',
+        'background-elevated': '#150c26',
+        surface: '#1d1133',
+        'surface-hover': '#281845',
+        muted: '#a19bb5',
+        christmas: {
+          background: '#050912',
+          'background-elevated': '#0a1122',
+          surface: '#101a30',
+          'surface-hover': '#172542',
+          muted: '#9eb2cf',
+        },
+        halloween: {
+          background: '#08050a',
+          'background-elevated': '#120916',
+          surface: '#1a0f20',
+          'surface-hover': '#25152d',
+          muted: '#b8a3be',
+        },
+        spring: {
+          background: '#050a08',
+          'background-elevated': '#0a1410',
+          surface: '#101f19',
+          'surface-hover': '#162b22',
+          muted: '#9eb9ad',
+        },
+        ink: '#f6f5fa',
+        discord: '#5865f2',
+        'discord-hover': '#6c77f7',
+        'discord-light': '#8b95ff',
+        overlay: '#07060a',
         'map-frame': '#090712',
-        'map-status': 'rgba(7, 6, 10, 0.88)',
-        'phone-bar': 'rgba(7, 6, 10, 0.94)',
       },
       fontFamily: { body: 'var(--body)', display: 'var(--display)', mono: 'var(--mono)' },
       fontSize: {
@@ -35,13 +46,6 @@ export default {
         'page-title': ['clamp(2.4rem, 5vw, 4rem)', '1'],
         'revenue-value': ['clamp(1.5rem, 2.6vw, 2.1rem)', '1.625'],
       },
-      backgroundImage: {
-        navigation:
-          'linear-gradient(135deg, rgba(var(--accent-rgb), 0.22) 0%, color-mix(in srgb, var(--bg-elev) 72%, transparent) 52%, rgba(var(--accent-rgb), 0.14) 100%)',
-      },
-      boxShadow: { navigation: '0 16px 38px -18px rgba(0, 0, 0, 0.72)' },
-      backdropBlur: { navigation: '18px' },
-      screens: { wide: '901px' },
       transitionTimingFunction: { site: 'var(--ease)' },
       transitionDuration: { 280: '280ms', 400: '400ms' },
       animation: {
@@ -171,42 +175,10 @@ export default {
     },
   },
   plugins: [
-    plugin(({ addComponents }) => {
-      addComponents({
-        '.code-label': {
-          fontFamily: 'var(--mono)',
-          fontSize: '0.9em',
-          padding: '0.12em 0.45em',
-          borderRadius: '6px',
-          background: 'var(--surface)',
-          border: '1px solid var(--line-strong)',
-          color: 'var(--accent-bright)',
-        },
-        '.admin-card': {
-          minWidth: '0',
-          padding: 'clamp(20px, 2.6vw, 26px)',
-          borderRadius: '16px',
-          border: '1px solid var(--line-strong)',
-          background: 'var(--bg-elev)',
-        },
-        '.hud-chip': {
-          position: 'absolute',
-          zIndex: '4',
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '8px',
-          padding: '7px 12px',
-          borderRadius: '999px',
-          background: 'color-mix(in srgb, var(--bg-elev) 88%, transparent)',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(var(--bright-rgb), 0.32)',
-          fontFamily: 'var(--mono)',
-          fontSize: '0.75rem',
-          letterSpacing: '0.03em',
-          pointerEvents: 'none',
-          boxShadow: '0 10px 26px -10px rgba(0, 0, 0, 0.8)',
-        },
-      });
+    plugin(({ addVariant }) => {
+      addVariant('christmas', ':where(html[data-theme="christmas"]) &');
+      addVariant('halloween', ':where(html[data-theme="halloween"]) &');
+      addVariant('spring', ':where(html[data-theme="spring"]) &');
     }),
   ],
 };

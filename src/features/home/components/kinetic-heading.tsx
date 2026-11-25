@@ -39,7 +39,9 @@ export function KineticHeading({ text, accentWord }: { text: string; accentWord:
                   '[transition:transform_0.7s_var(--ease),_opacity_0.55s_ease] [transition-delay:calc(var(--wi,_0)_*_65ms)] ' +
                   '[.kinetic-h2.is-in_&]:[transform:translateY(0)] [.kinetic-h2.is-in_&]:opacity-100 ' +
                   '[[data-motion=off]_&]:!transform-none [[data-motion=off]_&]:!opacity-100',
-                isAccentWord ? 'text-accent-bright animate-text-pulse' : '',
+                isAccentWord
+                  ? 'text-purple-400 christmas:text-sky-300 halloween:text-orange-300 spring:text-emerald-300 animate-text-pulse'
+                  : '',
               )}
               style={{ '--wi': wordIndex }}
             >

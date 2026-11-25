@@ -35,7 +35,10 @@ export function Layout() {
   return (
     <>
       <a
-        className="fixed left-4 top-4 z-[100] rounded-lg bg-accent px-[18px] py-3 font-semibold text-ink no-underline [transform:translateY(-180%)] focus:transform-none"
+        className={
+          'fixed left-4 top-4 z-[100] rounded-lg bg-purple-600 christmas:bg-sky-600 halloween:bg-orange-600 spring:bg-emerald-600 px-[18px] py-3 font-semibold ' +
+          'text-ink no-underline [transform:translateY(-180%)] focus:transform-none'
+        }
         href="#main"
       >
         {t('nav.skip')}

@@ -299,10 +299,12 @@ export default function Globe({ theme = 'default', motion = true }: SceneProps) 
         <span
           className={classes(
             'absolute left-[var(--tx,_0)] top-[var(--ty,_0)] [transform:translate(16px,_-120%)] inline-flex ' +
-              'items-center gap-[10px] p-[8px_12px] rounded-[8px] [background:rgba(13,_11,_20,_0.94)] ' +
-              '[border:1px_solid_rgba(var(--bright-rgb),_0.45)] text-ink text-sm/relaxed pointer-events-none ' +
-              'whitespace-nowrap [&.is-front]:[border-color:rgba(239,_68,_68,_0.65)] [&_span]:font-mono ' +
-              '[&_span]:text-xs/relaxed [&_span]:text-muted',
+              'items-center gap-[10px] p-[8px_12px] rounded-[8px] [background:rgb(13_11_20_/_0.94)] ' +
+              '[border:1px_solid_theme(colors.purple.400/45%)] christmas:[border:1px_solid_theme(colors.sky.300/45%)] ' +
+              'halloween:[border:1px_solid_theme(colors.orange.300/45%)] spring:[border:1px_solid_theme(colors.emerald.300/45%)] text-ink text-sm/relaxed ' +
+              'pointer-events-none ' +
+              'whitespace-nowrap [&.is-front]:border-red-500/65 [&_span]:font-mono ' +
+              '[&_span]:text-xs/relaxed [&_span]:text-muted christmas:[&_span]:text-christmas-muted halloween:[&_span]:text-halloween-muted spring:[&_span]:text-spring-muted',
             tip.front ? 'is-front' : '',
           )}
           aria-hidden="true"

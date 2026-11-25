@@ -1,26 +1,6 @@
-@tailwind components;
-
 @tailwind utilities;
 
 :root {
-  --bg: #0d0719;
-  --bg-elev: #150c26;
-  --surface: #1d1133;
-  --surface-hover: #281845;
-  --line: rgba(255, 255, 255, 0.09);
-  --line-strong: rgba(255, 255, 255, 0.18);
-
-  --ink: #f6f5fa;
-  --muted: #a19bb5;
-  --accent: #9333ea;
-  --accent-hover: #a855f7;
-  --accent-bright: #c084fc;
-  --accent-rgb: 147, 51, 234;
-  --bright-rgb: 192, 132, 252;
-  --decor: rgba(192, 132, 252, 0.36);
-  --war: #ef4444;
-  --ok: #22c55e;
-
   --display: 'Space Grotesk Variable', system-ui, sans-serif;
   --body: 'Inter Variable', system-ui, sans-serif;
   --mono: 'JetBrains Mono Variable', ui-monospace, monospace;
@@ -29,45 +9,7 @@
   --nav-h: 74px;
   --radius: 10px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
-}
-:root[data-theme='christmas'] {
-  --bg: #050912;
-  --bg-elev: #0a1122;
-  --surface: #101a30;
-  --surface-hover: #172542;
-  --muted: #9eb2cf;
-  --accent: #0284c7;
-  --accent-hover: #0ea5e9;
-  --accent-bright: #7dd3fc;
-  --accent-rgb: 14, 165, 233;
-  --bright-rgb: 125, 211, 252;
-  --decor: rgba(125, 211, 252, 0.26);
-}
-:root[data-theme='halloween'] {
-  --bg: #08050a;
-  --bg-elev: #120916;
-  --surface: #1a0f20;
-  --surface-hover: #25152d;
-  --muted: #b8a3be;
-  --accent: #ea580c;
-  --accent-hover: #f97316;
-  --accent-bright: #fdba74;
-  --accent-rgb: 234, 88, 12;
-  --bright-rgb: 253, 186, 116;
-  --decor: rgba(249, 115, 22, 0.26);
-}
-:root[data-theme='spring'] {
-  --bg: #050a08;
-  --bg-elev: #0a1410;
-  --surface: #101f19;
-  --surface-hover: #162b22;
-  --muted: #9eb9ad;
-  --accent: #059669;
-  --accent-hover: #10b981;
-  --accent-bright: #6ee7b7;
-  --accent-rgb: 16, 185, 129;
-  --bright-rgb: 110, 231, 183;
-  --decor: rgba(52, 211, 153, 0.24);
+  @apply max-lg:[--nav-h:66px];
 }
 
 *,
@@ -84,9 +26,9 @@ html {
 }
 
 body {
-  @apply m-0 overflow-x-clip font-body text-base/relaxed text-ink;
+  @apply m-0 overflow-x-clip bg-background font-body text-base/relaxed text-ink christmas:bg-christmas-background halloween:bg-halloween-background spring:bg-spring-background;
+  @apply max-sm:pb-[136px];
   -webkit-font-smoothing: antialiased;
-  background: var(--bg);
   transition: background-color 0.35s var(--ease);
 }
 
@@ -95,13 +37,11 @@ body.menu-open {
 }
 
 ::selection {
-  @apply text-ink;
-  background: var(--accent);
+  @apply bg-purple-600 text-ink christmas:bg-sky-600 halloween:bg-orange-600 spring:bg-emerald-600;
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent-bright);
-  outline-offset: 3px;
+  @apply outline outline-2 outline-offset-[3px] outline-purple-400 christmas:outline-sky-300 halloween:outline-orange-300 spring:outline-emerald-300;
 }
 
 img {
@@ -130,18 +70,6 @@ p {
 
 strong {
   @apply text-ink font-semibold;
-}
-
-@media (max-width: 900px) {
-  :root {
-    --nav-h: 66px;
-  }
-}
-
-@media (max-width: 640px) {
-  body {
-    @apply pb-[136px];
-  }
 }
 
 :root[data-motion='off'] *,

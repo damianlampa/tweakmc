@@ -13,7 +13,9 @@ export function IpText({ className = '' }) {
       onCopy={handleManualCopy}
     >
       <span className="text-ink">{site.serverIpName}</span>
-      <span className="text-accent-bright">{site.serverIpTld}</span>
+      <span className="text-purple-400 christmas:text-sky-300 halloween:text-orange-300 spring:text-emerald-300">
+        {site.serverIpTld}
+      </span>
     </span>
   );
 }

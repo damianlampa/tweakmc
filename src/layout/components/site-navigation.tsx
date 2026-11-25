@@ -2,7 +2,7 @@ import { navigationLinkClasses } from '@/layout/components/navigation-link-class
 import { buttonClasses } from '@/shared/components/button-classes';
 import { classes } from '@/shared/utils/classes';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useMatch } from 'react-router';
 import { paths } from '@/router/paths';
 import { homeSectionPath } from '@/router/utils/home-section-path';
@@ -20,24 +20,26 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
   const mapActive = useMatch({ path: paths.map, caseSensitive: true }) !== null;
   const shopActive = useMatch({ path: paths.shop, caseSensitive: true }) !== null;
   const [open, setOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const [scrollPct, setScrollPct] = useState(0);
   const { copied, handleCopy } = useCopyIp();
   const activeTheme = THEMES[settings.theme] || THEMES.default;
 
   useEffect(() => {
-    if (!open) return;
+    const menuButton = menuButtonRef.current;
+    if (!open || !menuButton) return;
 
-    const mobileMenu = window.matchMedia('(max-width: 900px)');
     const closeOnDesktop = () => {
-      if (!mobileMenu.matches) setOpen(false);
+      if (!menuButton.getClientRects().length) setOpen(false);
     };
+    const observer = new ResizeObserver(closeOnDesktop);
 
     document.body.classList.add('menu-open');
-    mobileMenu.addEventListener('change', closeOnDesktop);
+    observer.observe(menuButton);
     closeOnDesktop();
 
     return () => {
-      mobileMenu.removeEventListener('change', closeOnDesktop);
+      observer.disconnect();
       document.body.classList.remove('menu-open');
     };
   }, [open]);
@@ -88,8 +90,11 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
         <div
           className={
             'pointer-events-auto relative flex h-[64px] items-center gap-[18px] overflow-visible rounded-[16px] ' +
-            'bg-navigation p-[0_14px_0_18px] [box-shadow:theme(boxShadow.navigation)] ' +
-            '[backdrop-filter:blur(theme(backdropBlur.navigation))] [border:0]'
+            'p-[0_14px_0_18px] [box-shadow:0_16px_38px_-18px_theme(colors.black/72%)] [backdrop-filter:blur(18px)] [border:0] ' +
+            '[background-image:linear-gradient(135deg,theme(colors.purple.600/22%)_0%,color-mix(in_srgb,theme(colors.background-elevated)_72%,transparent)_52%,theme(colors.purple.600/14%)_100%)] ' +
+            'christmas:[background-image:linear-gradient(135deg,theme(colors.sky.500/22%)_0%,color-mix(in_srgb,theme(colors.christmas.background-elevated)_72%,transparent)_52%,theme(colors.sky.500/14%)_100%)] ' +
+            'halloween:[background-image:linear-gradient(135deg,theme(colors.orange.600/22%)_0%,color-mix(in_srgb,theme(colors.halloween.background-elevated)_72%,transparent)_52%,theme(colors.orange.600/14%)_100%)] ' +
+            'spring:[background-image:linear-gradient(135deg,theme(colors.emerald.500/22%)_0%,color-mix(in_srgb,theme(colors.spring.background-elevated)_72%,transparent)_52%,theme(colors.emerald.500/14%)_100%)]'
           }
         >
           <div className="inline-flex items-center gap-[14px]">
@@ -108,18 +113,18 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
               type="button"
               className={
                 'inline-flex items-center gap-[9px] min-h-[36px] px-[13px] py-0 rounded-[999px] [border:0] ' +
-                '[background:rgba(255,_255,_255,_0.045)] text-sm/relaxed cursor-pointer ' +
+                'bg-white/[0.045] text-sm/relaxed cursor-pointer ' +
                 '[transition:background-color_0.2s,_transform_0.2s_var(--ease)] ' +
-                'hover:[background:rgba(var(--accent-rgb),_0.2)] hover:[transform:translateY(-1px)] max-wide:hidden'
+                'hover:bg-purple-600/20 christmas:hover:bg-sky-500/20 halloween:hover:bg-orange-600/20 spring:hover:bg-emerald-500/20 hover:[transform:translateY(-1px)] max-lg:hidden'
               }
               onClick={handleCopy}
               title={t('nav.copyHint')}
             >
               <span
                 className={
-                  'relative w-[8px] h-[8px] rounded-[50%] [background:var(--ok)] [box-shadow:0_0_10px_rgba(34,_197,_94,_0.7)] ' +
+                  'relative w-[8px] h-[8px] rounded-[50%] bg-green-500 [box-shadow:0_0_10px_theme(colors.green.500/70%)] ' +
                   "[&::after]:[content:''] [&::after]:absolute [&::after]:inset-[-4px] [&::after]:rounded-[50%] " +
-                  '[&::after]:[border:1.5px_solid_var(--ok)] [&::after]:animate-status-ping'
+                  '[&::after]:[border:1.5px_solid_theme(colors.green.500)] [&::after]:animate-status-ping'
                 }
                 aria-hidden="true"
               />
@@ -130,11 +135,12 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
           <nav
             aria-label={t('nav.main')}
             className={classes(
-              'nav-links flex items-center gap-[6px] [margin-inline:auto] p-0 bg-transparent [border:0] max-wide:fixed ' +
-                'max-wide:inset-[var(--nav-h)_0_0_0] max-wide:flex-col max-wide:items-start max-wide:gap-0 max-wide:m-0 ' +
-                'max-wide:p-[20px_var(--pad)] max-wide:bg-bg max-wide:invisible max-wide:opacity-[0] ' +
-                'max-wide:[transition:opacity_0.22s,_visibility_0.22s] max-wide:[&.is-open]:visible ' +
-                'max-wide:[&.is-open]:opacity-[1]',
+              'nav-links flex items-center gap-[6px] [margin-inline:auto] p-0 bg-transparent [border:0] max-lg:fixed ' +
+                'max-lg:inset-[var(--nav-h)_0_0_0] max-lg:flex-col max-lg:items-start max-lg:gap-0 max-lg:m-0 ' +
+                'max-lg:p-[20px_var(--pad)] max-lg:bg-background christmas:max-lg:bg-christmas-background halloween:max-lg:bg-halloween-background ' +
+                'spring:max-lg:bg-spring-background max-lg:invisible max-lg:opacity-[0] ' +
+                'max-lg:[transition:opacity_0.22s,_visibility_0.22s] max-lg:[&.is-open]:visible ' +
+                'max-lg:[&.is-open]:opacity-[1]',
               open ? 'is-open' : '',
             )}
           >
@@ -165,7 +171,7 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
             type="button"
             className={buttonClasses(
               'primary',
-              'min-h-[44px] px-[18px] py-0 text-sm/none max-wide:ml-auto max-sm:hidden',
+              'min-h-[44px] px-[18px] py-0 text-sm/none max-lg:ml-auto max-sm:hidden',
             )}
             onClick={handleCopy}
           >
@@ -175,16 +181,18 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
           <button
             type="button"
             className={
-              'max-wide:inline-flex max-wide:flex-col max-wide:justify-center max-wide:gap-[6px] max-wide:w-[44px] ' +
-              'max-wide:h-[44px] max-wide:px-2.5 max-wide:py-0 max-wide:rounded-[8px] ' +
-              'max-wide:[border:1px_solid_var(--line-strong)] max-wide:bg-surface max-wide:cursor-pointer ' +
-              'max-wide:[&_span]:block max-wide:[&_span]:h-[2px] max-wide:[&_span]:[background:var(--ink)] ' +
-              'max-wide:[&_span]:[transition:transform_0.25s_var(--ease)] ' +
-              'max-wide:[&[aria-expanded=true]_span:first-child]:[transform:translateY(4px)_rotate(45deg)] ' +
-              'max-wide:[&[aria-expanded=true]_span:last-child]:[transform:translateY(-4px)_rotate(-45deg)] ' +
+              'max-lg:inline-flex max-lg:flex-col max-lg:justify-center max-lg:gap-[6px] max-lg:w-[44px] ' +
+              'max-lg:h-[44px] max-lg:px-2.5 max-lg:py-0 max-lg:rounded-[8px] ' +
+              'max-lg:[border:1px_solid_theme(colors.white/18%)] max-lg:bg-surface christmas:max-lg:bg-christmas-surface ' +
+              'halloween:max-lg:bg-halloween-surface spring:max-lg:bg-spring-surface max-lg:cursor-pointer ' +
+              'max-lg:[&_span]:block max-lg:[&_span]:h-[2px] max-lg:[&_span]:[background:theme(colors.ink)] ' +
+              'max-lg:[&_span]:[transition:transform_0.25s_var(--ease)] ' +
+              'max-lg:[&[aria-expanded=true]_span:first-child]:[transform:translateY(4px)_rotate(45deg)] ' +
+              'max-lg:[&[aria-expanded=true]_span:last-child]:[transform:translateY(-4px)_rotate(-45deg)] ' +
               'max-sm:ml-auto hidden'
             }
             aria-expanded={open}
+            ref={menuButtonRef}
             aria-label={open ? t('nav.close') : t('nav.open')}
             onClick={() => setOpen((v) => !v)}
           >
@@ -194,8 +202,13 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
           <span
             className={
               'absolute left-[14px] bottom-0 h-0.5 max-w-[calc(100%_-_28px)] rounded-[2px] ' +
-              '[background:linear-gradient(90deg,_var(--accent),_var(--accent-bright))] ' +
-              '[box-shadow:0_0_12px_rgba(var(--bright-rgb),_0.8)] [transition:width_0.12s_linear] pointer-events-none'
+              '[background:linear-gradient(90deg,_theme(colors.purple.600),_theme(colors.purple.400))] ' +
+              'christmas:[background:linear-gradient(90deg,_theme(colors.sky.600),_theme(colors.sky.300))] ' +
+              'halloween:[background:linear-gradient(90deg,_theme(colors.orange.600),_theme(colors.orange.300))] ' +
+              'spring:[background:linear-gradient(90deg,_theme(colors.emerald.600),_theme(colors.emerald.300))] ' +
+              '[box-shadow:0_0_12px_theme(colors.purple.400/80%)] christmas:[box-shadow:0_0_12px_theme(colors.sky.300/80%)] ' +
+              'halloween:[box-shadow:0_0_12px_theme(colors.orange.300/80%)] spring:[box-shadow:0_0_12px_theme(colors.emerald.300/80%)] ' +
+              '[transition:width_0.12s_linear] pointer-events-none'
             }
             style={{ width: `${scrollPct}%` }}
             aria-hidden="true"

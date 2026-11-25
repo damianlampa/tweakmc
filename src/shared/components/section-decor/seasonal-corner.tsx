@@ -6,7 +6,7 @@ export function SeasonalCorner({ theme, side }: { theme: ThemeId; side: 'tl' | '
     return (
       <svg
         className={classes(
-          'absolute w-[clamp(92px,_10vw,_138px)] h-auto text-accent-bright opacity-[0.42] animate-mark-float',
+          'absolute w-[clamp(92px,_10vw,_138px)] h-auto text-sky-300 opacity-[0.42] animate-mark-float',
           side === 'tl'
             ? 'left-[18px] top-[18px]'
             : 'bottom-[18px] right-[18px] [transform:rotate(180deg)] [animation-delay:-5.5s]',
@@ -27,7 +27,7 @@ export function SeasonalCorner({ theme, side }: { theme: ThemeId; side: 'tl' | '
     return (
       <svg
         className={classes(
-          'absolute w-[clamp(92px,_10vw,_138px)] h-auto text-accent-bright opacity-[0.42] animate-mark-float',
+          'absolute w-[clamp(92px,_10vw,_138px)] h-auto text-orange-300 opacity-[0.42] animate-mark-float',
           side === 'tl'
             ? 'left-[18px] top-[18px]'
             : 'bottom-[18px] right-[18px] [transform:rotate(180deg)] [animation-delay:-5.5s]',
@@ -49,7 +49,7 @@ export function SeasonalCorner({ theme, side }: { theme: ThemeId; side: 'tl' | '
     return (
       <svg
         className={classes(
-          'absolute w-[clamp(92px,_10vw,_138px)] h-auto text-accent-bright opacity-[0.42] animate-mark-float',
+          'absolute w-[clamp(92px,_10vw,_138px)] h-auto text-emerald-300 opacity-[0.42] animate-mark-float',
           side === 'tl'
             ? 'left-[18px] top-[18px]'
             : 'bottom-[18px] right-[18px] [transform:rotate(180deg)] [animation-delay:-5.5s]',

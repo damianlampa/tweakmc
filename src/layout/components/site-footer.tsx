@@ -21,7 +21,7 @@ export function SiteFooter({ settings }: { settings: Settings }) {
   ].filter((x) => x.show);
 
   return (
-    <footer className="[border-top:1px_solid_var(--line)] bg-bg">
+    <footer className="[border-top:1px_solid_theme(colors.white/9%)] bg-background christmas:bg-christmas-background halloween:bg-halloween-background spring:bg-spring-background">
       <div className="relative z-[2] w-full max-w-[calc(var(--max)_+_var(--pad)_*_2)] [margin-inline:auto] [padding-inline:var(--pad)]">
         <div className="flex flex-wrap items-center gap-[20px_32px] [padding-block:32px_76px]">
           <Link
@@ -56,7 +56,9 @@ export function SiteFooter({ settings }: { settings: Settings }) {
             </a>
           </nav>
 
-          <p className="max-wide:ml-0 ml-auto text-sm/relaxed text-muted">{t('nav.legal')}</p>
+          <p className="max-lg:ml-0 ml-auto text-sm/relaxed text-muted christmas:text-christmas-muted halloween:text-halloween-muted spring:text-spring-muted">
+            {t('nav.legal')}
+          </p>
 
           <LanguageSelect />
         </div>
