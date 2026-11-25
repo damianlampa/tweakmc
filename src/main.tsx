@@ -1,4 +1,7 @@
 import '@/shared/i18n/i18n';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+import '@fontsource-variable/space-grotesk';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
