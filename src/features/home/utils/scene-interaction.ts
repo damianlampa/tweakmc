@@ -44,7 +44,6 @@ export function attachDrag(
   };
 }
 
-// Suspend rendering while the canvas is outside the viewport.
 export function runWhenVisible(el: HTMLElement, tick: (delta: number) => void) {
   let visible = true;
   let raf = 0;

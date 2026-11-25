@@ -70,7 +70,7 @@ export function loadSettings(): Settings {
       }
     }
   } catch {
-    // ignore corrupt storage
+    // Fall back to defaults if stored settings cannot be read.
   }
 
   return withThemePreview(merged);
@@ -86,7 +86,7 @@ export function saveSettings(next: Settings) {
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
   } catch {
-    // ignore
+    return;
   }
 }
 
@@ -94,7 +94,7 @@ export function resetSettings() {
   try {
     window.localStorage.removeItem(STORAGE_KEY);
   } catch {
-    // ignore
+    // Return the defaults even when storage is unavailable.
   }
 
   return {

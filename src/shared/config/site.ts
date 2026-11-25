@@ -11,7 +11,6 @@ export const site = {
   discordUrl: 'https://discord.gg/tweakmc',
   discordLabel: 'discord.gg/tweakmc',
 
-  // Use the public Dynmap proxy address.
   dynmapUrl: 'https://tweakmc.pl/mapa/live/',
   dynmapDisplayPath: 'tweakmc.pl/mapa',
 

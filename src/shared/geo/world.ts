@@ -1,5 +1,3 @@
-// The hero globe and map preview share the same land mask and regions.
-
 import type { Topology, GeometryCollection } from 'topojson-specification';
 import { feature } from 'topojson-client';
 import { geoEquirectangular, geoPath } from 'd3-geo';
@@ -66,7 +64,6 @@ function buildWorld() {
     return best;
   };
 
-  // Active fronts in Central Europe and East Asia.
   const fronts = new Set([nearest(51, 19), nearest(38, 112)]);
 
   return { isLand, seeds, fronts, regionOf: nearest };
