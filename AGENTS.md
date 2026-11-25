@@ -10,13 +10,13 @@ Read `AGENTS.md.local` before starting if it exists. It contains private instruc
 
 - Select the Node version in `.nvmrc` and the npm version in `package.json`. Use `npm ci` for a reproducible installation.
 - Use `npm run dev` while editing. To verify what a static host will serve, run `npm run build` followed by `npm run preview`.
-- Run `npm run check` for Prettier, ESLint and TypeScript. Use `npm run format-fix` or `npm run lint-fix` to apply fixes, then review the diff.
+- Run `npm test` for Prettier, ESLint and TypeScript. Use `npm run format-fix` or `npm run lint-fix` to apply fixes, then review the diff.
 - For UI changes, install the Playwright browsers and run `npm test`. Setup and debugging commands are in the [README](README.md#browser-tests).
 
 ## Implementation
 
 - Preserve the current layout of `src/`. The HTML entry is `index.html`, React mounts the page in `src/main.tsx`, and `src/styles.css` imports Tailwind. Use kebab-case for source file names and React naming conventions for components.
-- Use the configured `tw-` prefix for Tailwind utilities. Keep the stylesheet import and Vite plugin consistent when changing the CSS pipeline.
+- Use unprefixed Tailwind utilities in JSX. Use the shared classes() helper to compose conditional classes and className props. Keep site-wide rules in styles.css.
 - TypeScript checks the application with strict mode enabled. Narrow nullable DOM values before using them and address type errors where they arise.
 - Use semantic elements, accessible names, keyboard-operable controls and visible focus. Respect reduced-motion preferences when adding animation.
 - Write code, documentation, commit messages and PR text in English.
@@ -28,7 +28,7 @@ Read `AGENTS.md.local` before starting if it exists. It contains private instruc
 
 ## Validation and delivery
 
-- Run `npm run check` and `npm run build` before handing off a change. Keep generated output, test reports and credentials out of commits.
+- Run `npm test` and `npm run build` before handing off a change. Keep generated output, test reports and credentials out of commits.
 - Add interaction coverage in `tests/e2e/` when a change introduces user-facing behavior. For layout or navigation changes, inspect narrow and wide viewports and try the affected flow with the keyboard. Report manual findings separately from the automated axe results.
 - Give each commit one purpose. Use Conventional Commits for commit messages and PR titles. In the PR description, identify the change and the checks that passed, and call out anything that still needs verification.
 
