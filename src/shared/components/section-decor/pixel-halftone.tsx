@@ -1,3 +1,4 @@
+import { classes } from '@/shared/utils/classes';
 import { useMemo } from 'react';
 
 export function PixelHalftone({
@@ -14,7 +15,6 @@ export function PixelHalftone({
     const step = 22;
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
-        // Distance from the lower-left corner in normalized coordinates.
         const nx = c / (cols - 1);
         const ny = 1 - r / (rows - 1);
         const dist = Math.hypot(nx, ny);
@@ -49,13 +49,16 @@ export function PixelHalftone({
 
   return (
     <svg
-      className={`halftone halftone-${corner}`}
+      className={classes(
+        'absolute w-[clamp(190px,_20vw,_310px)] h-auto text-decor [transition:color_0.35s_var(--ease)] animate-decor-breathe',
+        corner === 'bl' ? 'bottom-0 left-0' : 'right-0 top-0 [animation-delay:-4.5s]',
+      )}
       viewBox="0 0 264 264"
       aria-hidden="true"
       focusable="false"
       data-id={id}
     >
-      <g transform={transformMap[corner] || undefined} className="tw-origin-[132px_132px]">
+      <g transform={transformMap[corner] || undefined} className="origin-[132px_132px]">
         {cells.map((cell) => {
           return (
             <rect

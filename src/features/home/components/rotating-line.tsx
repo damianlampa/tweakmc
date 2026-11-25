@@ -16,11 +16,14 @@ export function RotatingLine() {
 
   return (
     <div
-      className="tw-inline-flex tw-items-center tw-gap-[10px] tw-mt-[18px] tw-min-h-[28px] tw-overflow-hidden tw-font-mono tw-text-[0.92rem] tw-font-semibold tw-text-accent-bright"
+      className="inline-flex items-center gap-2.5 mt-[18px] min-h-[28px] overflow-hidden font-mono text-[0.92rem] font-semibold text-accent-bright"
       aria-live="polite"
     >
-      <span className="rotate-dot" aria-hidden="true" />
-      <span key={idx} className="rotate-text">
+      <span
+        className="w-[7px] h-[7px] shrink-0 rounded-[50%] bg-accent-bright [box-shadow:0_0_10px_rgba(var(--bright-rgb),_0.75)]"
+        aria-hidden="true"
+      />
+      <span key={idx} className="inline-block animate-rotating-line">
         {t(HERO_ROLES[idx])}
       </span>
     </div>

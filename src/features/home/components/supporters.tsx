@@ -1,3 +1,4 @@
+import { buttonClasses } from '@/shared/components/button-classes';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { paths } from '@/router/paths';
@@ -11,7 +12,13 @@ export function HomeBoards({ settings }: { settings: Settings }) {
   const { t } = useTranslation();
 
   return (
-    <section className="sec sec-dark" id="topki">
+    <section
+      className={
+        'relative overflow-hidden [padding-block:clamp(72px,_10vh,_116px)] [border-top:1px_solid_var(--line)] ' +
+        '[background:radial-gradient(620px_380px_at_85%_20%,_rgba(var(--accent-rgb),_0.12),_transparent_72%),_var(--bg)]'
+      }
+      id="topki"
+    >
       <SectionDecor
         theme={settings.theme}
         variant="both"
@@ -19,18 +26,18 @@ export function HomeBoards({ settings }: { settings: Settings }) {
         labelRight={t('supporters.shopTag')}
       />
 
-      <div className="wrap">
-        <div className="tw-flex tw-flex-wrap tw-justify-between tw-items-end tw-gap-[24px] tw-mb-[32px]">
+      <div className="relative z-[2] w-full max-w-[calc(var(--max)_+_var(--pad)_*_2)] [margin-inline:auto] [padding-inline:var(--pad)]">
+        <div className="flex flex-wrap justify-between items-end gap-[24px] mb-[32px]">
           <div>
             <KineticHeading text={t('supporters.title')} accentWord="TweakMC" />
-            <p className="tw-mt-[16px] tw-max-w-[58ch] tw-text-muted tw-text-[1.08rem]">
+            <p className="mt-4 max-w-[58ch] text-muted text-[1.08rem]">
               {t('supporters.intro')}
-              <code className="inline-code">/portfel</code>
+              <code className="code-label">/portfel</code>
               {t('supporters.more')}
             </p>
           </div>
           {settings.sections.shopPage && (
-            <Link to={paths.shop} className="btn btn-primary">
+            <Link to={paths.shop} className={buttonClasses('primary')}>
               <span>{t('supporters.shop')}</span>
               {Icon.arrow}
             </Link>

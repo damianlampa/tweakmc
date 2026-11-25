@@ -1,3 +1,4 @@
+import { classes } from '@/shared/utils/classes';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
@@ -219,7 +220,6 @@ export default function Globe({ theme = 'default', motion = true }: SceneProps) 
 
     const stop = runWhenVisible(canvas, (dt) => {
       elapsed += dt;
-      // Slow the globe on hover so the player can aim or drag.
 
       const targetSpeed = paused || pointer || state.dragging ? 0 : 0.42;
       autoSpeed += (targetSpeed - autoSpeed) * Math.min(1, dt * 6);
@@ -290,10 +290,23 @@ export default function Globe({ theme = 'default', motion = true }: SceneProps) 
   }, [theme, motion]);
 
   return (
-    <div className="globe" ref={wrapRef}>
+    <div
+      className="globe absolute inset-0 [&_canvas]:w-full [&_canvas]:h-full [&_canvas]:block [&_canvas]:touch-pan-y [&_canvas]:cursor-grab [&_canvas:active]:cursor-grabbing"
+      ref={wrapRef}
+    >
       <canvas ref={canvasRef} role="img" aria-label={t('globe.label')} />
       {tip && (
-        <span className={`globe-tip ${tip.front ? 'is-front' : ''}`} aria-hidden="true">
+        <span
+          className={classes(
+            'absolute left-[var(--tx,_0)] top-[var(--ty,_0)] [transform:translate(16px,_-120%)] inline-flex ' +
+              'items-center gap-[10px] p-[8px_12px] rounded-[8px] [background:rgba(13,_11,_20,_0.94)] ' +
+              '[border:1px_solid_rgba(var(--bright-rgb),_0.45)] text-ink text-[0.84rem] pointer-events-none ' +
+              'whitespace-nowrap [&.is-front]:[border-color:rgba(239,_68,_68,_0.65)] [&_span]:font-mono ' +
+              '[&_span]:text-[0.78rem] [&_span]:text-muted',
+            tip.front ? 'is-front' : '',
+          )}
+          aria-hidden="true"
+        >
           <strong>
             {tip.front
               ? t('globe.front')

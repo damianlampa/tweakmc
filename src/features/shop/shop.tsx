@@ -1,3 +1,4 @@
+import { buttonClasses } from '@/shared/components/button-classes';
 import { DEFAULT_SETTINGS } from '@/shared/settings/settings';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
@@ -14,7 +15,13 @@ export default function ShopPage() {
 
   if (!settings.sections.shopPage) {
     return (
-      <section className="page-shell sec-dark">
+      <section
+        className={
+          'relative min-h-[100svh] ' +
+          '[padding-block:calc(var(--nav-h)_+_clamp(32px,_5vh,_64px))_clamp(80px,_10vh,_120px)] overflow-hidden ' +
+          '[background:radial-gradient(620px_380px_at_85%_20%,_rgba(var(--accent-rgb),_0.12),_transparent_72%),_var(--bg)]'
+        }
+      >
         <SectionDecor
           theme={settings.theme}
           variant="both"
@@ -22,18 +29,20 @@ export default function ShopPage() {
           labelRight="TWEAKMC.PL"
         />
 
-        <div className="wrap">
-          <div className="disabled-card">
-            <span className="disabled-tag">{t('shop.unavailable')}</span>
+        <div className="relative z-[2] w-full max-w-[calc(var(--max)_+_var(--pad)_*_2)] [margin-inline:auto] [padding-inline:var(--pad)]">
+          <div className="max-w-[640px] m-[clamp(32px,_8vh,_80px)_auto] p-[clamp(28px,_4vw,_44px)] rounded-[18px] [border:1px_solid_var(--line-strong)] bg-bg-elev">
+            <span className="inline-block mb-[14px] p-[5px_10px] rounded-[7px] [background:rgba(239,_68,_68,_0.16)] [border:1px_solid_rgba(239,_68,_68,_0.4)] font-mono text-[0.78rem] [color:#fca5a5]">
+              {t('shop.unavailable')}
+            </span>
             <h1>{t('shop.disabled')}</h1>
-            <p className="tw-mt-[16px] tw-max-w-[58ch] tw-text-muted tw-text-[1.08rem]">
+            <p className="mt-4 max-w-[58ch] text-muted text-[1.08rem]">
               {settings.maintenanceMsg === DEFAULT_SETTINGS.maintenanceMsg
                 ? t('common.maintenance')
                 : settings.maintenanceMsg}
             </p>
 
-            <div className="tw-flex tw-flex-wrap tw-gap-[12px] tw-mt-[28px]">
-              <Link to={paths.home} className="btn btn-primary">
+            <div className="flex flex-wrap gap-3 mt-[28px]">
+              <Link to={paths.home} className={buttonClasses('primary')}>
                 {t('nav.home')}
               </Link>
             </div>
@@ -44,7 +53,13 @@ export default function ShopPage() {
   }
 
   return (
-    <section className="page-shell sec-elev">
+    <section
+      className={
+        'relative min-h-[100svh] ' +
+        '[padding-block:calc(var(--nav-h)_+_clamp(32px,_5vh,_64px))_clamp(80px,_10vh,_120px)] overflow-hidden ' +
+        '[background:radial-gradient(620px_380px_at_15%_25%,_rgba(var(--accent-rgb),_0.11),_transparent_72%),_var(--bg-elev)]'
+      }
+    >
       <SectionDecor
         theme={settings.theme}
         variant="both"
@@ -52,18 +67,21 @@ export default function ShopPage() {
         labelRight="STRIPE // AUTO"
       />
 
-      <div className="wrap">
-        <div className="tw-flex tw-flex-wrap tw-justify-between tw-items-end tw-gap-[20px] tw-mb-[32px]">
+      <div className="relative z-[2] w-full max-w-[calc(var(--max)_+_var(--pad)_*_2)] [margin-inline:auto] [padding-inline:var(--pad)]">
+        <div className="flex flex-wrap justify-between items-end gap-5 mb-[32px]">
           <div>
-            <Link to={paths.home} className="back-link">
+            <Link
+              to={paths.home}
+              className="inline-flex items-center min-h-[36px] text-[0.9rem] font-medium text-muted no-underline [transition:color_0.2s] hover:text-accent-bright"
+            >
               {t('nav.back')}
             </Link>
-            <h1 className="tw-text-[clamp(2.4rem,_5vw,_4rem)] tw-mt-[10px]">
+            <h1 className="text-[clamp(2.4rem,_5vw,_4rem)] mt-[10px]">
               {t('shop.title')}
-              <span className="tw-text-accent-bright">{t('shop.wallet')}</span>
+              <span className="text-accent-bright">{t('shop.wallet')}</span>
             </h1>
-            <p className="tw-mt-[16px] tw-max-w-[58ch] tw-text-muted tw-text-[1.08rem]">
-              {t('shop.description')} <code className="inline-code">/portfel</code>
+            <p className="mt-4 max-w-[58ch] text-muted text-[1.08rem]">
+              {t('shop.description')} <code className="code-label">/portfel</code>
               {t('shop.network')}
             </p>
           </div>
@@ -72,7 +90,7 @@ export default function ShopPage() {
         <TopUpForm />
 
         {settings.sections.topboards && (
-          <div className="tw-mt-[32px]">
+          <div className="mt-[32px]">
             <Supporters />
           </div>
         )}

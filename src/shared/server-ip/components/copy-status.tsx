@@ -7,7 +7,7 @@ export function CopyStatus() {
   const copied = useCopied();
 
   return (
-    <p className="sr-only" role="status" aria-live="polite">
+    <p className="sr-only m-0" role="status" aria-live="polite">
       {copied ? t('nav.copiedAddress', { ip: site.serverIpCopy }) : ''}
     </p>
   );

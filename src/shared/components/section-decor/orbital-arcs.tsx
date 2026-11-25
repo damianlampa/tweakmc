@@ -1,7 +1,7 @@
 export function OrbitalArcs() {
   return (
     <svg
-      className="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-text-accent-bright tw-pointer-events-none"
+      className="absolute inset-0 w-full h-full text-accent-bright pointer-events-none"
       viewBox="0 0 1440 900"
       preserveAspectRatio="xMidYMid slice"
       aria-hidden="true"

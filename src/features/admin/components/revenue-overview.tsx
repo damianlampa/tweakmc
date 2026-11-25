@@ -14,68 +14,91 @@ export function RevenueOverview() {
   const maxDay = Math.max(...stats.daily.map((day) => day.amount), 1);
 
   return (
-    <div className="tw-grid tw-gap-[20px]">
+    <div className="grid gap-5">
       {stats.isPreview && (
-        <div className="admin-banner">
+        <div className="p-[14px_18px] rounded-[12px] [border:1px_solid_rgba(var(--bright-rgb),_0.35)] [background:rgba(var(--accent-rgb),_0.1)] text-[0.9rem] text-muted">
           <strong>{t('revenue.preview')}</strong>
           {t('revenue.explanation')}
-          <code className="inline-code">shopApiEnabled: true</code>
+          <code className="code-label">shopApiEnabled: true</code>
           {t('revenue.source')}
-          <code className="inline-code">/api/admin/stats</code>
+          <code className="code-label">/api/admin/stats</code>
           {t('revenue.integration')}
         </div>
       )}
 
-      <div className="kpi-grid tw-grid tw-grid-cols-[repeat(4,_minmax(0,_1fr))] tw-gap-[16px]">
-        <div className="kpi-card">
+      <div className="max-lg:grid-cols-[1fr_1fr] max-sm:grid-cols-[1fr] grid grid-cols-[repeat(4,_minmax(0,_1fr))] gap-4">
+        <div
+          className={
+            'p-[20px_22px] rounded-[14px] [border:1px_solid_var(--line-strong)] bg-bg-elev grid gap-[8px] ' +
+            '[&_span]:text-[0.84rem] [&_span]:text-muted [&_strong]:font-display ' +
+            '[&_strong]:text-[clamp(1.5rem,_2.6vw,_2.1rem)] [&_strong]:[font-variant-numeric:tabular-nums]'
+          }
+        >
           <span>{t('revenue.total')}</span>
           <strong>{formatRevenue(stats.totalRevenue, i18n.language)}</strong>
         </div>
 
-        <div className="kpi-card">
+        <div
+          className={
+            'p-[20px_22px] rounded-[14px] [border:1px_solid_var(--line-strong)] bg-bg-elev grid gap-[8px] ' +
+            '[&_span]:text-[0.84rem] [&_span]:text-muted [&_strong]:font-display ' +
+            '[&_strong]:text-[clamp(1.5rem,_2.6vw,_2.1rem)] [&_strong]:[font-variant-numeric:tabular-nums]'
+          }
+        >
           <span>{t('revenue.month')}</span>
-          <strong className="tw-text-accent-bright">
+          <strong className="text-accent-bright">
             {formatRevenue(stats.monthRevenue, i18n.language)}
           </strong>
         </div>
 
-        <div className="kpi-card">
+        <div
+          className={
+            'p-[20px_22px] rounded-[14px] [border:1px_solid_var(--line-strong)] bg-bg-elev grid gap-[8px] ' +
+            '[&_span]:text-[0.84rem] [&_span]:text-muted [&_strong]:font-display ' +
+            '[&_strong]:text-[clamp(1.5rem,_2.6vw,_2.1rem)] [&_strong]:[font-variant-numeric:tabular-nums]'
+          }
+        >
           <span>{t('revenue.payments')}</span>
           <strong>{stats.totalTransactions}</strong>
         </div>
 
-        <div className="kpi-card">
+        <div
+          className={
+            'p-[20px_22px] rounded-[14px] [border:1px_solid_var(--line-strong)] bg-bg-elev grid gap-[8px] ' +
+            '[&_span]:text-[0.84rem] [&_span]:text-muted [&_strong]:font-display ' +
+            '[&_strong]:text-[clamp(1.5rem,_2.6vw,_2.1rem)] [&_strong]:[font-variant-numeric:tabular-nums]'
+          }
+        >
           <span>{t('revenue.average')}</span>
           <strong>{formatRevenue(stats.avgOrder, i18n.language)}</strong>
         </div>
       </div>
 
-      <div className="admin-two-col tw-grid tw-grid-cols-[minmax(0,_0.9fr)_minmax(0,_1.1fr)] tw-gap-[20px]">
-        <div className="admin-box">
-          <div className="admin-box-head tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-gap-[12px] tw-mb-[18px]">
+      <div className="max-lg:grid-cols-[minmax(0,_1fr)] grid grid-cols-[minmax(0,_0.9fr)_minmax(0,_1.1fr)] gap-5">
+        <div className="admin-card">
+          <div className="[&_h2]:text-[1.25rem] flex flex-wrap items-center justify-between gap-3 mb-[18px]">
             <h2>{t('revenue.days')}</h2>
-            <span className="board-tag">{t('revenue.daily')}</span>
+            <span className="font-mono text-[0.72rem] text-muted p-[3px_8px] rounded-[6px] [border:1px_solid_var(--line)] bg-surface">
+              {t('revenue.daily')}
+            </span>
           </div>
 
           <div
-            className="tw-grid tw-grid-cols-[repeat(7,_minmax(0,_1fr))] tw-gap-[10px] tw-h-[210px] [align-items:end] tw-pt-[10px]"
+            className="grid grid-cols-[repeat(7,_minmax(0,_1fr))] gap-2.5 h-[210px] [align-items:end] pt-[10px]"
             role="img"
             aria-label={t('revenue.chart')}
           >
             {stats.daily.map((day) => {
               return (
-                <div
-                  className="tw-flex tw-flex-col tw-items-center tw-gap-[6px] tw-h-full"
-                  key={day.day}
-                >
-                  <span className="tw-font-mono tw-text-[0.72rem] tw-text-muted">{day.amount}</span>
-                  <div className="bar-track">
+                <div className="flex flex-col items-center gap-[6px] h-full" key={day.day}>
+                  <span className="font-mono text-[0.72rem] text-muted">{day.amount}</span>
+                  <div className="w-full [flex:1] rounded-[8px] bg-surface flex items-end overflow-hidden">
                     <div
-                      className="bar-fill"
+                      className="w-full rounded-[8px_8px_0_0] [background:linear-gradient(180deg,_var(--accent-bright),_var(--accent))] [transition:height_0.4s_var(--ease)]"
                       style={{ height: `${Math.round((day.amount / maxDay) * 100)}%` }}
                     />
                   </div>
-                  <span className="tw-text-[0.78rem] tw-text-muted">
+                  <span className="text-[0.78rem] text-muted">
                     {stats.isPreview ? t(day.day, { defaultValue: day.day }) : day.day}
                   </span>
                 </div>
@@ -84,16 +107,30 @@ export function RevenueOverview() {
           </div>
         </div>
 
-        <div className="admin-box">
-          <div className="admin-box-head tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-gap-[12px] tw-mb-[18px]">
+        <div className="admin-card">
+          <div className="[&_h2]:text-[1.25rem] flex flex-wrap items-center justify-between gap-3 mb-[18px]">
             <h2>{t('revenue.transactions')}</h2>
-            <Link to={paths.shop} className="inline-link">
+            <Link
+              to={paths.shop}
+              className={
+                'text-ink underline [text-underline-offset:4px] [text-decoration-color:rgba(var(--bright-rgb),_0.55)] ' +
+                '[transition:color_0.2s,_text-decoration-color_0.2s] hover:text-accent-bright ' +
+                'hover:[text-decoration-color:var(--accent-bright)]'
+              }
+            >
               {t('revenue.shop')}
             </Link>
           </div>
 
-          <div className="tw-overflow-x-auto">
-            <table className="tx-table">
+          <div className="overflow-x-auto">
+            <table
+              className={
+                'w-full [border-collapse:collapse] text-[0.88rem] [&_th]:p-[10px_8px] [&_th]:text-left ' +
+                '[&_th]:[border-bottom:1px_solid_var(--line)] [&_th]:whitespace-nowrap [&_td]:p-[10px_8px] [&_td]:text-left ' +
+                '[&_td]:[border-bottom:1px_solid_var(--line)] [&_td]:whitespace-nowrap [&_th]:text-muted ' +
+                '[&_th]:font-semibold [&_th]:text-[0.78rem] [&_th]:uppercase [&_th]:tracking-[0.05em]'
+              }
+            >
               <thead>
                 <tr>
                   <th>ID</th>
@@ -113,7 +150,7 @@ export function RevenueOverview() {
                       <td>
                         <strong>{transaction.nick}</strong>
                       </td>
-                      <td className="tw-font-mono tw-font-semibold tw-text-accent-bright">
+                      <td className="font-mono font-semibold text-accent-bright">
                         +{formatRevenue(transaction.amount, i18n.language)}
                       </td>
                       <td>
@@ -122,7 +159,7 @@ export function RevenueOverview() {
                           : transaction.method}
                       </td>
                       <td>
-                        <span className="tx-ok">
+                        <span className="p-[3px_8px] rounded-[6px] [background:rgba(34,_197,_94,_0.14)] [color:#86efac] text-[0.76rem] font-semibold">
                           {stats.isPreview
                             ? t(transaction.status, { defaultValue: transaction.status })
                             : transaction.status}

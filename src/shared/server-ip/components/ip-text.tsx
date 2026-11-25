@@ -1,3 +1,4 @@
+import { classes } from '@/shared/utils/classes';
 import { site } from '@/shared/config/site';
 
 export function IpText({ className = '' }) {
@@ -7,9 +8,12 @@ export function IpText({ className = '' }) {
   };
 
   return (
-    <span className={`ip-brand ${className}`} onCopy={handleManualCopy}>
-      <span className="tw-text-ink">{site.serverIpName}</span>
-      <span className="tw-text-accent-bright">{site.serverIpTld}</span>
+    <span
+      className={classes('font-display font-bold tracking-[-0.02em] whitespace-nowrap', className)}
+      onCopy={handleManualCopy}
+    >
+      <span className="text-ink">{site.serverIpName}</span>
+      <span className="text-accent-bright">{site.serverIpTld}</span>
     </span>
   );
 }

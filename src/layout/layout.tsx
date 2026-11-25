@@ -18,7 +18,15 @@ export function Layout() {
 
   if (routeSettings.isLoading) {
     return (
-      <main className="page-shell wrap" role="status">
+      <main
+        className={
+          'relative min-h-[100svh] ' +
+          '[padding-block:calc(var(--nav-h)_+_clamp(32px,_5vh,_64px))_clamp(80px,_10vh,_120px)] overflow-hidden ' +
+          'relative z-[2] w-full max-w-[calc(var(--max)_+_var(--pad)_*_2)] [margin-inline:auto] ' +
+          '[padding-inline:var(--pad)]'
+        }
+        role="status"
+      >
         {t('common.loadingSettings')}
       </main>
     );
@@ -26,7 +34,10 @@ export function Layout() {
 
   return (
     <>
-      <a className="skip" href="#main">
+      <a
+        className="fixed left-4 top-4 z-[100] rounded-lg bg-accent px-[18px] py-3 font-semibold text-ink no-underline [transform:translateY(-180%)] focus:transform-none"
+        href="#main"
+      >
         {t('nav.skip')}
       </a>
       {settings.sections.seasonFx && <SeasonFx theme={settings.theme} motion={settings.motion} />}

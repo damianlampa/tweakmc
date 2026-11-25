@@ -1,9 +1,19 @@
+import { classes } from '@/shared/utils/classes';
 import type { ThemeId } from '@/shared/config/themes';
 
 export function SeasonalCorner({ theme, side }: { theme: ThemeId; side: 'tl' | 'br' }) {
   if (theme === 'christmas') {
     return (
-      <svg className={`season-mark season-mark-${side}`} viewBox="0 0 120 120" aria-hidden="true">
+      <svg
+        className={classes(
+          'absolute w-[clamp(92px,_10vw,_138px)] h-auto text-accent-bright opacity-[0.42] animate-mark-float',
+          side === 'tl'
+            ? 'left-[18px] top-[18px]'
+            : 'bottom-[18px] right-[18px] [transform:rotate(180deg)] [animation-delay:-5.5s]',
+        )}
+        viewBox="0 0 120 120"
+        aria-hidden="true"
+      >
         <g stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="square">
           <path d="M60 10v100M10 60h100M25 25l70 70M95 25 25 95" opacity="0.45" />
           <path d="M52 22l8 8 8-8M52 98l8-8 8 8M22 52l8 8-8 8M98 52l-8 8 8 8" opacity="0.7" />
@@ -15,7 +25,16 @@ export function SeasonalCorner({ theme, side }: { theme: ThemeId; side: 'tl' | '
 
   if (theme === 'halloween') {
     return (
-      <svg className={`season-mark season-mark-${side}`} viewBox="0 0 140 140" aria-hidden="true">
+      <svg
+        className={classes(
+          'absolute w-[clamp(92px,_10vw,_138px)] h-auto text-accent-bright opacity-[0.42] animate-mark-float',
+          side === 'tl'
+            ? 'left-[18px] top-[18px]'
+            : 'bottom-[18px] right-[18px] [transform:rotate(180deg)] [animation-delay:-5.5s]',
+        )}
+        viewBox="0 0 140 140"
+        aria-hidden="true"
+      >
         <g stroke="currentColor" strokeWidth="1.2" fill="none" opacity="0.5">
           <path d="M0 0 140 0M0 0 130 48M0 0 98 98M0 0 48 130M0 0 0 140" />
           <path d="M36 0 33 13 25 25 13 33 0 36" />
@@ -28,7 +47,16 @@ export function SeasonalCorner({ theme, side }: { theme: ThemeId; side: 'tl' | '
 
   if (theme === 'spring') {
     return (
-      <svg className={`season-mark season-mark-${side}`} viewBox="0 0 120 120" aria-hidden="true">
+      <svg
+        className={classes(
+          'absolute w-[clamp(92px,_10vw,_138px)] h-auto text-accent-bright opacity-[0.42] animate-mark-float',
+          side === 'tl'
+            ? 'left-[18px] top-[18px]'
+            : 'bottom-[18px] right-[18px] [transform:rotate(180deg)] [animation-delay:-5.5s]',
+        )}
+        viewBox="0 0 120 120"
+        aria-hidden="true"
+      >
         <g stroke="currentColor" strokeWidth="1.4" fill="none" opacity="0.55">
           <rect x="44" y="14" width="32" height="32" transform="rotate(45 60 30)" />
           <rect x="44" y="74" width="32" height="32" transform="rotate(45 60 90)" />

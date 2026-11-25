@@ -12,19 +12,26 @@ export function Ticker() {
   const { t } = useTranslation();
 
   return (
-    <div className="ticker" role="region" aria-label={t('ticker.label')}>
-      <div className="ticker-track" aria-hidden="true">
+    <div
+      className="ticker relative flex items-center overflow-hidden [border-top:1px_solid_var(--line)] bg-bg-elev [padding-block:14px]"
+      role="region"
+      aria-label={t('ticker.label')}
+    >
+      <div
+        className="flex w-[max-content] animate-marquee [.ticker:hover_&]:[animation-play-state:paused]"
+        aria-hidden="true"
+      >
         {[0, 1, 2].map((copyIndex) => {
           return (
-            <div className="tw-flex tw-items-center" key={copyIndex}>
+            <div className="flex items-center" key={copyIndex}>
               {TICKER_ITEMS.map((message) => {
                 return (
                   <span
                     key={`${copyIndex}-${message}`}
-                    className="tw-inline-flex tw-items-center tw-gap-[24px] tw-pr-[24px] tw-font-mono tw-text-[0.82rem] tw-font-semibold tw-tracking-[0.1em] tw-uppercase tw-text-muted tw-whitespace-nowrap"
+                    className="inline-flex items-center gap-[24px] pr-[24px] font-mono text-[0.82rem] font-semibold tracking-[0.1em] uppercase text-muted whitespace-nowrap"
                   >
                     <span>{t(message, { defaultValue: message })}</span>
-                    <span className="ticker-sep" />
+                    <span className="w-[6px] h-[6px] bg-accent-bright [transform:rotate(45deg)] opacity-75" />
                   </span>
                 );
               })}

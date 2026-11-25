@@ -36,5 +36,11 @@ export default function PixelMap({ theme = 'default' }: SceneProps) {
     }
   }, [theme]);
 
-  return <canvas ref={ref} className="pixel-map" aria-hidden="true" />;
+  return (
+    <canvas
+      ref={ref}
+      className="absolute inset-0 w-full h-full object-cover [image-rendering:pixelated] opacity-75"
+      aria-hidden="true"
+    />
+  );
 }
