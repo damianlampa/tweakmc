@@ -29,9 +29,9 @@ export function AppearanceSettings({
   return (
     <div className="grid gap-5">
       <div className="admin-card">
-        <div className="[&_h2]:text-[1.25rem] flex flex-wrap items-center justify-between gap-3 mb-[18px]">
+        <div className="[&_h2]:text-xl/none flex flex-wrap items-center justify-between gap-3 mb-[18px]">
           <h2>{t('appearance.title')}</h2>
-          <span className="font-mono text-[0.72rem] text-muted p-[3px_8px] rounded-[6px] [border:1px_solid_var(--line)] bg-surface">
+          <span className="font-mono text-xs/relaxed text-muted p-[3px_8px] rounded-[6px] [border:1px_solid_var(--line)] bg-surface">
             {t('appearance.active')}
             {t(activeTheme.label)}
           </span>
@@ -49,7 +49,7 @@ export function AppearanceSettings({
                     '[transition:border-color_0.2s,_transform_0.2s_var(--ease),_background-color_0.2s] ' +
                     'hover:[transform:translateY(-2px)] hover:[border-color:rgba(var(--bright-rgb),_0.55)] ' +
                     '[&.is-active]:[border-color:var(--accent-bright)] [&.is-active]:[background:rgba(var(--accent-rgb),_0.16)] ' +
-                    '[&_span]:text-[0.78rem] [&_span]:text-muted',
+                    '[&_span]:text-xs/relaxed [&_span]:text-muted',
                   settings.theme === theme.id ? 'is-active' : '',
                 )}
                 onClick={() => patch({ ...settings, theme: theme.id })}
@@ -72,7 +72,7 @@ export function AppearanceSettings({
       </div>
 
       <div className="admin-card">
-        <div className="[&_h2]:text-[1.25rem] flex flex-wrap items-center justify-between gap-3 mb-[18px]">
+        <div className="[&_h2]:text-xl/none flex flex-wrap items-center justify-between gap-3 mb-[18px]">
           <h2>{t('appearance.map')}</h2>
           <Link
             to={paths.map}
@@ -96,7 +96,7 @@ export function AppearanceSettings({
                   'grid gap-[3px] text-left p-[14px_16px] rounded-[12px] [border:1px_solid_var(--line)] bg-surface text-ink ' +
                     'cursor-pointer [transition:border-color_0.2s,_background-color_0.2s] ' +
                     'hover:[border-color:rgba(var(--bright-rgb),_0.45)] [&.is-active]:[border-color:var(--accent-bright)] ' +
-                    '[&.is-active]:[background:rgba(var(--accent-rgb),_0.16)] [&_span]:text-[0.82rem] [&_span]:text-muted',
+                    '[&.is-active]:[background:rgba(var(--accent-rgb),_0.16)] [&_span]:text-sm/relaxed [&_span]:text-muted',
                   settings.mapFrame === frameOption.id ? 'is-active' : '',
                 )}
                 onClick={() => patch({ ...settings, mapFrame: frameOption.id })}

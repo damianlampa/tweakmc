@@ -28,7 +28,7 @@ export function Ticker() {
                 return (
                   <span
                     key={`${copyIndex}-${message}`}
-                    className="inline-flex items-center gap-[24px] pr-[24px] font-mono text-[0.82rem] font-semibold tracking-[0.1em] uppercase text-muted whitespace-nowrap"
+                    className="inline-flex items-center gap-[24px] pr-[24px] font-mono text-sm/relaxed font-semibold tracking-widest uppercase text-muted whitespace-nowrap"
                   >
                     <span>{t(message, { defaultValue: message })}</span>
                     <span className="w-[6px] h-[6px] bg-accent-bright [transform:rotate(45deg)] opacity-75" />

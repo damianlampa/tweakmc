@@ -16,7 +16,7 @@ export function RevenueOverview() {
   return (
     <div className="grid gap-5">
       {stats.isPreview && (
-        <div className="p-[14px_18px] rounded-[12px] [border:1px_solid_rgba(var(--bright-rgb),_0.35)] [background:rgba(var(--accent-rgb),_0.1)] text-[0.9rem] text-muted">
+        <div className="p-[14px_18px] rounded-[12px] [border:1px_solid_rgba(var(--bright-rgb),_0.35)] [background:rgba(var(--accent-rgb),_0.1)] text-sm/relaxed text-muted">
           <strong>{t('revenue.preview')}</strong>
           {t('revenue.explanation')}
           <code className="code-label">shopApiEnabled: true</code>
@@ -30,8 +30,8 @@ export function RevenueOverview() {
         <div
           className={
             'p-[20px_22px] rounded-[14px] [border:1px_solid_var(--line-strong)] bg-bg-elev grid gap-[8px] ' +
-            '[&_span]:text-[0.84rem] [&_span]:text-muted [&_strong]:font-display ' +
-            '[&_strong]:text-[clamp(1.5rem,_2.6vw,_2.1rem)] [&_strong]:[font-variant-numeric:tabular-nums]'
+            '[&_span]:text-sm/relaxed [&_span]:text-muted [&_strong]:font-display ' +
+            '[&_strong]:text-revenue-value [&_strong]:[font-variant-numeric:tabular-nums]'
           }
         >
           <span>{t('revenue.total')}</span>
@@ -41,8 +41,8 @@ export function RevenueOverview() {
         <div
           className={
             'p-[20px_22px] rounded-[14px] [border:1px_solid_var(--line-strong)] bg-bg-elev grid gap-[8px] ' +
-            '[&_span]:text-[0.84rem] [&_span]:text-muted [&_strong]:font-display ' +
-            '[&_strong]:text-[clamp(1.5rem,_2.6vw,_2.1rem)] [&_strong]:[font-variant-numeric:tabular-nums]'
+            '[&_span]:text-sm/relaxed [&_span]:text-muted [&_strong]:font-display ' +
+            '[&_strong]:text-revenue-value [&_strong]:[font-variant-numeric:tabular-nums]'
           }
         >
           <span>{t('revenue.month')}</span>
@@ -54,8 +54,8 @@ export function RevenueOverview() {
         <div
           className={
             'p-[20px_22px] rounded-[14px] [border:1px_solid_var(--line-strong)] bg-bg-elev grid gap-[8px] ' +
-            '[&_span]:text-[0.84rem] [&_span]:text-muted [&_strong]:font-display ' +
-            '[&_strong]:text-[clamp(1.5rem,_2.6vw,_2.1rem)] [&_strong]:[font-variant-numeric:tabular-nums]'
+            '[&_span]:text-sm/relaxed [&_span]:text-muted [&_strong]:font-display ' +
+            '[&_strong]:text-revenue-value [&_strong]:[font-variant-numeric:tabular-nums]'
           }
         >
           <span>{t('revenue.payments')}</span>
@@ -65,8 +65,8 @@ export function RevenueOverview() {
         <div
           className={
             'p-[20px_22px] rounded-[14px] [border:1px_solid_var(--line-strong)] bg-bg-elev grid gap-[8px] ' +
-            '[&_span]:text-[0.84rem] [&_span]:text-muted [&_strong]:font-display ' +
-            '[&_strong]:text-[clamp(1.5rem,_2.6vw,_2.1rem)] [&_strong]:[font-variant-numeric:tabular-nums]'
+            '[&_span]:text-sm/relaxed [&_span]:text-muted [&_strong]:font-display ' +
+            '[&_strong]:text-revenue-value [&_strong]:[font-variant-numeric:tabular-nums]'
           }
         >
           <span>{t('revenue.average')}</span>
@@ -76,9 +76,9 @@ export function RevenueOverview() {
 
       <div className="max-lg:grid-cols-[minmax(0,_1fr)] grid grid-cols-[minmax(0,_0.9fr)_minmax(0,_1.1fr)] gap-5">
         <div className="admin-card">
-          <div className="[&_h2]:text-[1.25rem] flex flex-wrap items-center justify-between gap-3 mb-[18px]">
+          <div className="[&_h2]:text-xl/none flex flex-wrap items-center justify-between gap-3 mb-[18px]">
             <h2>{t('revenue.days')}</h2>
-            <span className="font-mono text-[0.72rem] text-muted p-[3px_8px] rounded-[6px] [border:1px_solid_var(--line)] bg-surface">
+            <span className="font-mono text-xs/relaxed text-muted p-[3px_8px] rounded-[6px] [border:1px_solid_var(--line)] bg-surface">
               {t('revenue.daily')}
             </span>
           </div>
@@ -91,14 +91,14 @@ export function RevenueOverview() {
             {stats.daily.map((day) => {
               return (
                 <div className="flex flex-col items-center gap-[6px] h-full" key={day.day}>
-                  <span className="font-mono text-[0.72rem] text-muted">{day.amount}</span>
+                  <span className="font-mono text-xs/relaxed text-muted">{day.amount}</span>
                   <div className="w-full [flex:1] rounded-[8px] bg-surface flex items-end overflow-hidden">
                     <div
                       className="w-full rounded-[8px_8px_0_0] [background:linear-gradient(180deg,_var(--accent-bright),_var(--accent))] [transition:height_0.4s_var(--ease)]"
                       style={{ height: `${Math.round((day.amount / maxDay) * 100)}%` }}
                     />
                   </div>
-                  <span className="text-[0.78rem] text-muted">
+                  <span className="text-xs/relaxed text-muted">
                     {stats.isPreview ? t(day.day, { defaultValue: day.day }) : day.day}
                   </span>
                 </div>
@@ -108,7 +108,7 @@ export function RevenueOverview() {
         </div>
 
         <div className="admin-card">
-          <div className="[&_h2]:text-[1.25rem] flex flex-wrap items-center justify-between gap-3 mb-[18px]">
+          <div className="[&_h2]:text-xl/none flex flex-wrap items-center justify-between gap-3 mb-[18px]">
             <h2>{t('revenue.transactions')}</h2>
             <Link
               to={paths.shop}
@@ -125,10 +125,10 @@ export function RevenueOverview() {
           <div className="overflow-x-auto">
             <table
               className={
-                'w-full [border-collapse:collapse] text-[0.88rem] [&_th]:p-[10px_8px] [&_th]:text-left ' +
+                'w-full [border-collapse:collapse] text-sm/relaxed [&_th]:p-[10px_8px] [&_th]:text-left ' +
                 '[&_th]:[border-bottom:1px_solid_var(--line)] [&_th]:whitespace-nowrap [&_td]:p-[10px_8px] [&_td]:text-left ' +
                 '[&_td]:[border-bottom:1px_solid_var(--line)] [&_td]:whitespace-nowrap [&_th]:text-muted ' +
-                '[&_th]:font-semibold [&_th]:text-[0.78rem] [&_th]:uppercase [&_th]:tracking-[0.05em]'
+                '[&_th]:font-semibold [&_th]:text-xs/relaxed [&_th]:uppercase [&_th]:tracking-wide'
               }
             >
               <thead>
@@ -159,7 +159,7 @@ export function RevenueOverview() {
                           : transaction.method}
                       </td>
                       <td>
-                        <span className="p-[3px_8px] rounded-[6px] [background:rgba(34,_197,_94,_0.14)] [color:#86efac] text-[0.76rem] font-semibold">
+                        <span className="p-[3px_8px] rounded-[6px] [background:rgba(34,_197,_94,_0.14)] [color:#86efac] text-xs/relaxed font-semibold">
                           {stats.isPreview
                             ? t(transaction.status, { defaultValue: transaction.status })
                             : transaction.status}

@@ -51,7 +51,7 @@ export function Hero({ settings }: { settings: Settings }) {
             <WaveWord text="TweakMC" className="text-accent-bright" />
           </h1>
           <RotatingLine />
-          <p className="mt-[22px] max-w-[52ch] text-muted text-[1.12rem]">
+          <p className="mt-[22px] max-w-[52ch] text-muted text-lg/relaxed">
             {t('hero.intro')} <strong>EarthSMP</strong>
             {t('hero.more')}
           </p>
@@ -69,7 +69,7 @@ export function Hero({ settings }: { settings: Settings }) {
             </a>
           </div>
 
-          <p className="flex flex-wrap items-center gap-3 mt-[26px] text-muted text-[0.92rem]">
+          <p className="flex flex-wrap items-center gap-3 mt-[26px] text-muted text-sm/relaxed">
             <span>{active.badge ? t(active.badge) : 'Minecraft Java'}</span>
             {settings.sections.mapPage && (
               <>
@@ -114,7 +114,7 @@ export function Hero({ settings }: { settings: Settings }) {
               <span className="absolute w-[18px] h-[18px] [border-color:rgba(var(--bright-rgb),_0.5)] [border-style:solid] border-0 pointer-events-none z-[3] top-[10px] right-[10px] border-t-2 border-r-2" />
               <span className="absolute w-[18px] h-[18px] [border-color:rgba(var(--bright-rgb),_0.5)] [border-style:solid] border-0 pointer-events-none z-[3] bottom-[10px] left-[10px] border-b-2 border-l-2" />
               <span className="absolute w-[18px] h-[18px] [border-color:rgba(var(--bright-rgb),_0.5)] [border-style:solid] border-0 pointer-events-none z-[3] bottom-[10px] right-[10px] border-b-2 border-r-2" />
-              <span className="hud-chip text-ink max-sm:p-[5px_10px] max-sm:text-[0.68rem] top-[18px] right-[18px] animate-hud-float">
+              <span className="hud-chip text-ink max-sm:p-[5px_10px] max-sm:text-xs/relaxed top-[18px] right-[18px] animate-hud-float">
                 <span
                   className={
                     'relative w-[8px] h-[8px] rounded-[50%] [background:var(--ok)] [box-shadow:0_0_10px_rgba(34,_197,_94,_0.7)] ' +
@@ -124,7 +124,7 @@ export function Hero({ settings }: { settings: Settings }) {
                 />
                 <span>{t('hero.globe')}</span>
               </span>
-              <span className="hud-chip max-sm:p-[5px_10px] max-sm:text-[0.68rem] bottom-[18px] left-[18px] text-muted animate-hud-float-offset">
+              <span className="hud-chip max-sm:p-[5px_10px] max-sm:text-xs/relaxed bottom-[18px] left-[18px] text-muted animate-hud-float-offset">
                 {t('hero.rotate')}
               </span>
             </div>

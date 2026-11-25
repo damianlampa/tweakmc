@@ -56,7 +56,7 @@ export function SiteFooter({ settings }: { settings: Settings }) {
             </a>
           </nav>
 
-          <p className="max-wide:ml-0 ml-auto text-[0.86rem] text-muted">{t('nav.legal')}</p>
+          <p className="max-wide:ml-0 ml-auto text-sm/relaxed text-muted">{t('nav.legal')}</p>
 
           <LanguageSelect />
         </div>

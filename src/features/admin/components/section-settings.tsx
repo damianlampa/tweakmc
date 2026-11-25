@@ -81,20 +81,20 @@ export function SectionSettings({
   return (
     <div className="grid gap-5">
       <div className="admin-card">
-        <div className="[&_h2]:text-[1.25rem] flex flex-wrap items-center justify-between gap-3 mb-[18px]">
+        <div className="[&_h2]:text-xl/none flex flex-wrap items-center justify-between gap-3 mb-[18px]">
           <h2>{t('sections.title')}</h2>
 
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
-              className={buttonClasses('secondary', 'min-h-[44px] px-4 py-0 text-[0.9rem]/none')}
+              className={buttonClasses('secondary', 'min-h-[44px] px-4 py-0 text-sm/none')}
               onClick={() => patch({ ...settings, sections: { ...DEFAULT_SETTINGS.sections } })}
             >
               {t('sections.all')}
             </button>
             <button
               type="button"
-              className={buttonClasses('secondary', 'min-h-[44px] px-4 py-0 text-[0.9rem]/none')}
+              className={buttonClasses('secondary', 'min-h-[44px] px-4 py-0 text-sm/none')}
               onClick={() =>
                 patch({
                   ...settings,
@@ -118,8 +118,8 @@ export function SectionSettings({
                   'relative flex items-center justify-between gap-[14px] p-[14px_16px] rounded-[12px] ' +
                     '[border:1px_solid_var(--line)] bg-surface cursor-pointer ' +
                     '[transition:border-color_0.2s,_background-color_0.2s] hover:[border-color:rgba(var(--bright-rgb),_0.4)] ' +
-                    '[&.is-off]:opacity-[0.65] [&_strong]:block [&_strong]:text-[0.94rem] [&_span:not(.switch-ui)]:block ' +
-                    '[&_span:not(.switch-ui)]:text-[0.8rem] [&_span:not(.switch-ui)]:text-muted ' +
+                    '[&.is-off]:opacity-[0.65] [&_strong]:block [&_strong]:text-base/relaxed [&_span:not(.switch-ui)]:block ' +
+                    '[&_span:not(.switch-ui)]:text-xs/relaxed [&_span:not(.switch-ui)]:text-muted ' +
                     '[&_span:not(.switch-ui)]:mt-[2px] [&_input]:absolute [&_input]:opacity-[0] [&_input]:pointer-events-none',
                   isEnabled ? 'is-on' : 'is-off',
                 )}
@@ -153,8 +153,8 @@ export function SectionSettings({
               'relative flex items-center justify-between gap-[14px] p-[14px_16px] rounded-[12px] ' +
                 '[border:1px_solid_var(--line)] bg-surface cursor-pointer ' +
                 '[transition:border-color_0.2s,_background-color_0.2s] hover:[border-color:rgba(var(--bright-rgb),_0.4)] ' +
-                '[&.is-off]:opacity-[0.65] [&_strong]:block [&_strong]:text-[0.94rem] [&_span:not(.switch-ui)]:block ' +
-                '[&_span:not(.switch-ui)]:text-[0.8rem] [&_span:not(.switch-ui)]:text-muted ' +
+                '[&.is-off]:opacity-[0.65] [&_strong]:block [&_strong]:text-base/relaxed [&_span:not(.switch-ui)]:block ' +
+                '[&_span:not(.switch-ui)]:text-xs/relaxed [&_span:not(.switch-ui)]:text-muted ' +
                 '[&_span:not(.switch-ui)]:mt-[2px] [&_input]:absolute [&_input]:opacity-[0] [&_input]:pointer-events-none',
               settings.motion ? 'is-on' : 'is-off',
             )}
@@ -184,7 +184,7 @@ export function SectionSettings({
       </div>
 
       <div className="admin-card">
-        <div className="[&_h2]:text-[1.25rem] flex flex-wrap items-center justify-between gap-3 mb-[18px]">
+        <div className="[&_h2]:text-xl/none flex flex-wrap items-center justify-between gap-3 mb-[18px]">
           <h2>{t('sections.maintenance')}</h2>
         </div>
 
@@ -193,7 +193,7 @@ export function SectionSettings({
             'flex items-center gap-[12px] p-[6px_14px_6px_8px] rounded-[12px] [border:1px_solid_var(--line-strong)] ' +
             'bg-surface [transition:border-color_0.2s] focus-within:[border-color:var(--accent-bright)] ' +
             '[&.has-error]:[border-color:var(--war)] [&_input]:w-full [&_input]:min-h-[42px] [&_input]:bg-transparent ' +
-            '[&_input]:[border:0] [&_input]:text-ink [&_input]:[font:600_1.05rem/1_var(--display)] ' +
+            '[&_input]:[border:0] [&_input]:text-ink [&_input]:font-display [&_input]:font-semibold [&_input]:text-base/none ' +
             '[&_input]:[outline:none] [&_input::placeholder]:text-muted [&_input::placeholder]:font-normal ' +
             '[&_input::placeholder]:font-body'
           }

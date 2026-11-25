@@ -300,9 +300,9 @@ export default function Globe({ theme = 'default', motion = true }: SceneProps) 
           className={classes(
             'absolute left-[var(--tx,_0)] top-[var(--ty,_0)] [transform:translate(16px,_-120%)] inline-flex ' +
               'items-center gap-[10px] p-[8px_12px] rounded-[8px] [background:rgba(13,_11,_20,_0.94)] ' +
-              '[border:1px_solid_rgba(var(--bright-rgb),_0.45)] text-ink text-[0.84rem] pointer-events-none ' +
+              '[border:1px_solid_rgba(var(--bright-rgb),_0.45)] text-ink text-sm/relaxed pointer-events-none ' +
               'whitespace-nowrap [&.is-front]:[border-color:rgba(239,_68,_68,_0.65)] [&_span]:font-mono ' +
-              '[&_span]:text-[0.78rem] [&_span]:text-muted',
+              '[&_span]:text-xs/relaxed [&_span]:text-muted',
             tip.front ? 'is-front' : '',
           )}
           aria-hidden="true"

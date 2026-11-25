@@ -34,17 +34,17 @@ export default function AdminPage() {
           <div>
             <Link
               to={paths.home}
-              className="inline-flex items-center min-h-[36px] text-[0.9rem] font-medium text-muted no-underline [transition:color_0.2s] hover:text-accent-bright"
+              className="inline-flex items-center min-h-[36px] text-sm/relaxed font-medium text-muted no-underline [transition:color_0.2s] hover:text-accent-bright"
             >
               {t('admin.homePreview')}
             </Link>
-            <h1 className="text-[clamp(2.4rem,_5vw,_4rem)] mt-[10px]">{t('admin.title')}</h1>
+            <h1 className="text-page-title mt-[10px]">{t('admin.title')}</h1>
           </div>
 
           <div className="flex flex-wrap items-center gap-2.5">
             {message && (
               <span
-                className="p-[8px_14px] rounded-[8px] [background:rgba(34,_197,_94,_0.16)] [border:1px_solid_rgba(34,_197,_94,_0.4)] [color:#86efac] text-[0.84rem] font-semibold"
+                className="p-[8px_14px] rounded-[8px] [background:rgba(34,_197,_94,_0.16)] [border:1px_solid_rgba(34,_197,_94,_0.4)] [color:#86efac] text-sm/relaxed font-semibold"
                 role="status"
               >
                 {t(message)}
@@ -52,14 +52,14 @@ export default function AdminPage() {
             )}
             <button
               type="button"
-              className={buttonClasses('secondary', 'min-h-[44px] px-4 py-0 text-[0.9rem]/none')}
+              className={buttonClasses('secondary', 'min-h-[44px] px-4 py-0 text-sm/none')}
               onClick={restoreDefaults}
             >
               {t('admin.reset')}
             </button>
             <button
               type="button"
-              className={buttonClasses('secondary', 'min-h-[44px] px-4 py-0 text-[0.9rem]/none')}
+              className={buttonClasses('secondary', 'min-h-[44px] px-4 py-0 text-sm/none')}
               onClick={handleLogout}
             >
               {t('admin.logout')}
@@ -75,7 +75,7 @@ export default function AdminPage() {
             type="button"
             className={classes(
               'min-h-[44px] px-[18px] py-0 rounded-[10px] [border:1px_solid_var(--line-strong)] bg-surface text-muted ' +
-                '[font:600_0.9rem/1_var(--body)] cursor-pointer ' +
+                'font-body font-semibold text-sm/none cursor-pointer ' +
                 '[transition:background-color_0.2s,_color_0.2s,_border-color_0.2s] hover:text-ink [&.is-active]:bg-accent ' +
                 '[&.is-active]:[border-color:var(--accent-bright)] [&.is-active]:[color:#ffffff]',
               tab === 'overview' ? 'is-active' : '',
@@ -88,7 +88,7 @@ export default function AdminPage() {
             type="button"
             className={classes(
               'min-h-[44px] px-[18px] py-0 rounded-[10px] [border:1px_solid_var(--line-strong)] bg-surface text-muted ' +
-                '[font:600_0.9rem/1_var(--body)] cursor-pointer ' +
+                'font-body font-semibold text-sm/none cursor-pointer ' +
                 '[transition:background-color_0.2s,_color_0.2s,_border-color_0.2s] hover:text-ink [&.is-active]:bg-accent ' +
                 '[&.is-active]:[border-color:var(--accent-bright)] [&.is-active]:[color:#ffffff]',
               tab === 'toggles' ? 'is-active' : '',
@@ -101,7 +101,7 @@ export default function AdminPage() {
             type="button"
             className={classes(
               'min-h-[44px] px-[18px] py-0 rounded-[10px] [border:1px_solid_var(--line-strong)] bg-surface text-muted ' +
-                '[font:600_0.9rem/1_var(--body)] cursor-pointer ' +
+                'font-body font-semibold text-sm/none cursor-pointer ' +
                 '[transition:background-color_0.2s,_color_0.2s,_border-color_0.2s] hover:text-ink [&.is-active]:bg-accent ' +
                 '[&.is-active]:[border-color:var(--accent-bright)] [&.is-active]:[color:#ffffff]',
               tab === 'appearance' ? 'is-active' : '',

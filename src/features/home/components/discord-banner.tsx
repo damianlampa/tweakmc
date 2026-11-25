@@ -50,7 +50,7 @@ export function DiscordBanner({ settings }: { settings: Settings }) {
           onPointerMove={onCardMove}
         >
           <div className="discord-copy">
-            <div className="inline-flex items-center gap-2.5 mb-[18px] text-[0.88rem] font-semibold text-ink">
+            <div className="inline-flex items-center gap-2.5 mb-[18px] text-sm/relaxed font-semibold text-ink">
               <span
                 className={
                   'relative w-[8px] h-[8px] rounded-[50%] [background:var(--ok)] [box-shadow:0_0_10px_rgba(34,_197,_94,_0.7)] ' +
@@ -65,7 +65,7 @@ export function DiscordBanner({ settings }: { settings: Settings }) {
               {t('discord.title')}
               <WaveWord text={t('discord.discord')} className="[color:#8b95ff]" />
             </h2>
-            <p className="mt-4 max-w-[58ch] text-muted text-[1.08rem]">
+            <p className="mt-4 max-w-[58ch] text-muted text-base/relaxed">
               {t('discord.description')}
             </p>
 
@@ -80,7 +80,7 @@ export function DiscordBanner({ settings }: { settings: Settings }) {
                 <span>{t('discord.join')}</span>
                 {Icon.arrow}
               </a>
-              <code className="font-mono text-[0.92rem] p-[12px_16px] rounded-[10px] bg-bg [border:1px_solid_var(--line-strong)] text-muted">
+              <code className="font-mono text-sm/relaxed p-[12px_16px] rounded-[10px] bg-bg [border:1px_solid_var(--line-strong)] text-muted">
                 {site.discordLabel}
               </code>
             </div>
@@ -93,7 +93,7 @@ export function DiscordBanner({ settings }: { settings: Settings }) {
             <div
               className={
                 'flex items-center gap-[12px] pb-[12px] [border-bottom:1px_solid_var(--line)] [&_strong]:block ' +
-                '[&_strong]:text-[0.94rem] [&_strong]:leading-[1.2] [&>div_span]:block [&>div_span]:text-[0.78rem] ' +
+                '[&_strong]:text-base/tight [&>div_span]:block [&>div_span]:text-xs/relaxed ' +
                 '[&>div_span]:text-muted'
               }
             >
@@ -129,10 +129,10 @@ export function DiscordBanner({ settings }: { settings: Settings }) {
               {DISCORD_CHANNELS.map((channel, channelIndex) => {
                 return (
                   <li key={channel.name} style={{ '--i': channelIndex }}>
-                    <span className="font-mono text-[0.84rem] font-semibold [color:#a5b4fc]">
+                    <span className="font-mono text-sm/relaxed font-semibold [color:#a5b4fc]">
                       {channel.name}
                     </span>
-                    <span className="text-[0.82rem] text-muted">{t(channel.desc)}</span>
+                    <span className="text-sm/relaxed text-muted">{t(channel.desc)}</span>
                   </li>
                 );
               })}

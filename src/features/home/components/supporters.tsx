@@ -30,7 +30,7 @@ export function HomeBoards({ settings }: { settings: Settings }) {
         <div className="flex flex-wrap justify-between items-end gap-[24px] mb-[32px]">
           <div>
             <KineticHeading text={t('supporters.title')} accentWord="TweakMC" />
-            <p className="mt-4 max-w-[58ch] text-muted text-[1.08rem]">
+            <p className="mt-4 max-w-[58ch] text-muted text-base/relaxed">
               {t('supporters.intro')}
               <code className="code-label">/portfel</code>
               {t('supporters.more')}

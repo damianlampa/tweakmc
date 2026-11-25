@@ -31,7 +31,7 @@ export function Modes({ settings }: { settings: Settings }) {
 
       <div className="relative z-[2] w-full max-w-[calc(var(--max)_+_var(--pad)_*_2)] [margin-inline:auto] [padding-inline:var(--pad)]">
         <KineticHeading text={t('modes.title')} accentWord="TweakMC" />
-        <p className="mt-4 max-w-[58ch] text-muted text-[1.08rem]">{t('modes.description')}</p>
+        <p className="mt-4 max-w-[58ch] text-muted text-base/relaxed">{t('modes.description')}</p>
 
         <div className="grid max-lg:grid-cols-1 grid-cols-[minmax(0,_1.3fr)_minmax(0,_0.9fr)] gap-5 mt-[40px]">
           <article
@@ -58,7 +58,7 @@ export function Modes({ settings }: { settings: Settings }) {
             </div>
 
             <div className="flex max-wide:p-[16px_24px_28px] flex-col justify-center p-[32px_32px_32px_8px]">
-              <div className="inline-flex items-center gap-2 text-[0.85rem] font-semibold text-ink mb-[12px]">
+              <div className="inline-flex items-center gap-2 text-sm/relaxed font-semibold text-ink mb-[12px]">
                 <span
                   className={
                     'relative w-[8px] h-[8px] rounded-[50%] [background:var(--ok)] [box-shadow:0_0_10px_rgba(34,_197,_94,_0.7)] ' +
@@ -69,8 +69,8 @@ export function Modes({ settings }: { settings: Settings }) {
                 />
                 <span>{t('modes.active')}</span>
               </div>
-              <h3 className="mb-[10px] text-[2rem]">EarthSMP</h3>
-              <p className="text-[0.98rem] text-muted">{t('modes.descriptionEarth')}</p>
+              <h3 className="mb-[10px] text-3xl/tight">EarthSMP</h3>
+              <p className="text-base/relaxed text-muted">{t('modes.descriptionEarth')}</p>
 
               <div className="flex flex-wrap gap-[8px_22px] mt-5">
                 <Link
@@ -96,7 +96,7 @@ export function Modes({ settings }: { settings: Settings }) {
             <article
               className={
                 'rounded-[14px] [border:1px_dashed_var(--line-strong)] overflow-hidden flex flex-col justify-center ' +
-                'p-[26px_28px] bg-bg [&_h3]:mb-[8px] [&_p]:text-muted [&_p]:text-[0.94rem] relative ' +
+                'p-[26px_28px] bg-bg [&_h3]:mb-[8px] [&_p]:text-muted [&_p]:text-base/relaxed relative ' +
                 "[&::before]:[content:''] [&::before]:absolute [&::before]:inset-0 [&::before]:rounded-[inherit] " +
                 '[&::before]:[background:radial-gradient(_320px_circle_at_var(--mx,_50%)_var(--my,_50%),_rgba(var(--bright-rgb),_0.12),_transparent_62%_)] ' +
                 '[&::before]:opacity-[0] [&::before]:[transition:opacity_0.3s] [&::before]:pointer-events-none ' +
@@ -105,7 +105,7 @@ export function Modes({ settings }: { settings: Settings }) {
               }
               onPointerMove={onCardMove}
             >
-              <span className="font-mono text-[0.8rem] text-accent-bright mb-[10px]">
+              <span className="font-mono text-xs/relaxed text-accent-bright mb-[10px]">
                 {t('modes.upcoming')}
               </span>
               <h3>{t('modes.second')}</h3>
@@ -115,7 +115,7 @@ export function Modes({ settings }: { settings: Settings }) {
             <article
               className={
                 'rounded-[14px] [border:1px_dashed_var(--line-strong)] overflow-hidden flex flex-col justify-center ' +
-                'p-[26px_28px] bg-bg [&_h3]:mb-[8px] [&_p]:text-muted [&_p]:text-[0.94rem] relative ' +
+                'p-[26px_28px] bg-bg [&_h3]:mb-[8px] [&_p]:text-muted [&_p]:text-base/relaxed relative ' +
                 "[&::before]:[content:''] [&::before]:absolute [&::before]:inset-0 [&::before]:rounded-[inherit] " +
                 '[&::before]:[background:radial-gradient(_320px_circle_at_var(--mx,_50%)_var(--my,_50%),_rgba(var(--bright-rgb),_0.12),_transparent_62%_)] ' +
                 '[&::before]:opacity-[0] [&::before]:[transition:opacity_0.3s] [&::before]:pointer-events-none ' +
@@ -124,7 +124,7 @@ export function Modes({ settings }: { settings: Settings }) {
               }
               onPointerMove={onCardMove}
             >
-              <span className="font-mono text-[0.8rem] text-accent-bright mb-[10px]">
+              <span className="font-mono text-xs/relaxed text-accent-bright mb-[10px]">
                 {t('modes.upcoming')}
               </span>
               <h3>{t('modes.third')}</h3>

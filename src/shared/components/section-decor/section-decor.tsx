@@ -33,7 +33,7 @@ export function SectionDecor({
       {labelLeft && (
         <span
           className={
-            'absolute top-[50%] inline-flex items-center gap-[8px] font-mono text-[0.7rem] tracking-[0.16em] ' +
+            'absolute top-[50%] inline-flex items-center gap-[8px] font-mono text-xs/relaxed tracking-widest ' +
             '[color:rgba(255,_255,_255,_0.24)] [writing-mode:vertical-rl] [user-select:none] ' +
             '[@media(max-width:1380px)]:hidden left-[16px] [transform:translateY(-50%)_rotate(180deg)]'
           }
@@ -45,7 +45,7 @@ export function SectionDecor({
       {labelRight && (
         <span
           className={
-            'absolute top-[50%] inline-flex items-center gap-[8px] font-mono text-[0.7rem] tracking-[0.16em] ' +
+            'absolute top-[50%] inline-flex items-center gap-[8px] font-mono text-xs/relaxed tracking-widest ' +
             '[color:rgba(255,_255,_255,_0.24)] [writing-mode:vertical-rl] [user-select:none] ' +
             '[@media(max-width:1380px)]:hidden right-[16px] [transform:translateY(-50%)]'
           }

@@ -9,7 +9,7 @@ export function IpText({ className = '' }) {
 
   return (
     <span
-      className={classes('font-display font-bold tracking-[-0.02em] whitespace-nowrap', className)}
+      className={classes('font-display font-bold tracking-tight whitespace-nowrap', className)}
       onCopy={handleManualCopy}
     >
       <span className="text-ink">{site.serverIpName}</span>

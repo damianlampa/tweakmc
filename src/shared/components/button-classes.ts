@@ -2,7 +2,7 @@ import { classes } from '@/shared/utils/classes';
 
 const base =
   'btn inline-flex items-center justify-center gap-[10px] min-h-[50px] px-[22px] py-0 rounded-[var(--radius)] ' +
-  'border border-solid border-transparent font-body font-semibold text-[0.95rem] leading-none no-underline ' +
+  'border border-solid border-transparent font-body font-semibold text-base/none no-underline ' +
   'cursor-pointer whitespace-nowrap ' +
   '[transition:transform_0.22s_var(--ease),_background-color_0.2s,_border-color_0.2s,_box-shadow_0.22s_var(--ease)] ' +
   'hover:[transform:translateY(-2px)] active:[transform:translateY(1px)] [.ip-bar_&]:min-h-[44px] ' +

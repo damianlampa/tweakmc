@@ -34,7 +34,7 @@ export function Join({ settings }: { settings: Settings }) {
       <div className="relative z-[2] w-full max-w-[calc(var(--max)_+_var(--pad)_*_2)] [margin-inline:auto] [padding-inline:var(--pad)]">
         <div className="max-w-[60ch]">
           <KineticHeading text={t('join.title')} accentWord={t('join.accent')} />
-          <p className="mt-4 max-w-[58ch] text-muted text-[1.08rem]">{t('join.description')}</p>
+          <p className="mt-4 max-w-[58ch] text-muted text-base/relaxed">{t('join.description')}</p>
         </div>
 
         <ol className="relative sm:max-wide:grid-cols-2 max-sm:grid-cols-1 list-none m-[40px_0_0] p-0 grid grid-cols-[repeat(4,_minmax(0,_1fr))] gap-4">
@@ -59,20 +59,20 @@ export function Join({ settings }: { settings: Settings }) {
                   className={
                     'inline-grid place-items-center min-w-[38px] h-[32px] px-2.5 py-0 rounded-[8px] ' +
                     '[background:rgba(var(--accent-rgb),_0.16)] [border:1px_solid_rgba(var(--bright-rgb),_0.35)] font-mono ' +
-                    'text-[0.85rem] font-bold text-accent-bright mb-[16px]'
+                    'text-sm/relaxed font-bold text-accent-bright mb-[16px]'
                   }
                   aria-hidden="true"
                 >
                   0{stepIndex + 1}
                 </span>
                 <h3 className="mb-2">{t(title)}</h3>
-                <p className="text-[0.94rem] text-muted">
+                <p className="text-base/relaxed text-muted">
                   {description ? (
                     t(description)
                   ) : (
                     <>
                       {t('join.addressPrefix')}
-                      <IpText className="p-[0.08em_0.42em] rounded-[6px] bg-surface [border:1px_solid_var(--line-strong)] text-[0.96em]" />
+                      <IpText className="p-[0.08em_0.42em] rounded-[6px] bg-surface [border:1px_solid_var(--line-strong)] text-base/relaxed" />
                       {t('join.addressSuffix')}
                     </>
                   )}

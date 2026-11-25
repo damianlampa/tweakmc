@@ -16,7 +16,7 @@ export function RotatingLine() {
 
   return (
     <div
-      className="inline-flex items-center gap-2.5 mt-[18px] min-h-[28px] overflow-hidden font-mono text-[0.92rem] font-semibold text-accent-bright"
+      className="inline-flex items-center gap-2.5 mt-[18px] min-h-[28px] overflow-hidden font-mono text-sm/relaxed font-semibold text-accent-bright"
       aria-live="polite"
     >
       <span

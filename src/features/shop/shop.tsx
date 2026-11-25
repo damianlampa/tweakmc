@@ -31,11 +31,11 @@ export default function ShopPage() {
 
         <div className="relative z-[2] w-full max-w-[calc(var(--max)_+_var(--pad)_*_2)] [margin-inline:auto] [padding-inline:var(--pad)]">
           <div className="max-w-[640px] m-[clamp(32px,_8vh,_80px)_auto] p-[clamp(28px,_4vw,_44px)] rounded-[18px] [border:1px_solid_var(--line-strong)] bg-bg-elev">
-            <span className="inline-block mb-[14px] p-[5px_10px] rounded-[7px] [background:rgba(239,_68,_68,_0.16)] [border:1px_solid_rgba(239,_68,_68,_0.4)] font-mono text-[0.78rem] [color:#fca5a5]">
+            <span className="inline-block mb-[14px] p-[5px_10px] rounded-[7px] [background:rgba(239,_68,_68,_0.16)] [border:1px_solid_rgba(239,_68,_68,_0.4)] font-mono text-xs/relaxed [color:#fca5a5]">
               {t('shop.unavailable')}
             </span>
             <h1>{t('shop.disabled')}</h1>
-            <p className="mt-4 max-w-[58ch] text-muted text-[1.08rem]">
+            <p className="mt-4 max-w-[58ch] text-muted text-base/relaxed">
               {settings.maintenanceMsg === DEFAULT_SETTINGS.maintenanceMsg
                 ? t('common.maintenance')
                 : settings.maintenanceMsg}
@@ -72,15 +72,15 @@ export default function ShopPage() {
           <div>
             <Link
               to={paths.home}
-              className="inline-flex items-center min-h-[36px] text-[0.9rem] font-medium text-muted no-underline [transition:color_0.2s] hover:text-accent-bright"
+              className="inline-flex items-center min-h-[36px] text-sm/relaxed font-medium text-muted no-underline [transition:color_0.2s] hover:text-accent-bright"
             >
               {t('nav.back')}
             </Link>
-            <h1 className="text-[clamp(2.4rem,_5vw,_4rem)] mt-[10px]">
+            <h1 className="text-page-title mt-[10px]">
               {t('shop.title')}
               <span className="text-accent-bright">{t('shop.wallet')}</span>
             </h1>
-            <p className="mt-4 max-w-[58ch] text-muted text-[1.08rem]">
+            <p className="mt-4 max-w-[58ch] text-muted text-base/relaxed">
               {t('shop.description')} <code className="code-label">/portfel</code>
               {t('shop.network')}
             </p>

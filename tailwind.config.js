@@ -30,6 +30,11 @@ export default {
         'phone-bar': 'rgba(7, 6, 10, 0.94)',
       },
       fontFamily: { body: 'var(--body)', display: 'var(--display)', mono: 'var(--mono)' },
+      fontSize: {
+        'section-title': ['clamp(2.2rem, 4.3vw, 3.6rem)', '1'],
+        'page-title': ['clamp(2.4rem, 5vw, 4rem)', '1'],
+        'revenue-value': ['clamp(1.5rem, 2.6vw, 2.1rem)', '1.625'],
+      },
       backgroundImage: {
         navigation:
           'linear-gradient(135deg, rgba(var(--accent-rgb), 0.22) 0%, color-mix(in srgb, var(--bg-elev) 72%, transparent) 52%, rgba(var(--accent-rgb), 0.14) 100%)',
@@ -196,7 +201,7 @@ export default {
           backdropFilter: 'blur(10px)',
           border: '1px solid rgba(var(--bright-rgb), 0.32)',
           fontFamily: 'var(--mono)',
-          fontSize: '0.74rem',
+          fontSize: '0.75rem',
           letterSpacing: '0.03em',
           pointerEvents: 'none',
           boxShadow: '0 10px 26px -10px rgba(0, 0, 0, 0.8)',

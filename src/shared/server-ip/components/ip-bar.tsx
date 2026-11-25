@@ -21,7 +21,7 @@ export function IpBar({ id, compact = false }: { id?: string; compact?: boolean 
         copied ? 'is-copied' : '',
       )}
     >
-      <IpText className="ip-bar-text text-[1.18rem] !tracking-[-0.015em] [.foot-ip_&]:text-[1rem]" />
+      <IpText className="ip-bar-text text-lg/relaxed !tracking-tight [.foot-ip_&]:text-base/relaxed" />
       <button type="button" id={id} className={buttonClasses('primary')} onClick={handleCopy}>
         {copied ? Icon.check : Icon.copy}
         <span>{copied ? t('nav.copied') : t('nav.copy')}</span>

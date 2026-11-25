@@ -61,13 +61,13 @@ export function EarthSMP({ settings }: { settings: Settings }) {
       >
         <div className="earth-copy">
           <KineticHeading text={t('earth.title')} accentWord="EarthSMP" />
-          <p className="mt-4 max-w-[58ch] text-muted text-[1.08rem]">{t('earth.description')}</p>
+          <p className="mt-4 max-w-[58ch] text-muted text-base/relaxed">{t('earth.description')}</p>
 
           <ul
             className={
               '[&_li]:grid [&_li]:grid-cols-[44px_1fr] [&_li]:gap-[18px] [&_li]:p-[20px_0] ' +
               '[&_li]:[border-top:1px_solid_var(--line)] [&_li:last-child]:[border-bottom:1px_solid_var(--line)] ' +
-              '[&_h3]:mb-[4px] [&_p]:text-muted [&_p]:text-[0.96rem] list-none m-[36px_0_0] p-0'
+              '[&_h3]:mb-[4px] [&_p]:text-muted [&_p]:text-base/relaxed list-none m-[36px_0_0] p-0'
             }
           >
             {FEATURES.map((feature) => {
@@ -110,7 +110,7 @@ export function EarthSMP({ settings }: { settings: Settings }) {
               aria-hidden="true"
             />
             <span
-              className="hud-chip text-ink max-sm:p-[5px_10px] max-sm:text-[0.68rem] top-[18px] right-[18px] animate-hud-float"
+              className="hud-chip text-ink max-sm:p-[5px_10px] max-sm:text-xs/relaxed top-[18px] right-[18px] animate-hud-float"
               aria-hidden="true"
             >
               {t('earth.model')}

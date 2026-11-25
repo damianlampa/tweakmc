@@ -108,7 +108,7 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
               type="button"
               className={
                 'inline-flex items-center gap-[9px] min-h-[36px] px-[13px] py-0 rounded-[999px] [border:0] ' +
-                '[background:rgba(255,_255,_255,_0.045)] text-[0.86rem] cursor-pointer ' +
+                '[background:rgba(255,_255,_255,_0.045)] text-sm/relaxed cursor-pointer ' +
                 '[transition:background-color_0.2s,_transform_0.2s_var(--ease)] ' +
                 'hover:[background:rgba(var(--accent-rgb),_0.2)] hover:[transform:translateY(-1px)] max-wide:hidden'
               }
@@ -165,7 +165,7 @@ export function SiteNavigation({ settings }: { settings: Settings }) {
             type="button"
             className={buttonClasses(
               'primary',
-              'min-h-[44px] px-[18px] py-0 text-[0.9rem]/none max-wide:ml-auto max-sm:hidden',
+              'min-h-[44px] px-[18px] py-0 text-sm/none max-wide:ml-auto max-sm:hidden',
             )}
             onClick={handleCopy}
           >

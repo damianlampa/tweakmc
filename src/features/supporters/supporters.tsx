@@ -26,10 +26,10 @@ export function Supporters() {
         }
         onPointerMove={onCardMove}
       >
-        <div className="[&_h3]:text-[1.12rem] flex items-center justify-between gap-3 mb-[16px]">
+        <div className="[&_h3]:text-lg/relaxed flex items-center justify-between gap-3 mb-[16px]">
           <h3>{t('supporters.top')}</h3>
           {activity.isPreview && (
-            <span className="font-mono text-[0.72rem] text-muted p-[3px_8px] rounded-[6px] [border:1px_solid_var(--line)] bg-surface">
+            <span className="font-mono text-xs/relaxed text-muted p-[3px_8px] rounded-[6px] [border:1px_solid_var(--line)] bg-surface">
               {t('supporters.preview')}
             </span>
           )}
@@ -56,10 +56,10 @@ export function Supporters() {
               >
                 <div className="podium-player flex flex-col items-center gap-[6px] mb-[10px] w-full text-center">
                   <PlayerAvatar key={donor.nick} nick={donor.nick} />
-                  <span className="[.podium-player_&]:max-w-full [.podium-player_&]:text-[0.9rem] font-semibold text-[0.94rem] text-ink overflow-hidden [text-overflow:ellipsis] whitespace-nowrap">
+                  <span className="[.podium-player_&]:max-w-full [.podium-player_&]:text-sm/relaxed font-semibold text-base/relaxed text-ink overflow-hidden [text-overflow:ellipsis] whitespace-nowrap">
                     {donor.nick}
                   </span>
-                  <strong className="[.podium-player_&]:ml-0 [.podium-player_&]:text-[0.92rem] ml-auto font-display text-[1rem] [font-variant-numeric:tabular-nums] text-accent-bright whitespace-nowrap">
+                  <strong className="[.podium-player_&]:ml-0 [.podium-player_&]:text-sm/relaxed ml-auto font-display text-base/relaxed [font-variant-numeric:tabular-nums] text-accent-bright whitespace-nowrap">
                     {formatPln(donor.amount, i18n.language)}
                   </strong>
                 </div>
@@ -67,7 +67,7 @@ export function Supporters() {
                 <div
                   className={
                     'w-full grid place-items-center rounded-[10px_10px_6px_6px] [border:1px_solid_var(--line-strong)] ' +
-                    'bg-surface font-display font-bold text-[1.35rem] [.podium-place-1_&]:h-[112px] ' +
+                    'bg-surface font-display font-bold text-xl/tight [.podium-place-1_&]:h-[112px] ' +
                     '[.podium-place-1_&]:[border-color:rgba(251,_191,_36,_0.5)] ' +
                     '[.podium-place-1_&]:[background:linear-gradient(180deg,_rgba(251,_191,_36,_0.2),_rgba(251,_191,_36,_0.04))] ' +
                     '[.podium-place-1_&]:[color:#fbbf24] [.podium-place-2_&]:h-[80px] ' +
@@ -101,10 +101,10 @@ export function Supporters() {
         }
         onPointerMove={onCardMove}
       >
-        <div className="[&_h3]:text-[1.12rem] flex items-center justify-between gap-3 mb-[16px]">
+        <div className="[&_h3]:text-lg/relaxed flex items-center justify-between gap-3 mb-[16px]">
           <h3>{t('supporters.recent')}</h3>
           {activity.isPreview && (
-            <span className="font-mono text-[0.72rem] text-muted p-[3px_8px] rounded-[6px] [border:1px_solid_var(--line)] bg-surface">
+            <span className="font-mono text-xs/relaxed text-muted p-[3px_8px] rounded-[6px] [border:1px_solid_var(--line)] bg-surface">
               {t('supporters.preview')}
             </span>
           )}
@@ -117,15 +117,15 @@ export function Supporters() {
                 <PlayerAvatar key={purchase.nick} nick={purchase.nick} />
 
                 <div className="flex items-baseline gap-2 min-w-0 flex-wrap">
-                  <span className="[.podium-player_&]:max-w-full [.podium-player_&]:text-[0.9rem] font-semibold text-[0.94rem] text-ink overflow-hidden [text-overflow:ellipsis] whitespace-nowrap">
+                  <span className="[.podium-player_&]:max-w-full [.podium-player_&]:text-sm/relaxed font-semibold text-base/relaxed text-ink overflow-hidden [text-overflow:ellipsis] whitespace-nowrap">
                     {purchase.nick}
                   </span>
-                  <span className="text-[0.78rem] text-muted">
+                  <span className="text-xs/relaxed text-muted">
                     {activity.isPreview ? t(purchase.timeAgo) : purchase.timeAgo}
                   </span>
                 </div>
 
-                <strong className="ml-auto font-mono text-[0.86rem] [font-variant-numeric:tabular-nums] text-ink whitespace-nowrap">
+                <strong className="ml-auto font-mono text-sm/relaxed [font-variant-numeric:tabular-nums] text-ink whitespace-nowrap">
                   +{formatPln(purchase.amount, i18n.language)}
                 </strong>
               </li>

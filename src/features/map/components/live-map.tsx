@@ -47,28 +47,28 @@ export function LiveMap({
           <div>
             <Link
               to={paths.home}
-              className="inline-flex items-center min-h-[36px] text-[0.9rem] font-medium text-muted no-underline [transition:color_0.2s] hover:text-accent-bright"
+              className="inline-flex items-center min-h-[36px] text-sm/relaxed font-medium text-muted no-underline [transition:color_0.2s] hover:text-accent-bright"
             >
               {t('nav.back')}
             </Link>
-            <h1 className="text-[clamp(2.4rem,_5vw,_4rem)] mt-[10px]">
+            <h1 className="text-page-title mt-[10px]">
               {t('map.heading')}
               <span className="text-accent-bright">{t('map.live')}</span>
             </h1>
-            <p className="mt-4 max-w-[58ch] text-muted text-[1.08rem]">{t('map.description')}</p>
+            <p className="mt-4 max-w-[58ch] text-muted text-base/relaxed">{t('map.description')}</p>
           </div>
 
           <div className="flex max-sm:w-full max-sm:[&_.btn]:w-full flex-wrap gap-3">
             <button
               type="button"
-              className={buttonClasses('secondary', 'min-h-[44px] px-4 py-0 text-[0.9rem]/none')}
+              className={buttonClasses('secondary', 'min-h-[44px] px-4 py-0 text-sm/none')}
               onClick={reload}
             >
               {icons.refresh}
               <span>{status === 'loading' ? t('map.loading') : t('map.refresh')}</span>
             </button>
             <a
-              className={buttonClasses('primary', 'min-h-[44px] px-4 py-0 text-[0.9rem]/none')}
+              className={buttonClasses('primary', 'min-h-[44px] px-4 py-0 text-sm/none')}
               href={site.dynmapUrl}
               target="_blank"
               rel="noreferrer"
@@ -86,7 +86,7 @@ export function LiveMap({
               '![border-color:rgba(var(--bright-rgb),_0.55)] [box-shadow:0_0_42px_-14px_rgba(var(--accent-rgb),_0.5)]',
           )}
         >
-          <div className="flex items-center gap-2.5 p-[12px_18px] [border-bottom:1px_solid_var(--line)] text-[0.88rem]">
+          <div className="flex items-center gap-2.5 p-[12px_18px] [border-bottom:1px_solid_var(--line)] text-sm/relaxed">
             <span
               className={
                 'relative w-[8px] h-[8px] rounded-[50%] [background:var(--ok)] [box-shadow:0_0_10px_rgba(34,_197,_94,_0.7)] ' +
@@ -96,7 +96,7 @@ export function LiveMap({
               aria-hidden="true"
             />
             <span className="font-semibold whitespace-nowrap">Dynmap · EarthSMP</span>
-            <code className="ml-auto font-mono text-[0.8rem] text-muted whitespace-nowrap">
+            <code className="ml-auto font-mono text-xs/relaxed text-muted whitespace-nowrap">
               {site.dynmapDisplayPath}
             </code>
           </div>
@@ -121,7 +121,7 @@ export function LiveMap({
             )}
             {status !== 'ready' && (
               <span
-                className="absolute left-1/2 top-1/2 [transform:translate(-50%,_-50%)] p-[10px_18px] rounded-[999px] bg-map-status [border:1px_solid_var(--line-strong)] text-[0.9rem] font-medium text-ink pointer-events-none"
+                className="absolute left-1/2 top-1/2 [transform:translate(-50%,_-50%)] p-[10px_18px] rounded-[999px] bg-map-status [border:1px_solid_var(--line-strong)] text-sm/relaxed font-medium text-ink pointer-events-none"
                 aria-live="polite"
               >
                 {t(status === 'loading' ? 'map.connecting' : 'map.unavailable')}
