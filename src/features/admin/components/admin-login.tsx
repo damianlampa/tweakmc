@@ -28,13 +28,12 @@ export function AdminLogin({ settings, onLogin }: { settings: Settings; onLogin:
 
   return (
     <section
-      className={
-        'relative min-h-[100svh] ' +
-        '[padding-block:calc(var(--nav-h)_+_clamp(32px,_5vh,_64px))_clamp(80px,_10vh,_120px)] overflow-hidden ' +
-        pageGlow +
-        ' ' +
-        'admin-login-page'
-      }
+      className={classes([
+        'relative min-h-[100svh]',
+        '[padding-block:calc(var(--nav-h)_+_clamp(32px,_5vh,_64px))_clamp(80px,_10vh,_120px)] overflow-hidden',
+        pageGlow,
+        'admin-login-page',
+      ])}
     >
       <SectionDecor
         theme={settings.theme}
@@ -45,20 +44,20 @@ export function AdminLogin({ settings, onLogin }: { settings: Settings; onLogin:
 
       <div className="relative z-[2] w-full max-w-[calc(var(--max)_+_var(--pad)_*_2)] [margin-inline:auto] [padding-inline:var(--pad)]">
         <form
-          className={
-            'max-w-[480px] m-[clamp(28px,_7vh,_72px)_auto] p-[clamp(24px,_4vw,_38px)] rounded-[18px] [border:1px_solid_theme(colors.white/18%)] ' +
-            'bg-background-elevated christmas:bg-christmas-background-elevated halloween:bg-halloween-background-elevated spring:bg-spring-background-elevated ' +
-            'grid gap-[18px] [&_h1]:text-3xl/tight'
-          }
+          className={classes([
+            'max-w-[480px] m-[clamp(28px,_7vh,_72px)_auto] p-[clamp(24px,_4vw,_38px)] rounded-[18px] [border:1px_solid_theme(colors.white/18%)]',
+            'bg-background-elevated christmas:bg-christmas-background-elevated halloween:bg-halloween-background-elevated spring:bg-spring-background-elevated',
+            'grid gap-[18px] [&_h1]:text-3xl/tight',
+          ])}
           onSubmit={handleLogin}
         >
           <Link
             to={paths.home}
-            className={
-              'inline-flex items-center min-h-[36px] text-sm/relaxed font-medium text-muted christmas:text-christmas-muted halloween:text-halloween-muted ' +
-              'spring:text-spring-muted no-underline [transition:color_0.2s] hover:text-purple-400 ' +
-              'christmas:hover:text-sky-300 halloween:hover:text-orange-300 spring:hover:text-emerald-300'
-            }
+            className={classes([
+              'inline-flex items-center min-h-[36px] text-sm/relaxed font-medium text-muted christmas:text-christmas-muted halloween:text-halloween-muted',
+              'spring:text-spring-muted no-underline [transition:color_0.2s] hover:text-purple-400',
+              'christmas:hover:text-sky-300 halloween:hover:text-orange-300 spring:hover:text-emerald-300',
+            ])}
           >
             {t('login.back')}
           </Link>
@@ -70,17 +69,17 @@ export function AdminLogin({ settings, onLogin }: { settings: Settings; onLogin:
           <div className="[&_label]:text-sm/relaxed [&_label]:font-semibold [&_label]:text-ink grid gap-2.5">
             <label htmlFor="admin-pin">{t('login.password')}</label>
             <div
-              className={classes(
-                'flex items-center gap-[12px] p-[6px_14px_6px_8px] rounded-[12px] [border:1px_solid_theme(colors.white/18%)] ' +
-                  'bg-surface christmas:bg-christmas-surface halloween:bg-halloween-surface spring:bg-spring-surface [transition:border-color_0.2s] ' +
-                  'focus-within:border-purple-400 christmas:focus-within:border-sky-300 halloween:focus-within:border-orange-300 spring:focus-within:border-emerald-300 ' +
-                  '[&.has-error]:border-red-500 [&_input]:w-full [&_input]:min-h-[42px] [&_input]:bg-transparent ' +
-                  '[&_input]:[border:0] [&_input]:text-ink [&_input]:font-display [&_input]:font-semibold [&_input]:text-base/none ' +
-                  '[&_input]:[outline:none] [&_input::placeholder]:text-muted christmas:[&_input::placeholder]:text-christmas-muted ' +
-                  'halloween:[&_input::placeholder]:text-halloween-muted spring:[&_input::placeholder]:text-spring-muted [&_input::placeholder]:font-normal ' +
-                  '[&_input::placeholder]:font-body',
+              className={classes([
+                'flex items-center gap-[12px] p-[6px_14px_6px_8px] rounded-[12px] [border:1px_solid_theme(colors.white/18%)]',
+                'bg-surface christmas:bg-christmas-surface halloween:bg-halloween-surface spring:bg-spring-surface [transition:border-color_0.2s]',
+                'focus-within:border-purple-400 christmas:focus-within:border-sky-300 halloween:focus-within:border-orange-300 spring:focus-within:border-emerald-300',
+                '[&.has-error]:border-red-500 [&_input]:w-full [&_input]:min-h-[42px] [&_input]:bg-transparent',
+                '[&_input]:[border:0] [&_input]:text-ink [&_input]:font-display [&_input]:font-semibold [&_input]:text-base/none',
+                '[&_input]:[outline:none] [&_input::placeholder]:text-muted christmas:[&_input::placeholder]:text-christmas-muted',
+                'halloween:[&_input::placeholder]:text-halloween-muted spring:[&_input::placeholder]:text-spring-muted [&_input::placeholder]:font-normal',
+                '[&_input::placeholder]:font-body',
                 pinErr ? 'has-error' : '',
-              )}
+              ])}
             >
               <input
                 id="admin-pin"

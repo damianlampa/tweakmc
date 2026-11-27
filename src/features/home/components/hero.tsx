@@ -23,13 +23,13 @@ export function Hero({ settings }: { settings: Settings }) {
 
   return (
     <section
-      className={
-        'relative min-h-[100svh] pt-[calc(var(--nav-h)_+_18px)] flex items-center overflow-hidden ' +
-        '[background:radial-gradient(760px_600px_at_76%_48%,_theme(colors.purple.600/34%),_transparent_70%),_radial-gradient(620px_480px_at_14%_20%,_theme(colors.purple.600/22%),_transparent_72%),_radial-gradient(560px_420px_at_10%_84%,_theme(colors.purple.600/18%),_transparent_72%),_theme(colors.background)] ' +
-        'christmas:[background:radial-gradient(760px_600px_at_76%_48%,_theme(colors.sky.500/34%),_transparent_70%),_radial-gradient(620px_480px_at_14%_20%,_theme(colors.sky.500/22%),_transparent_72%),_radial-gradient(560px_420px_at_10%_84%,_theme(colors.sky.500/18%),_transparent_72%),_theme(colors.christmas.background)] ' +
-        'halloween:[background:radial-gradient(760px_600px_at_76%_48%,_theme(colors.orange.600/34%),_transparent_70%),_radial-gradient(620px_480px_at_14%_20%,_theme(colors.orange.600/22%),_transparent_72%),_radial-gradient(560px_420px_at_10%_84%,_theme(colors.orange.600/18%),_transparent_72%),_theme(colors.halloween.background)] ' +
-        'spring:[background:radial-gradient(760px_600px_at_76%_48%,_theme(colors.emerald.500/34%),_transparent_70%),_radial-gradient(620px_480px_at_14%_20%,_theme(colors.emerald.500/22%),_transparent_72%),_radial-gradient(560px_420px_at_10%_84%,_theme(colors.emerald.500/18%),_transparent_72%),_theme(colors.spring.background)]'
-      }
+      className={classes([
+        'relative min-h-[100svh] pt-[calc(var(--nav-h)_+_18px)] flex items-center overflow-hidden',
+        '[background:radial-gradient(760px_600px_at_76%_48%,_theme(colors.purple.600/34%),_transparent_70%),_radial-gradient(620px_480px_at_14%_20%,_theme(colors.purple.600/22%),_transparent_72%),_radial-gradient(560px_420px_at_10%_84%,_theme(colors.purple.600/18%),_transparent_72%),_theme(colors.background)]',
+        'christmas:[background:radial-gradient(760px_600px_at_76%_48%,_theme(colors.sky.500/34%),_transparent_70%),_radial-gradient(620px_480px_at_14%_20%,_theme(colors.sky.500/22%),_transparent_72%),_radial-gradient(560px_420px_at_10%_84%,_theme(colors.sky.500/18%),_transparent_72%),_theme(colors.christmas.background)]',
+        'halloween:[background:radial-gradient(760px_600px_at_76%_48%,_theme(colors.orange.600/34%),_transparent_70%),_radial-gradient(620px_480px_at_14%_20%,_theme(colors.orange.600/22%),_transparent_72%),_radial-gradient(560px_420px_at_10%_84%,_theme(colors.orange.600/18%),_transparent_72%),_theme(colors.halloween.background)]',
+        'spring:[background:radial-gradient(760px_600px_at_76%_48%,_theme(colors.emerald.500/34%),_transparent_70%),_radial-gradient(620px_480px_at_14%_20%,_theme(colors.emerald.500/22%),_transparent_72%),_radial-gradient(560px_420px_at_10%_84%,_theme(colors.emerald.500/18%),_transparent_72%),_theme(colors.spring.background)]',
+      ])}
       id="start"
       data-enter
     >
@@ -42,12 +42,12 @@ export function Hero({ settings }: { settings: Settings }) {
       />
 
       <div
-        className={classes(
-          'relative z-[2] w-full max-w-[calc(var(--max)_+_var(--pad)_*_2)] [margin-inline:auto] ' +
-            '[padding-inline:var(--pad)] grid grid-cols-[minmax(0,_1.05fr)_minmax(0,_0.95fr)] items-center ' +
-            'gap-[clamp(24px,_4vw,_56px)] [padding-block:clamp(36px,_5vh,_64px)] max-lg:grid-cols-[minmax(0,_1fr)]',
+        className={classes([
+          'relative z-[2] w-full max-w-[calc(var(--max)_+_var(--pad)_*_2)] [margin-inline:auto]',
+          '[padding-inline:var(--pad)] grid grid-cols-[minmax(0,_1.05fr)_minmax(0,_0.95fr)] items-center',
+          'gap-[clamp(24px,_4vw,_56px)] [padding-block:clamp(36px,_5vh,_64px)] max-lg:grid-cols-[minmax(0,_1fr)]',
           settings.sections.heroGlobe ? '' : 'grid-cols-[minmax(0,_760px)]',
-        )}
+        ])}
       >
         <div className="relative z-[2] [[data-enter]_&]:animate-fade-up">
           <h1 className="hero-title">
@@ -86,11 +86,11 @@ export function Hero({ settings }: { settings: Settings }) {
                 />
                 <Link
                   to={paths.map}
-                  className={
-                    'text-ink underline [text-underline-offset:4px] decoration-purple-400/55 christmas:decoration-sky-300/55 halloween:decoration-orange-300/55 spring:decoration-emerald-300/55 ' +
-                    '[transition:color_0.2s,_text-decoration-color_0.2s] hover:text-purple-400 christmas:hover:text-sky-300 halloween:hover:text-orange-300 spring:hover:text-emerald-300 ' +
-                    'hover:decoration-purple-400 christmas:hover:decoration-sky-300 halloween:hover:decoration-orange-300 spring:hover:decoration-emerald-300'
-                  }
+                  className={classes([
+                    'text-ink underline [text-underline-offset:4px] decoration-purple-400/55 christmas:decoration-sky-300/55 halloween:decoration-orange-300/55 spring:decoration-emerald-300/55',
+                    '[transition:color_0.2s,_text-decoration-color_0.2s] hover:text-purple-400 christmas:hover:text-sky-300 halloween:hover:text-orange-300 spring:hover:text-emerald-300',
+                    'hover:decoration-purple-400 christmas:hover:decoration-sky-300 halloween:hover:decoration-orange-300 spring:hover:decoration-emerald-300',
+                  ])}
                 >
                   {t('hero.map')}
                 </Link>
@@ -104,11 +104,11 @@ export function Hero({ settings }: { settings: Settings }) {
                 />
                 <Link
                   to={paths.shop}
-                  className={
-                    'text-ink underline [text-underline-offset:4px] decoration-purple-400/55 christmas:decoration-sky-300/55 halloween:decoration-orange-300/55 spring:decoration-emerald-300/55 ' +
-                    '[transition:color_0.2s,_text-decoration-color_0.2s] hover:text-purple-400 christmas:hover:text-sky-300 halloween:hover:text-orange-300 spring:hover:text-emerald-300 ' +
-                    'hover:decoration-purple-400 christmas:hover:decoration-sky-300 halloween:hover:decoration-orange-300 spring:hover:decoration-emerald-300'
-                  }
+                  className={classes([
+                    'text-ink underline [text-underline-offset:4px] decoration-purple-400/55 christmas:decoration-sky-300/55 halloween:decoration-orange-300/55 spring:decoration-emerald-300/55',
+                    '[transition:color_0.2s,_text-decoration-color_0.2s] hover:text-purple-400 christmas:hover:text-sky-300 halloween:hover:text-orange-300 spring:hover:text-emerald-300',
+                    'hover:decoration-purple-400 christmas:hover:decoration-sky-300 halloween:hover:decoration-orange-300 spring:hover:decoration-emerald-300',
+                  ])}
                 >
                   {t('hero.topUp')}
                 </Link>
@@ -124,36 +124,36 @@ export function Hero({ settings }: { settings: Settings }) {
               aria-hidden="true"
             >
               <span
-                className={
-                  'absolute w-[18px] h-[18px] border-purple-400/50 christmas:border-sky-300/50 halloween:border-orange-300/50 spring:border-emerald-300/50 ' +
-                  '[border-style:solid] border-0 pointer-events-none z-[3] top-[10px] left-[10px] border-t-2 border-l-2'
-                }
+                className={classes([
+                  'absolute w-[18px] h-[18px] border-purple-400/50 christmas:border-sky-300/50 halloween:border-orange-300/50 spring:border-emerald-300/50',
+                  '[border-style:solid] border-0 pointer-events-none z-[3] top-[10px] left-[10px] border-t-2 border-l-2',
+                ])}
               />
               <span
-                className={
-                  'absolute w-[18px] h-[18px] border-purple-400/50 christmas:border-sky-300/50 halloween:border-orange-300/50 spring:border-emerald-300/50 ' +
-                  '[border-style:solid] border-0 pointer-events-none z-[3] top-[10px] right-[10px] border-t-2 border-r-2'
-                }
+                className={classes([
+                  'absolute w-[18px] h-[18px] border-purple-400/50 christmas:border-sky-300/50 halloween:border-orange-300/50 spring:border-emerald-300/50',
+                  '[border-style:solid] border-0 pointer-events-none z-[3] top-[10px] right-[10px] border-t-2 border-r-2',
+                ])}
               />
               <span
-                className={
-                  'absolute w-[18px] h-[18px] border-purple-400/50 christmas:border-sky-300/50 halloween:border-orange-300/50 spring:border-emerald-300/50 ' +
-                  '[border-style:solid] border-0 pointer-events-none z-[3] bottom-[10px] left-[10px] border-b-2 border-l-2'
-                }
+                className={classes([
+                  'absolute w-[18px] h-[18px] border-purple-400/50 christmas:border-sky-300/50 halloween:border-orange-300/50 spring:border-emerald-300/50',
+                  '[border-style:solid] border-0 pointer-events-none z-[3] bottom-[10px] left-[10px] border-b-2 border-l-2',
+                ])}
               />
               <span
-                className={
-                  'absolute w-[18px] h-[18px] border-purple-400/50 christmas:border-sky-300/50 halloween:border-orange-300/50 spring:border-emerald-300/50 ' +
-                  '[border-style:solid] border-0 pointer-events-none z-[3] bottom-[10px] right-[10px] border-b-2 border-r-2'
-                }
+                className={classes([
+                  'absolute w-[18px] h-[18px] border-purple-400/50 christmas:border-sky-300/50 halloween:border-orange-300/50 spring:border-emerald-300/50',
+                  '[border-style:solid] border-0 pointer-events-none z-[3] bottom-[10px] right-[10px] border-b-2 border-r-2',
+                ])}
               />
               <HudChip className="top-[18px] right-[18px] animate-hud-float text-ink">
                 <span
-                  className={
-                    'relative w-[8px] h-[8px] rounded-[50%] bg-green-500 [box-shadow:0_0_10px_theme(colors.green.500/70%)] ' +
-                    "[&::after]:[content:''] [&::after]:absolute [&::after]:inset-[-4px] [&::after]:rounded-[50%] " +
-                    '[&::after]:[border:1.5px_solid_theme(colors.green.500)] [&::after]:animate-status-ping'
-                  }
+                  className={classes([
+                    'relative w-[8px] h-[8px] rounded-[50%] bg-green-500 [box-shadow:0_0_10px_theme(colors.green.500/70%)]',
+                    "[&::after]:[content:''] [&::after]:absolute [&::after]:inset-[-4px] [&::after]:rounded-[50%]",
+                    '[&::after]:[border:1.5px_solid_theme(colors.green.500)] [&::after]:animate-status-ping',
+                  ])}
                 />
                 <span>{t('hero.globe')}</span>
               </HudChip>

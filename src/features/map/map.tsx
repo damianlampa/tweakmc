@@ -1,3 +1,4 @@
+import { classes } from '@/shared/utils/classes';
 import { pageGlow } from '@/shared/styles/background-classes';
 import { buttonClasses } from '@/shared/components/button-classes';
 import { DEFAULT_SETTINGS } from '@/shared/settings/settings';
@@ -19,11 +20,11 @@ export default function MapPage() {
 
   return (
     <section
-      className={
-        'relative min-h-[100svh] ' +
-        '[padding-block:calc(var(--nav-h)_+_clamp(32px,_5vh,_64px))_clamp(80px,_10vh,_120px)] overflow-hidden ' +
-        pageGlow
-      }
+      className={classes([
+        'relative min-h-[100svh]',
+        '[padding-block:calc(var(--nav-h)_+_clamp(32px,_5vh,_64px))_clamp(80px,_10vh,_120px)] overflow-hidden',
+        pageGlow,
+      ])}
     >
       <SectionDecor
         theme={settings.theme}
@@ -34,10 +35,10 @@ export default function MapPage() {
 
       <div className="relative z-[2] w-full max-w-[calc(var(--max)_+_var(--pad)_*_2)] [margin-inline:auto] [padding-inline:var(--pad)]">
         <div
-          className={
-            'max-w-[640px] m-[clamp(32px,_8vh,_80px)_auto] p-[clamp(28px,_4vw,_44px)] rounded-[18px] [border:1px_solid_theme(colors.white/18%)] ' +
-            'bg-background-elevated christmas:bg-christmas-background-elevated halloween:bg-halloween-background-elevated spring:bg-spring-background-elevated'
-          }
+          className={classes([
+            'max-w-[640px] m-[clamp(32px,_8vh,_80px)_auto] p-[clamp(28px,_4vw,_44px)] rounded-[18px] [border:1px_solid_theme(colors.white/18%)]',
+            'bg-background-elevated christmas:bg-christmas-background-elevated halloween:bg-halloween-background-elevated spring:bg-spring-background-elevated',
+          ])}
         >
           <span className="inline-block mb-[14px] p-[5px_10px] rounded-[7px] bg-red-500/[0.16] [border:1px_solid_theme(colors.red.500/40%)] font-mono text-xs/relaxed text-red-300">
             {t('map.unavailable')}

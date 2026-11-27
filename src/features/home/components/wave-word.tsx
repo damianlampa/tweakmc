@@ -1,7 +1,7 @@
 import { classes } from '@/shared/utils/classes';
 export function WaveWord({ text, className = '' }: { text: string; className?: string }) {
   return (
-    <span className={classes('wave-word inline-flex whitespace-nowrap', className)}>
+    <span className={classes(['wave-word inline-flex whitespace-nowrap', className])}>
       <span className="sr-only">{text}</span>
       {[...text].map((character, characterIndex) => {
         return (

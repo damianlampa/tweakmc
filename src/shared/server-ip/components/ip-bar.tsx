@@ -12,14 +12,14 @@ export function IpBar({ id, compact = false }: { id?: string; compact?: boolean 
 
   return (
     <div
-      className={classes(
-        'ip-bar inline-flex items-center p-[5px_5px_5px_20px] gap-[16px] bg-surface christmas:bg-christmas-surface halloween:bg-halloween-surface spring:bg-spring-surface ' +
-          '[border:1px_solid_theme(colors.white/18%)] rounded-[12px] [transition:border-color_0.25s] ' +
-          '[&.is-copied]:border-purple-400 christmas:[&.is-copied]:border-sky-300 halloween:[&.is-copied]:border-orange-300 spring:[&.is-copied]:border-emerald-300 [.foot-ip_&]:p-[4px_4px_4px_16px] ' +
-          '[.foot-ip_&]:gap-[12px] max-sm:w-full max-sm:justify-between',
+      className={classes([
+        'ip-bar inline-flex items-center p-[5px_5px_5px_20px] gap-[16px] bg-surface christmas:bg-christmas-surface halloween:bg-halloween-surface spring:bg-spring-surface',
+        '[border:1px_solid_theme(colors.white/18%)] rounded-[12px] [transition:border-color_0.25s]',
+        '[&.is-copied]:border-purple-400 christmas:[&.is-copied]:border-sky-300 halloween:[&.is-copied]:border-orange-300 spring:[&.is-copied]:border-emerald-300 [.foot-ip_&]:p-[4px_4px_4px_16px]',
+        '[.foot-ip_&]:gap-[12px] max-sm:w-full max-sm:justify-between',
         compact ? 'ip-bar-compact' : '',
         copied ? 'is-copied' : '',
-      )}
+      ])}
     >
       <IpText className="ip-bar-text text-lg/relaxed !tracking-tight [.foot-ip_&]:text-base/relaxed" />
       <button type="button" id={id} className={buttonClasses('primary')} onClick={handleCopy}>

@@ -1,3 +1,4 @@
+import { classes } from '@/shared/utils/classes';
 import { navigationLinkClasses } from '@/layout/components/navigation-link-classes';
 import { useTranslation } from 'react-i18next';
 import { LanguageSelect } from './language-select';
@@ -25,10 +26,10 @@ export function SiteFooter({ settings }: { settings: Settings }) {
       <div className="relative z-[2] w-full max-w-[calc(var(--max)_+_var(--pad)_*_2)] [margin-inline:auto] [padding-inline:var(--pad)]">
         <div className="flex flex-wrap items-center gap-[20px_32px] [padding-block:32px_76px]">
           <Link
-            className={
-              'brand inline-flex items-center min-h-[44px] no-underline [transition:transform_0.25s_var(--ease)] ' +
-              'hover:[transform:scale(1.06)] [&_img]:w-auto [&_img]:h-9 [&_img]:object-contain'
-            }
+            className={classes([
+              'brand inline-flex items-center min-h-[44px] no-underline [transition:transform_0.25s_var(--ease)]',
+              'hover:[transform:scale(1.06)] [&_img]:w-auto [&_img]:h-9 [&_img]:object-contain',
+            ])}
             to={paths.home}
             aria-label={t('nav.brand')}
           >

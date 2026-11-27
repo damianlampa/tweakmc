@@ -49,11 +49,11 @@ export function PixelHalftone({
 
   return (
     <svg
-      className={classes(
-        'absolute w-[clamp(190px,_20vw,_310px)] h-auto text-purple-400/[0.36] christmas:text-sky-300/[0.26] halloween:text-orange-500/[0.26] ' +
-          'spring:text-emerald-400/[0.24] [transition:color_0.35s_var(--ease)] animate-decor-breathe',
+      className={classes([
+        'absolute w-[clamp(190px,_20vw,_310px)] h-auto text-purple-400/[0.36] christmas:text-sky-300/[0.26] halloween:text-orange-500/[0.26]',
+        'spring:text-emerald-400/[0.24] [transition:color_0.35s_var(--ease)] animate-decor-breathe',
         corner === 'bl' ? 'bottom-0 left-0' : 'right-0 top-0 [animation-delay:-4.5s]',
-      )}
+      ])}
       viewBox="0 0 264 264"
       aria-hidden="true"
       focusable="false"

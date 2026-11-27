@@ -23,12 +23,12 @@ export function LiveMap({
 
   return (
     <section
-      className={classes(
-        'relative min-h-[100svh] ' +
-          '[padding-block:calc(var(--nav-h)_+_clamp(32px,_5vh,_64px))_clamp(80px,_10vh,_120px)] overflow-hidden ' +
-          pageGlow,
+      className={classes([
+        'relative min-h-[100svh]',
+        '[padding-block:calc(var(--nav-h)_+_clamp(32px,_5vh,_64px))_clamp(80px,_10vh,_120px)] overflow-hidden',
+        pageGlow,
         `map-page-frame-${frameStyle}`,
-      )}
+      ])}
     >
       <SectionDecor
         theme={theme}
@@ -38,21 +38,21 @@ export function LiveMap({
       />
 
       <div
-        className={classes(
+        className={classes([
           frameStyle === 'fullscreen'
             ? 'relative z-[2] w-full max-w-[calc(var(--max)_+_var(--pad)_*_2)] [margin-inline:auto] [padding-inline:var(--pad)] max-w-[1580px]'
             : 'relative z-[2] w-full max-w-[calc(var(--max)_+_var(--pad)_*_2)] [margin-inline:auto] [padding-inline:var(--pad)]',
-        )}
+        ])}
       >
         <div className="flex flex-wrap justify-between items-end gap-5 mb-[32px]">
           <div>
             <Link
               to={paths.home}
-              className={
-                'inline-flex items-center min-h-[36px] text-sm/relaxed font-medium text-muted christmas:text-christmas-muted halloween:text-halloween-muted ' +
-                'spring:text-spring-muted no-underline [transition:color_0.2s] hover:text-purple-400 ' +
-                'christmas:hover:text-sky-300 halloween:hover:text-orange-300 spring:hover:text-emerald-300'
-              }
+              className={classes([
+                'inline-flex items-center min-h-[36px] text-sm/relaxed font-medium text-muted christmas:text-christmas-muted halloween:text-halloween-muted',
+                'spring:text-spring-muted no-underline [transition:color_0.2s] hover:text-purple-400',
+                'christmas:hover:text-sky-300 halloween:hover:text-orange-300 spring:hover:text-emerald-300',
+              ])}
             >
               {t('nav.back')}
             </Link>
@@ -89,22 +89,23 @@ export function LiveMap({
         </div>
 
         <div
-          className={classes(
-            'relative z-[10] rounded-[14px] [border:1px_solid_theme(colors.white/18%)] bg-surface christmas:bg-christmas-surface halloween:bg-halloween-surface ' +
-              'spring:bg-spring-surface overflow-hidden [box-shadow:0_24px_60px_-24px_theme(colors.black/85%)]',
-            frameStyle === 'tactical' &&
-              '!border-purple-400/55 christmas:!border-sky-300/55 halloween:!border-orange-300/55 spring:!border-emerald-300/55 ' +
-                '[box-shadow:0_0_42px_-14px_theme(colors.purple.600/50%)] christmas:[box-shadow:0_0_42px_-14px_theme(colors.sky.500/50%)] ' +
-                'halloween:[box-shadow:0_0_42px_-14px_theme(colors.orange.600/50%)] spring:[box-shadow:0_0_42px_-14px_theme(colors.emerald.500/50%)]',
-          )}
+          className={classes([
+            'relative z-[10] rounded-[14px] [border:1px_solid_theme(colors.white/18%)] bg-surface christmas:bg-christmas-surface halloween:bg-halloween-surface',
+            'spring:bg-spring-surface overflow-hidden [box-shadow:0_24px_60px_-24px_theme(colors.black/85%)]',
+            frameStyle === 'tactical' && [
+              '!border-purple-400/55 christmas:!border-sky-300/55 halloween:!border-orange-300/55 spring:!border-emerald-300/55',
+              '[box-shadow:0_0_42px_-14px_theme(colors.purple.600/50%)] christmas:[box-shadow:0_0_42px_-14px_theme(colors.sky.500/50%)]',
+              'halloween:[box-shadow:0_0_42px_-14px_theme(colors.orange.600/50%)] spring:[box-shadow:0_0_42px_-14px_theme(colors.emerald.500/50%)]',
+            ],
+          ])}
         >
           <div className="flex items-center gap-2.5 p-[12px_18px] [border-bottom:1px_solid_theme(colors.white/9%)] text-sm/relaxed">
             <span
-              className={
-                'relative w-[8px] h-[8px] rounded-[50%] bg-green-500 [box-shadow:0_0_10px_theme(colors.green.500/70%)] ' +
-                "[&::after]:[content:''] [&::after]:absolute [&::after]:inset-[-4px] [&::after]:rounded-[50%] " +
-                '[&::after]:[border:1.5px_solid_theme(colors.green.500)] [&::after]:animate-status-ping'
-              }
+              className={classes([
+                'relative w-[8px] h-[8px] rounded-[50%] bg-green-500 [box-shadow:0_0_10px_theme(colors.green.500/70%)]',
+                "[&::after]:[content:''] [&::after]:absolute [&::after]:inset-[-4px] [&::after]:rounded-[50%]",
+                '[&::after]:[border:1.5px_solid_theme(colors.green.500)] [&::after]:animate-status-ping',
+              ])}
               aria-hidden="true"
             />
             <span className="font-semibold whitespace-nowrap">Dynmap · EarthSMP</span>
@@ -122,11 +123,11 @@ export function LiveMap({
                 src={new URL(site.dynmapUrl).pathname}
                 title={t('map.frameTitle')}
                 allow="fullscreen"
-                className={classes(
+                className={classes([
                   'absolute inset-0 h-full w-full [border:0] transition-opacity duration-400 ease-site',
                   status === 'ready' ? 'opacity-100' : 'pointer-events-none opacity-0',
                   frameStyle === 'tactical' && '[filter:contrast(1.08)_saturate(1.12)]',
-                )}
+                ])}
                 aria-hidden={status !== 'ready'}
                 tabIndex={status === 'ready' ? 0 : -1}
               />

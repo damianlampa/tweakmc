@@ -5,12 +5,12 @@ export function SeasonalCorner({ theme, side }: { theme: ThemeId; side: 'tl' | '
   if (theme === 'christmas') {
     return (
       <svg
-        className={classes(
+        className={classes([
           'absolute w-[clamp(92px,_10vw,_138px)] h-auto text-sky-300 opacity-[0.42] animate-mark-float',
           side === 'tl'
             ? 'left-[18px] top-[18px]'
             : 'bottom-[18px] right-[18px] [transform:rotate(180deg)] [animation-delay:-5.5s]',
-        )}
+        ])}
         viewBox="0 0 120 120"
         aria-hidden="true"
       >
@@ -26,12 +26,12 @@ export function SeasonalCorner({ theme, side }: { theme: ThemeId; side: 'tl' | '
   if (theme === 'halloween') {
     return (
       <svg
-        className={classes(
+        className={classes([
           'absolute w-[clamp(92px,_10vw,_138px)] h-auto text-orange-300 opacity-[0.42] animate-mark-float',
           side === 'tl'
             ? 'left-[18px] top-[18px]'
             : 'bottom-[18px] right-[18px] [transform:rotate(180deg)] [animation-delay:-5.5s]',
-        )}
+        ])}
         viewBox="0 0 140 140"
         aria-hidden="true"
       >
@@ -48,12 +48,12 @@ export function SeasonalCorner({ theme, side }: { theme: ThemeId; side: 'tl' | '
   if (theme === 'spring') {
     return (
       <svg
-        className={classes(
+        className={classes([
           'absolute w-[clamp(92px,_10vw,_138px)] h-auto text-emerald-300 opacity-[0.42] animate-mark-float',
           side === 'tl'
             ? 'left-[18px] top-[18px]'
             : 'bottom-[18px] right-[18px] [transform:rotate(180deg)] [animation-delay:-5.5s]',
-        )}
+        ])}
         viewBox="0 0 120 120"
         aria-hidden="true"
       >

@@ -1,3 +1,4 @@
+import { classes } from '@/shared/utils/classes';
 import { pageGlow } from '@/shared/styles/background-classes';
 import { buttonClasses } from '@/shared/components/button-classes';
 import { CodeLabel } from '@/shared/components/code-label';
@@ -15,10 +16,10 @@ export function HomeBoards({ settings }: { settings: Settings }) {
 
   return (
     <section
-      className={
-        'relative overflow-hidden [padding-block:clamp(72px,_10vh,_116px)] [border-top:1px_solid_theme(colors.white/9%)] ' +
-        pageGlow
-      }
+      className={classes([
+        'relative overflow-hidden [padding-block:clamp(72px,_10vh,_116px)] [border-top:1px_solid_theme(colors.white/9%)]',
+        pageGlow,
+      ])}
       id="topki"
     >
       <SectionDecor
