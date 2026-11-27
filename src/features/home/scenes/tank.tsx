@@ -194,7 +194,10 @@ export default function Tank({ theme = 'default', motion = true }: SceneProps) {
   }, [theme, motion]);
 
   return (
-    <div className="tank" ref={wrapRef}>
+    <div
+      className="tank absolute inset-0 [&_canvas]:w-full [&_canvas]:h-full [&_canvas]:block [&_canvas]:touch-pan-y [&_canvas]:cursor-grab [&_canvas:active]:cursor-grabbing"
+      ref={wrapRef}
+    >
       <canvas ref={canvasRef} role="img" aria-label={t('tank.label')} />
     </div>
   );

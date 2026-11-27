@@ -1,3 +1,5 @@
+import { classes } from '@/shared/utils/classes';
+import { navigationLinkClasses } from '@/layout/components/navigation-link-classes';
 import { useTranslation } from 'react-i18next';
 import { LanguageSelect } from './language-select';
 import { Link } from 'react-router';
@@ -20,33 +22,44 @@ export function SiteFooter({ settings }: { settings: Settings }) {
   ].filter((x) => x.show);
 
   return (
-    <footer className="close">
-      <div className="wrap">
-        <div className="foot">
-          <Link className="brand" to={paths.home} aria-label={t('nav.brand')}>
+    <footer className="[border-top:1px_solid_theme(colors.white/9%)] bg-background christmas:bg-christmas-background halloween:bg-halloween-background spring:bg-spring-background">
+      <div className="relative z-[2] w-full max-w-[calc(var(--max)_+_var(--pad)_*_2)] [margin-inline:auto] [padding-inline:var(--pad)]">
+        <div className="flex flex-wrap items-center gap-[20px_32px] [padding-block:32px_76px]">
+          <Link
+            className={classes([
+              'brand inline-flex items-center min-h-[44px] no-underline [transition:transform_0.25s_var(--ease)]',
+              'hover:[transform:scale(1.06)] [&_img]:w-auto [&_img]:h-9 [&_img]:object-contain',
+            ])}
+            to={paths.home}
+            aria-label={t('nav.brand')}
+          >
             <img src={activeTheme.logo} alt="TweakMC" height="36" />
           </Link>
           <div className="foot-ip">
             <IpBar compact />
           </div>
 
-          <nav
-            aria-label={t('nav.footer')}
-            className="foot-links tw-flex tw-flex-wrap tw-gap-[6px_22px]"
-          >
+          <nav aria-label={t('nav.footer')} className="foot-links flex flex-wrap gap-[6px_22px]">
             {footItems.map((footerLink) => {
               return (
-                <Link key={footerLink.href} to={footerLink.href} className="nav-link">
+                <Link key={footerLink.href} to={footerLink.href} className={navigationLinkClasses}>
                   {footerLink.label}
                 </Link>
               );
             })}
-            <a href={site.discordUrl} className="nav-link" target="_blank" rel="noreferrer">
+            <a
+              href={site.discordUrl}
+              className={navigationLinkClasses}
+              target="_blank"
+              rel="noreferrer"
+            >
               Discord
             </a>
           </nav>
 
-          <p className="legal tw-ml-auto tw-text-[0.86rem] tw-text-muted">{t('nav.legal')}</p>
+          <p className="max-lg:ml-0 ml-auto text-sm/relaxed text-muted christmas:text-christmas-muted halloween:text-halloween-muted spring:text-spring-muted">
+            {t('nav.legal')}
+          </p>
 
           <LanguageSelect />
         </div>

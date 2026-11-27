@@ -97,5 +97,11 @@ export default function SeasonFx({ theme = 'default', motion = true }: SceneProp
 
   if (!motion) return null;
 
-  return <canvas ref={ref} className="season-fx" aria-hidden="true" />;
+  return (
+    <canvas
+      ref={ref}
+      className="pointer-events-none fixed inset-0 z-[3] h-full w-full [[data-motion=off]_&]:hidden"
+      aria-hidden="true"
+    />
+  );
 }

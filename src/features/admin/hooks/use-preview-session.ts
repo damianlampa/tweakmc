@@ -17,7 +17,7 @@ export function usePreviewSession() {
     try {
       window.sessionStorage.setItem(SESSION_KEY, '1');
     } catch {
-      // ignore
+      return;
     }
   };
 
@@ -27,7 +27,7 @@ export function usePreviewSession() {
     try {
       window.sessionStorage.removeItem(SESSION_KEY);
     } catch {
-      // ignore
+      return;
     }
   };
 
